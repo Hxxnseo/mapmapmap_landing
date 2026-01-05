@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { SignupFormData } from '../types';
 import { SPICY_LEVELS } from '../constants';
-import { CheckCircle2, X, ArrowRight, Check, Info, ChevronDown, Shield, Sparkles } from 'lucide-react';
+import { CheckCircle2, X, ArrowRight, Check, Info, ChevronDown, Shield, Sparkles, Loader2 } from 'lucide-react';
 
 export const SignupForm: React.FC = () => {
   const initialFormState: SignupFormData = {
@@ -17,6 +17,8 @@ export const SignupForm: React.FC = () => {
   const [formData, setFormData] = useState<SignupFormData>(initialFormState);
   const [showModal, setShowModal] = useState(false);
   const [modalStep, setModalStep] = useState<'offer' | 'done'>('offer');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let val = e.target.value.replace(/\D/g, '');
@@ -38,13 +40,80 @@ export const SignupForm: React.FC = () => {
     setShowModal(true);
   };
 
-  const handleMakerJoin = () => {
+  const submitToGoogleSheets = async (isMaker: boolean) => {
+    const apiUrl = import.meta.env.VITE_GOOGLE_SHEETS_API_URL;
+    
+    console.log('Google Sheets API URL:', apiUrl ? '설정됨' : '설정되지 않음');
+    
+    if (!apiUrl) {
+      console.warn('Google Sheets API URL이 설정되지 않았습니다. .env 파일을 확인하세요.');
+      setSubmitError('Google Sheets API URL이 설정되지 않았습니다. 환경 변수를 확인하세요.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    const payload = {
+      nickname: formData.nickname,
+      phone: formData.phone,
+      source: formData.source,
+      level: formData.level,
+      isMaker: isMaker,
+    };
+
+    console.log('전송할 데이터:', payload);
+
+    try {
+      console.log('요청 URL:', apiUrl);
+      // Google Apps Script CORS 문제 해결: Content-Type을 text/plain으로 변경하여 preflight 요청 방지
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      console.log('응답 상태:', response.status, response.statusText);
+
+      if (!response.ok) {
+        throw new Error(`HTTP 에러: ${response.status} ${response.statusText}`);
+      }
+
+      const text = await response.text();
+      console.log('응답 텍스트:', text);
+      
+      let result;
+      try {
+        result = JSON.parse(text);
+      } catch (e) {
+        console.error('JSON 파싱 실패:', e);
+        throw new Error('서버 응답을 파싱할 수 없습니다.');
+      }
+
+      if (!result.success) {
+        throw new Error(result.error || '데이터 저장에 실패했습니다.');
+      }
+
+      console.log('✅ 데이터가 성공적으로 저장되었습니다.');
+    } catch (error) {
+      console.error('Google Sheets 전송 실패:', error);
+      setSubmitError(error instanceof Error ? error.message : '데이터 저장에 실패했습니다.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleMakerJoin = async () => {
     setFormData(prev => ({ ...prev, isMaker: true }));
+    await submitToGoogleSheets(true);
     setModalStep('done');
   };
 
-  const handleSkip = () => {
+  const handleSkip = async () => {
     setFormData(prev => ({ ...prev, isMaker: false }));
+    await submitToGoogleSheets(false);
     setModalStep('done');
   };
 
@@ -166,10 +235,10 @@ export const SignupForm: React.FC = () => {
                                 <div className="w-10 h-10 rounded-full bg-brand-red/20 flex items-center justify-center text-brand-red">
                                     <Shield size={20} />
                                 </div>
-                                <h4 className="font-bold text-white text-lg">메이커즈 특별 제안</h4>
+                                <h4 className="font-bold text-white text-lg">메이커 특별 제안</h4>
                             </div>
                             <p className="text-sm text-white/60 leading-relaxed mb-4">
-                                맵맵맵의 초기 멤버(메이커즈)가 되어주세요.<br/>
+                                저희와 함께 맵맵맵의 매운 음식 리뷰 데이터를 책임지는 <span className="text-white font-bold">메이커</span>가 되어주세요.<br/>
                                 활동 동의 시 <span className="text-white font-bold underline decoration-brand-red">한정판 Maker 뱃지</span>를 프로필에 달아드립니다.
                             </p>
                             <ul className="text-xs text-white/40 space-y-1 list-disc pl-4">
@@ -181,17 +250,28 @@ export const SignupForm: React.FC = () => {
                         <div className="space-y-3">
                             <button 
                                 onClick={handleMakerJoin}
-                                className="w-full bg-white text-black py-4 rounded-2xl font-bold hover:bg-brand-red hover:text-white transition-all flex items-center justify-center gap-2 group"
+                                disabled={isSubmitting}
+                                className="w-full bg-white text-black py-4 rounded-2xl font-bold hover:bg-brand-red hover:text-white transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                <Sparkles size={18} className="text-brand-orange group-hover:text-white transition-colors" />
-                                <span>네, 메이커즈도 할래요!</span>
+                                {isSubmitting ? (
+                                    <Loader2 size={18} className="animate-spin" />
+                                ) : (
+                                    <Sparkles size={18} className="text-brand-orange group-hover:text-white transition-colors" />
+                                )}
+                                <span>{isSubmitting ? '저장 중...' : '네, 메이커도 할래요!'}</span>
                             </button>
                             <button 
                                 onClick={handleSkip}
-                                className="w-full text-white/40 py-4 rounded-2xl font-bold text-sm hover:text-white transition-colors"
+                                disabled={isSubmitting}
+                                className="w-full text-white/40 py-4 rounded-2xl font-bold text-sm hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                아니요, 사전예약만 할게요
+                                {isSubmitting ? '저장 중...' : '아니요, 사전예약만 할게요'}
                             </button>
+                            {submitError && (
+                                <div className="text-red-400 text-xs text-center mt-2">
+                                    {submitError}
+                                </div>
+                            )}
                         </div>
                     </div>
                 ) : (
@@ -202,19 +282,19 @@ export const SignupForm: React.FC = () => {
                         </div>
                         
                         <h3 className="text-3xl font-black mb-4 uppercase italic tracking-tighter">
-                            {formData.isMaker ? "Welcome, Agent!" : "All Set!"}
+                            {formData.isMaker ? "Welcome, Maker!" : "All Set!"}
                         </h3>
                         
                         <p className="text-white/60 font-medium leading-relaxed mb-2">
                             {formData.isMaker 
-                                ? "메이커즈 등록이 완료되었습니다." 
+                                ? "메이커 등록이 완료되었습니다." 
                                 : "성공적으로 대기 명단에 올랐습니다."
                             }
                         </p>
                         
                         {formData.isMaker && (
                             <div className="bg-white/5 border border-white/10 rounded-xl p-3 mb-6 mt-4">
-                                <p className="text-brand-orange text-xs font-bold">✨ Maker 뱃지를 맵맵맵에서 확인하실 수 있습니다.</p>
+                                <p className="text-brand-orange text-xs font-bold">✨ Maker 뱃지는 맵맵맵 정식 출시 후 확인하실 수 있습니다.</p>
                             </div>
                         )}
 
