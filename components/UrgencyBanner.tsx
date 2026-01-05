@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { TOTAL_REGISTRATIONS, LAUNCH_DATE } from '../constants';
-import { Clock, Zap, Gift, Shield } from 'lucide-react';
+import { Clock, Zap, Gift, Shield, Coins, Crown, Pill } from 'lucide-react';
 
 export const UrgencyBanner: React.FC = () => {
-  const [timeLeft, setTimeLeft] = useState({ hours: 71, minutes: 59, seconds: 59 });
+  const [timeLeft, setTimeLeft] = useState({ hours: 99, minutes: 59, seconds: 59 });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -16,7 +16,6 @@ export const UrgencyBanner: React.FC = () => {
         setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
       } else {
         setTimeLeft({
-          // Fix: 24시간 단위로 나누지 않고 전체 남은 시간을 시간 단위로 표시
           hours: Math.floor(distance / (1000 * 60 * 60)),
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000),
@@ -28,80 +27,115 @@ export const UrgencyBanner: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-32 px-6 bg-brand-red relative overflow-hidden">
+    <section className="py-24 px-4 md:px-6 bg-brand-red relative overflow-hidden">
       {/* Background patterns */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[repeating-linear-gradient(45deg,transparent,transparent_20px,white_20px,white_21px)]"></div>
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
+        <div className="flex flex-col lg:flex-row items-stretch justify-between gap-12 lg:gap-16">
           
-          <div className="flex-1 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 bg-white text-brand-red px-4 py-1 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-6 shadow-xl">
+          {/* Left Column: Copy & Timer */}
+          <div className="flex-1 flex flex-col justify-center text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 bg-white text-brand-red px-4 py-1.5 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-6 shadow-xl self-center lg:self-start animate-bounce">
               <Zap size={14} fill="currentColor" />
-              Limited Golden Window
+              100 Hours Time Attack
             </div>
-            <h2 className="text-6xl md:text-8xl font-[900] text-white leading-[0.85] uppercase italic tracking-tighter mb-8">
-              Time is<br/>Running <span className="text-brand-black">Out</span>
+            
+            <h2 className="text-5xl md:text-7xl font-[900] text-white leading-[0.9] uppercase italic tracking-tighter mb-6">
+              사전등록<br/>
+              <span className="text-brand-black">100시간</span> 한정혜택
             </h2>
-            <p className="text-white/80 text-xl font-bold max-w-md leading-tight">
-                오픈 기념 딱 72시간.<br/>
-                이 시간이 지나면 평생 후회할<br/>
-                <span className="text-white underline decoration-brand-black decoration-4">대장급 혜택</span>이 사라집니다.
+            
+            <p className="text-white/80 text-lg md:text-xl font-bold max-w-md leading-snug mb-10 mx-auto lg:mx-0">
+                지금 고민하는 순간,<br/>
+                지급되는 포인트가 <span className="bg-brand-black text-white px-1">1/10로 줄어듭니다.</span><br/>
+                가장 먼저 맵맵맵의 '메이커'가 되세요.
             </p>
-          </div>
 
-          <div className="w-full max-w-md">
-            <div className="bg-brand-black p-8 md:p-12 rounded-[3rem] shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/10 relative">
-                {/* Visual Timer */}
-                <div className="flex justify-between mb-12">
+            {/* Visual Timer */}
+            <div className="bg-brand-black/20 backdrop-blur-lg border border-white/10 rounded-3xl p-6 md:p-8 inline-block max-w-lg mx-auto lg:mx-0">
+                <div className="flex justify-center gap-4 md:gap-8">
                     {[
-                        { label: 'Hrs', value: timeLeft.hours },
-                        { label: 'Min', value: timeLeft.minutes },
-                        { label: 'Sec', value: timeLeft.seconds }
+                        { label: 'Hours', value: timeLeft.hours },
+                        { label: 'Minutes', value: timeLeft.minutes },
+                        { label: 'Seconds', value: timeLeft.seconds }
                     ].map((t, i) => (
                         <div key={i} className="text-center">
-                            <div className="text-5xl md:text-6xl font-black font-mono tabular-nums text-brand-red mb-2">
-                                {t.value.toString().padStart(2, '0')}
+                            <div className="bg-white text-brand-red rounded-xl p-2 min-w-[3.5rem] md:min-w-[4.5rem]">
+                                <div className="text-3xl md:text-4xl font-black font-mono tabular-nums leading-none">
+                                    {t.value.toString().padStart(2, '0')}
+                                </div>
                             </div>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-white/40">{t.label}</div>
+                            <div className="text-[10px] font-black uppercase tracking-widest text-white/60 mt-2">{t.label}</div>
                         </div>
                     ))}
                 </div>
+            </div>
+          </div>
 
-                <div className="space-y-6">
-                    <div className="flex items-center gap-4 group">
-                        <div className="w-12 h-12 bg-brand-red rounded-2xl flex items-center justify-center shrink-0 group-hover:rotate-12 transition-transform">
-                            <Gift className="text-white" size={24} />
-                        </div>
-                        <div>
-                            <h4 className="font-black text-white uppercase text-sm tracking-tight">5,000 Points Bonus</h4>
-                            <p className="text-white/40 text-xs font-medium italic">사전 예약자 전원 즉시 지급</p>
+          {/* Right Column: Benefit Details */}
+          <div className="w-full max-w-md lg:max-w-lg mx-auto">
+            <div className="bg-brand-black p-6 md:p-10 rounded-[2.5rem] shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/10 h-full flex flex-col">
+                
+                <h3 className="text-white font-black text-2xl italic uppercase mb-8 flex items-center gap-2">
+                    <Gift className="text-brand-orange" />
+                    Exclusive Benefits
+                </h3>
+
+                <div className="space-y-6 flex-1">
+                    {/* Benefit 1 */}
+                    <div className="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-brand-red/50 transition-colors group">
+                        <div className="flex items-start gap-4">
+                            <div className="w-10 h-10 bg-brand-orange/20 text-brand-orange rounded-full flex items-center justify-center shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                                <Coins size={20} />
+                            </div>
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <h4 className="font-bold text-white text-lg">최대 5,000P 지급</h4>
+                                    <span className="text-[10px] bg-brand-red text-white px-2 py-0.5 rounded-full font-bold animate-pulse">x10배</span>
+                                </div>
+                                <p className="text-white/40 text-xs mb-3">
+                                    100시간 내 등록 시 <span className="text-white font-bold underline">5,000P</span> (이후 500P)
+                                </p>
+                                <div className="bg-black/30 rounded-lg p-3 text-xs text-white/70 leading-relaxed">
+                                    <span className="text-brand-orange font-bold">💡 사용처:</span> 맵맵맵 샘플러, 상품권, <span className="text-white underline decoration-brand-red">위장약 & 쿨피스</span> 등 구매 가능
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="flex items-center gap-4 group">
-                        <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shrink-0 group-hover:-rotate-12 transition-transform">
-                            <Shield className="text-brand-red" size={24} />
-                        </div>
-                        <div>
-                            <h4 className="font-black text-white uppercase text-sm tracking-tight">Supporter Emblem</h4>
-                            <p className="text-white/40 text-xs font-medium italic">서포터즈 활동 동의 시 지급</p>
+
+                    {/* Benefit 2 */}
+                    <div className="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-brand-red/50 transition-colors group">
+                        <div className="flex items-start gap-4">
+                            <div className="w-10 h-10 bg-purple-500/20 text-purple-400 rounded-full flex items-center justify-center shrink-0 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                                <Crown size={20} />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-white text-lg mb-1">맵맵맵 메이커 자격</h4>
+                                <p className="text-white/60 text-sm leading-snug mb-3">
+                                    함께 앱을 만들어가는 <span className="text-white font-bold">'메이커(Maker)'</span> 권한 부여
+                                </p>
+                                <ul className="space-y-1">
+                                    <li className="flex items-center gap-2 text-xs text-white/50">
+                                        <Shield size={12} className="text-purple-400" />
+                                        <span>프로필용 <span className="text-white font-bold">한정판 Maker 뱃지</span> 지급</span>
+                                    </li>
+                                    <li className="flex items-center gap-2 text-xs text-white/50">
+                                        <Shield size={12} className="text-purple-400" />
+                                        <span>닉네임 하이라이트 효과 적용</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-white/5 flex items-center justify-between">
-                    <div>
-                        <div className="text-2xl font-black text-brand-red leading-none">{TOTAL_REGISTRATIONS}</div>
-                        <div className="text-[10px] font-black uppercase text-white/40 mt-1">People Joined</div>
-                    </div>
-                    <div className="text-right">
-                        <div className="text-xs font-black text-white uppercase tracking-tighter italic">Hurry Up!</div>
-                        <div className="w-24 h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
-                            <div className="h-full bg-brand-red animate-pulse" style={{ width: '25%' }}></div>
-                        </div>
-                    </div>
+                <div className="mt-8 pt-6 border-t border-white/10 text-center">
+                    <p className="text-white/30 text-xs font-medium">
+                        * 마감 임박: 현재 <span className="text-brand-red font-bold underline">{TOTAL_REGISTRATIONS}명</span>이 혜택을 선점했습니다.
+                    </p>
                 </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ export interface SignupFormData {
   level: string;
   source: string;
   location: string;
+  isMaker: boolean;
 }
 
 export interface EmpathyCardProps {

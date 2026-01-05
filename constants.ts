@@ -1,23 +1,21 @@
 
 import { SpicyLevelData } from "./types";
 
-// 사용자의 첫 방문 시점을 기억하여 72시간을 계산합니다.
+// 사용자의 첫 방문 시점을 기억하여 100시간을 계산합니다.
 // 브라우저를 새로고침해도 타이머가 초기화되지 않아 실제 '한정 시간'의 느낌을 줍니다.
 const getDynamicLaunchDate = () => {
   // Fix: 기존 키값(mapmapmap_golden_window_end) 변경을 통해 타이머 오류가 있던 사용자의 카운트다운을 초기화
-  const STORAGE_KEY = 'mapmapmap_golden_window_end_v2';
+  const STORAGE_KEY = 'mapmapmap_golden_window_end_v3'; // Campaign updated to v3 (100hr)
   const storedDate = localStorage.getItem(STORAGE_KEY);
   
   if (storedDate) {
     const end = new Date(storedDate);
-    // 만약 이미 시간이 지났다면 (테스트용 등을 위해) 현재 시점에서 다시 72시간을 설정할 수도 있지만,
-    // 여기서는 실제 서비스처럼 만료된 상태를 유지하거나 필요시 재설정하는 로직을 가집니다.
     return end;
   }
 
-  // 첫 방문 시: 현재 시간 + 72시간 설정
+  // 첫 방문 시: 현재 시간 + 100시간 설정 (인스타 프로모션 기준)
   const newEnd = new Date();
-  newEnd.setHours(newEnd.getHours() + 72);
+  newEnd.setHours(newEnd.getHours() + 100);
   localStorage.setItem(STORAGE_KEY, newEnd.toISOString());
   return newEnd;
 };

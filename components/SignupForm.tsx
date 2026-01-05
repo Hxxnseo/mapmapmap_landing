@@ -2,18 +2,21 @@
 import React, { useState } from 'react';
 import { SignupFormData } from '../types';
 import { SPICY_LEVELS } from '../constants';
-import { CheckCircle2, X, ArrowRight, Check, Info, ChevronDown } from 'lucide-react';
+import { CheckCircle2, X, ArrowRight, Check, Info, ChevronDown, Shield, Sparkles } from 'lucide-react';
 
 export const SignupForm: React.FC = () => {
-  const [formData, setFormData] = useState<SignupFormData>({
+  const initialFormState: SignupFormData = {
     phone: '',
     nickname: '',
     level: '2',
     source: '',
     location: '',
-    isSupporter: false
-  });
+    isMaker: false
+  };
+
+  const [formData, setFormData] = useState<SignupFormData>(initialFormState);
   const [showModal, setShowModal] = useState(false);
+  const [modalStep, setModalStep] = useState<'offer' | 'done'>('offer');
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let val = e.target.value.replace(/\D/g, '');
@@ -31,7 +34,24 @@ export const SignupForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setModalStep('offer');
     setShowModal(true);
+  };
+
+  const handleMakerJoin = () => {
+    setFormData(prev => ({ ...prev, isMaker: true }));
+    setModalStep('done');
+  };
+
+  const handleSkip = () => {
+    setFormData(prev => ({ ...prev, isMaker: false }));
+    setModalStep('done');
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setFormData(initialFormState);
+    setTimeout(() => setModalStep('offer'), 300);
   };
 
   return (
@@ -42,25 +62,12 @@ export const SignupForm: React.FC = () => {
                 Get Early<br/><span className="text-brand-red">Access</span>
             </h2>
             <p className="text-white/40 text-lg md:text-xl font-medium">
-                오픈 기념 단 <span className="text-white font-bold">72시간 동안만</span> 드리는 한정 혜택.<br/>
+                오픈 기념 단 <span className="text-white font-bold">100시간 동안만</span> 드리는 한정 혜택.<br/>
                 지금 바로 대기 명단에 합류하세요.
             </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-12">
-            <div className="group relative">
-                <input 
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handlePhoneChange}
-                    required
-                    className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
-                    placeholder="Mobile"
-                />
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Mobile Number</label>
-            </div>
-
             <div className="group relative">
                 <input 
                     type="text"
@@ -72,6 +79,19 @@ export const SignupForm: React.FC = () => {
                     placeholder="Nickname"
                 />
                 <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Your Nickname</label>
+            </div>
+
+            <div className="group relative">
+                <input 
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handlePhoneChange}
+                    required
+                    className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
+                    placeholder="Mobile"
+                />
+                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Mobile Number</label>
             </div>
 
             <div className="group relative">
@@ -112,78 +132,104 @@ export const SignupForm: React.FC = () => {
                 </div>
             </div>
 
-            {/* Supporter Agreement Section */}
-            <div className="bg-[#111] border border-white/10 rounded-3xl p-6 md:p-8 transition-all duration-300 hover:border-brand-red/30">
-                <div className="flex items-start gap-4 mb-6">
-                    <div className="w-10 h-10 rounded-full bg-brand-red/20 flex items-center justify-center shrink-0">
-                        <Info size={20} className="text-brand-red" />
-                    </div>
-                    <div>
-                        <h4 className="text-lg font-bold text-white mb-2">맵맵맵 서포터즈 모집</h4>
-                        <p className="text-sm text-white/60 leading-relaxed mb-3">
-                            대한민국 매운맛의 표준을 함께 만들어갈 정예 요원이 되어주세요.<br/>
-                            서포터즈로 활동하시면 <span className="text-brand-red font-bold">한정판 'OG' 엠블럼</span>을 드립니다.
-                        </p>
-                        <ul className="text-xs text-white/40 space-y-1 list-disc pl-4 mb-4">
-                            <li>월 1회 이상 매운 음식 리뷰 작성 (간단 인증)</li>
-                            <li>신규 기능 베타 테스트 우선 참여</li>
-                            <li>데이터 검증 및 오류 제보</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <label className="flex items-center gap-4 cursor-pointer group select-none bg-white/5 p-4 rounded-xl border border-white/5 hover:bg-white/10 transition-colors">
-                    <div className={`w-6 h-6 rounded flex items-center justify-center border-2 transition-all ${formData.isSupporter ? 'bg-brand-red border-brand-red' : 'border-white/30 group-hover:border-white/50'}`}>
-                        {formData.isSupporter && <Check size={14} className="text-white" strokeWidth={4} />}
-                    </div>
-                    <input 
-                        type="checkbox" 
-                        className="hidden" 
-                        checked={formData.isSupporter}
-                        onChange={(e) => setFormData(prev => ({ ...prev, isSupporter: e.target.checked }))}
-                    />
-                    <span className={`font-bold text-sm md:text-base ${formData.isSupporter ? 'text-white' : 'text-white/50'}`}>
-                        서포터즈 활동에 동의하고 <span className="text-brand-red">엠블럼 받기</span>
-                    </span>
-                </label>
-            </div>
-
             <button 
                 type="submit" 
-                className="w-full bg-white text-black py-8 rounded-[2rem] text-2xl font-black uppercase hover:bg-brand-red hover:text-white transition-all transform hover:-translate-y-2 flex items-center justify-center gap-4 group shadow-xl"
+                className="w-full bg-white text-black py-8 rounded-[2rem] text-2xl font-black uppercase hover:bg-brand-red hover:text-white transition-all transform hover:-translate-y-2 flex items-center justify-center gap-4 group shadow-xl mt-8"
             >
                 Submit Application
                 <ArrowRight className="group-hover:translate-x-2 transition-transform" />
             </button>
         </form>
 
-        {/* Success Modal */}
+        {/* Multi-step Success Modal */}
         {showModal && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                <div className="absolute inset-0 bg-black/95 backdrop-blur-xl" onClick={() => setShowModal(false)}></div>
-                <div className="bg-brand-gray rounded-[3rem] p-12 max-w-sm w-full relative z-10 text-center border border-white/10 animate-float">
-                    <div className="w-24 h-24 bg-brand-red rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_40px_rgba(230,33,23,0.5)]">
-                        <CheckCircle2 className="text-white w-12 h-12" />
-                    </div>
-                    <h3 className="text-3xl font-black mb-4 uppercase italic tracking-tighter">Approved!</h3>
-                    <p className="text-white/60 font-medium leading-relaxed mb-2">
-                        환영합니다 <b>{formData.nickname}</b>님.
-                    </p>
-                    {formData.isSupporter && (
-                        <div className="bg-brand-red/10 border border-brand-red/20 rounded-xl p-3 mb-6">
-                            <p className="text-brand-red text-sm font-bold">✨ 서포터즈 엠블럼 획득 완료!</p>
+                <div className="absolute inset-0 bg-black/95 backdrop-blur-xl" onClick={handleCloseModal}></div>
+                
+                {modalStep === 'offer' ? (
+                    // Step 1: Maker Offer
+                    <div className="bg-brand-gray rounded-[3rem] p-8 md:p-12 max-w-md w-full relative z-10 border border-white/10 animate-float overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-orange to-brand-red"></div>
+                        
+                        <div className="text-center mb-8">
+                            <h3 className="text-3xl font-black mb-2 uppercase italic tracking-tighter text-white">Registration<br/>Complete!</h3>
+                            <p className="text-white/60 text-sm font-medium">
+                                {formData.nickname}님, 사전예약이 완료되었습니다.
+                            </p>
                         </div>
-                    )}
-                    <p className="text-white/40 text-sm mb-10">
-                        곧 당신의 혀를 구원할 소식을 들고 찾아가겠습니다.
-                    </p>
-                    <button 
-                        onClick={() => setShowModal(false)}
-                        className="w-full bg-white/10 text-white font-bold py-4 rounded-2xl hover:bg-white/20 transition-colors border border-white/5"
-                    >
-                        Dismiss
-                    </button>
-                </div>
+
+                        <div className="bg-[#111] border border-brand-red/30 rounded-2xl p-6 mb-8 relative group">
+                            <div className="absolute -top-3 -right-3 bg-brand-red text-white text-[10px] font-bold px-3 py-1 rounded-full animate-bounce">
+                                추천
+                            </div>
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="w-10 h-10 rounded-full bg-brand-red/20 flex items-center justify-center text-brand-red">
+                                    <Shield size={20} />
+                                </div>
+                                <h4 className="font-bold text-white text-lg">메이커즈 특별 제안</h4>
+                            </div>
+                            <p className="text-sm text-white/60 leading-relaxed mb-4">
+                                맵맵맵의 초기 멤버(메이커즈)가 되어주세요.<br/>
+                                활동 동의 시 <span className="text-white font-bold underline decoration-brand-red">한정판 Maker 뱃지</span>를 프로필에 달아드립니다.
+                            </p>
+                            <ul className="text-xs text-white/40 space-y-1 list-disc pl-4">
+                                <li>베타 테스트 우선 참여권</li>
+                                <li>간단한 매운맛 리뷰 미션 수행</li>
+                            </ul>
+                        </div>
+
+                        <div className="space-y-3">
+                            <button 
+                                onClick={handleMakerJoin}
+                                className="w-full bg-white text-black py-4 rounded-2xl font-bold hover:bg-brand-red hover:text-white transition-all flex items-center justify-center gap-2 group"
+                            >
+                                <Sparkles size={18} className="text-brand-orange group-hover:text-white transition-colors" />
+                                <span>네, 메이커즈도 할래요!</span>
+                            </button>
+                            <button 
+                                onClick={handleSkip}
+                                className="w-full text-white/40 py-4 rounded-2xl font-bold text-sm hover:text-white transition-colors"
+                            >
+                                아니요, 사전예약만 할게요
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    // Step 2: Final Confirmation
+                    <div className="bg-brand-gray rounded-[3rem] p-12 max-w-sm w-full relative z-10 text-center border border-white/10 animate-float">
+                        <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_40px_rgba(230,33,23,0.5)] ${formData.isMaker ? 'bg-gradient-to-br from-brand-orange to-brand-red' : 'bg-brand-black border-2 border-white/10'}`}>
+                            {formData.isMaker ? <Shield className="text-white w-12 h-12" /> : <CheckCircle2 className="text-white w-12 h-12" />}
+                        </div>
+                        
+                        <h3 className="text-3xl font-black mb-4 uppercase italic tracking-tighter">
+                            {formData.isMaker ? "Welcome, Agent!" : "All Set!"}
+                        </h3>
+                        
+                        <p className="text-white/60 font-medium leading-relaxed mb-2">
+                            {formData.isMaker 
+                                ? "메이커즈 등록이 완료되었습니다." 
+                                : "성공적으로 대기 명단에 올랐습니다."
+                            }
+                        </p>
+                        
+                        {formData.isMaker && (
+                            <div className="bg-white/5 border border-white/10 rounded-xl p-3 mb-6 mt-4">
+                                <p className="text-brand-orange text-xs font-bold">✨ Maker 뱃지를 맵맵맵에서 확인하실 수 있습니다.</p>
+                            </div>
+                        )}
+
+                        <p className="text-white/40 text-sm mt-8 mb-10">
+                            곧 런칭 소식과 함께 찾아뵙겠습니다.
+                        </p>
+                        
+                        <button 
+                            onClick={handleCloseModal}
+                            className="w-full bg-white/10 text-white font-bold py-4 rounded-2xl hover:bg-white/20 transition-colors border border-white/5"
+                        >
+                            확인
+                        </button>
+                    </div>
+                )}
             </div>
         )}
       </div>

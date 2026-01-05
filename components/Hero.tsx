@@ -53,12 +53,12 @@ export const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Marquee Text - Updated to reflect 72 hours */}
+      {/* Marquee Text - Updated to reflect 100 hours */}
       <div className="absolute bottom-10 left-0 w-full overflow-hidden py-4 border-y border-white/5 bg-white/5 backdrop-blur-sm select-none">
         <div className="flex whitespace-nowrap animate-marquee font-black text-xs md:text-sm tracking-widest text-white/40">
             {Array(10).fill(0).map((_, i) => (
                 <span key={i} className="mx-8 flex items-center gap-2">
-                    <span className="text-brand-red">●</span> 오픈 기념 72시간 타임어택 <span className="text-brand-red ml-4 italic">고민하는 순간 혜택 종료</span>
+                    <span className="text-brand-red">●</span> 오픈 기념 100시간 타임어택 <span className="text-brand-red ml-4 italic">고민하는 순간 혜택 종료</span>
                 </span>
             ))}
         </div>
