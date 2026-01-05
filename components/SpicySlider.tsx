@@ -11,10 +11,10 @@ export const SpicySlider: React.FC = () => {
         
         <div>
             <h2 className="text-5xl md:text-7xl font-black mb-6 leading-[0.9] uppercase">
-                Identify<br/>Your <span className="text-brand-red italic">Soul</span><br/>Spicy
+              당신의 <span className="text-brand-red italic">맵레벨</span><br/>직관적으로 확인해보세요.
             </h2>
             <p className="text-white/40 text-lg md:text-xl font-medium max-w-xs">
-                나의 매운맛 수용 한계치를<br/>직관적으로 확인해보세요.
+                Identify<br/>Your Spicy
             </p>
 
             {/* Numeric Indicators */}
@@ -44,7 +44,7 @@ export const SpicySlider: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col h-full">
-                    <span className="text-[10rem] text-center mb-4 block filter grayscale-0 drop-shadow-[0_10px_30px_rgba(230,33,23,0.3)] transition-all duration-500 transform scale-110 group-hover:scale-125">
+                    <span className="text-[8rem] text-center mb-4 block filter grayscale-0 drop-shadow-[0_10px_30px_rgba(230,33,23,0.3)] transition-all duration-500 transform scale-110 group-hover:scale-125">
                         {currentData.emoji}
                     </span>
                     

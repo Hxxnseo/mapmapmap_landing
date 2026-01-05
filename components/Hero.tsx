@@ -21,10 +21,10 @@ export const Hero: React.FC = () => {
             </span>
         </div>
         
-        <h1 className="text-[14vw] md:text-[10rem] font-[900] leading-[0.85] tracking-tighter mb-8 break-keep">
+        <h1 className="text-[16vw] md:text-[10rem] font-[900] leading-[0.85] tracking-tighter mb-8 break-keep">
             <div className="flex items-center gap-4">
                 <span className="shrink-0">더 이상</span>
-                <div className="w-[12vw] h-[8vw] md:w-[12rem] md:h-[8rem] overflow-hidden rounded-full border-2 border-brand-red inline-block rotate-[-10deg] shrink-0">
+                <div className="w-[16vw] h-[10vw] md:w-[12rem] md:h-[8rem] overflow-hidden rounded-full border-2 border-brand-red inline-block rotate-[-10deg] shrink-0">
                     <img src="https://placehold.co/400x400/E62117/FFFFFF/png?text=NO+MORE" className="w-full h-full object-cover" alt="Spicy Concept" />
                 </div>
             </div>

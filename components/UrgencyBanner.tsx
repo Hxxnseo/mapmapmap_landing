@@ -99,7 +99,7 @@ export const UrgencyBanner: React.FC = () => {
                     <div className="text-right">
                         <div className="text-xs font-black text-white uppercase tracking-tighter italic">Hurry Up!</div>
                         <div className="w-24 h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
-                            <div className="h-full bg-brand-red animate-pulse" style={{ width: '75%' }}></div>
+                            <div className="h-full bg-brand-red animate-pulse" style={{ width: '25%' }}></div>
                         </div>
                     </div>
                 </div>
