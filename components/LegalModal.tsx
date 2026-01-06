@@ -37,7 +37,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ type, onClose }) => {
             </p>
             <ul className="list-disc pl-5 text-sm text-white/60 space-y-1">
                 <li>필수항목: 휴대전화번호, 닉네임, 매운맛 레벨(자가진단), 유입경로</li>
-                <li>선택항목: 메이커즈 활동 동의 여부</li>
+                <li>선택항목: 메이커 활동 동의 여부</li>
             </ul>
         </div>
 

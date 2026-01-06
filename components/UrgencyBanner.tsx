@@ -122,10 +122,6 @@ export const UrgencyBanner: React.FC = () => {
                                         <Shield size={12} className="text-purple-400" />
                                         <span>프로필용 <span className="text-white font-bold">한정판 Maker 뱃지</span> 지급</span>
                                     </li>
-                                    <li className="flex items-center gap-2 text-xs text-white/50">
-                                        <Shield size={12} className="text-purple-400" />
-                                        <span>닉네임 하이라이트 효과 적용</span>
-                                    </li>
                                 </ul>
                             </div>
                         </div>

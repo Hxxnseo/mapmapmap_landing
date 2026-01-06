@@ -15,25 +15,25 @@ function doPost(e) {
   try {
     // 요청 데이터 파싱
     const data = JSON.parse(e.postData.contents);
-    
+
     // 스프레드시트 열기
     // 방법 1: 스크립트 속성 사용 (권장)
     const properties = PropertiesService.getScriptProperties();
     let SPREADSHEET_ID = properties.getProperty('SPREADSHEET_ID');
-    
+
     // 방법 2: 스크립트 속성이 없으면 현재 스프레드시트 사용
     if (!SPREADSHEET_ID) {
       SPREADSHEET_ID = SpreadsheetApp.getActiveSpreadsheet().getId();
       properties.setProperty('SPREADSHEET_ID', SPREADSHEET_ID);
     }
-    
+
     const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
-    
+
     // 헤더가 없는 경우 헤더 추가
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(['타임스탬프', '닉네임', '전화번호', '신청 경로', '맵기 레벨', '메이커 여부']);
     }
-    
+
     // 신청 경로 한글 변환
     const sourceMap = {
       'instagram': '인스타그램',
@@ -42,7 +42,7 @@ function doPost(e) {
       'other': '기타'
     };
     const sourceKorean = sourceMap[data.source] || data.source;
-    
+
     // 데이터 추가
     const timestamp = new Date();
     const row = [
@@ -53,14 +53,14 @@ function doPost(e) {
       data.level || '',
       data.isMaker ? '예' : '아니오'
     ];
-    
+
     sheet.appendRow(row);
-    
+
     // 성공 응답
     return ContentService
       .createTextOutput(JSON.stringify({ success: true, message: '데이터가 성공적으로 저장되었습니다.' }))
       .setMimeType(ContentService.MimeType.JSON);
-      
+
   } catch (error) {
     // 에러 응답
     return ContentService

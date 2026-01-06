@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { SignupFormData } from '../types';
 import { SPICY_LEVELS } from '../constants';
 import { CheckCircle2, X, ArrowRight, Check, Info, ChevronDown, Shield, Sparkles, Loader2 } from 'lucide-react';
+import { LegalModal } from './LegalModal';
 
 export const SignupForm: React.FC = () => {
   const initialFormState: SignupFormData = {
@@ -19,6 +20,8 @@ export const SignupForm: React.FC = () => {
   const [modalStep, setModalStep] = useState<'offer' | 'done'>('offer');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [privacyAgreed, setPrivacyAgreed] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let val = e.target.value.replace(/\D/g, '');
@@ -36,6 +39,10 @@ export const SignupForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!privacyAgreed) {
+      setSubmitError('개인정보 수집 및 이용에 동의해주세요.');
+      return;
+    }
     setModalStep('offer');
     setShowModal(true);
   };
@@ -120,6 +127,7 @@ export const SignupForm: React.FC = () => {
   const handleCloseModal = () => {
     setShowModal(false);
     setFormData(initialFormState);
+    setPrivacyAgreed(false);
     setTimeout(() => setModalStep('offer'), 300);
   };
 
@@ -201,9 +209,35 @@ export const SignupForm: React.FC = () => {
                 </div>
             </div>
 
+            <div className="pt-4">
+                <label className="flex items-start gap-3 cursor-pointer group">
+                    <input
+                        type="checkbox"
+                        checked={privacyAgreed}
+                        onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                        className="mt-1 w-5 h-5 rounded border-2 border-white/20 bg-transparent checked:bg-brand-red checked:border-brand-red focus:ring-2 focus:ring-brand-red/50 focus:outline-none transition-all cursor-pointer appearance-none relative checked:after:content-['✓'] checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-white checked:after:text-xs checked:after:font-black"
+                    />
+                    <span className="text-sm text-white/60 leading-relaxed flex-1">
+                        <span className="text-brand-red font-bold">[필수]</span> 개인정보 수집 및 이용에 동의합니다.
+                        <button
+                            type="button"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setShowPrivacyModal(true);
+                            }}
+                            className="text-white underline hover:text-brand-red transition-colors ml-1"
+                        >
+                            개인정보 수집 및 이용
+                        </button>
+                        <span> 내용 보기</span>
+                    </span>
+                </label>
+            </div>
+
             <button 
                 type="submit" 
-                className="w-full bg-white text-black py-8 rounded-[2rem] text-2xl font-black uppercase hover:bg-brand-red hover:text-white transition-all transform hover:-translate-y-2 flex items-center justify-center gap-4 group shadow-xl mt-8"
+                disabled={!privacyAgreed}
+                className="w-full bg-white text-black py-8 rounded-[2rem] text-2xl font-black uppercase hover:bg-brand-red hover:text-white transition-all transform hover:-translate-y-2 flex items-center justify-center gap-4 group shadow-xl mt-8 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
                 Submit Application
                 <ArrowRight className="group-hover:translate-x-2 transition-transform" />
@@ -311,6 +345,14 @@ export const SignupForm: React.FC = () => {
                     </div>
                 )}
             </div>
+        )}
+
+        {/* Privacy Policy Modal */}
+        {showPrivacyModal && (
+            <LegalModal
+                type="privacy"
+                onClose={() => setShowPrivacyModal(false)}
+            />
         )}
       </div>
     </section>
