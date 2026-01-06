@@ -1,26 +1,19 @@
 
 import { SpicyLevelData } from "./types";
 
-// 사용자의 첫 방문 시점을 기억하여 100시간을 계산합니다.
-// 브라우저를 새로고침해도 타이머가 초기화되지 않아 실제 '한정 시간'의 느낌을 줍니다.
-const getDynamicLaunchDate = () => {
-  // Fix: 기존 키값(mapmapmap_golden_window_end) 변경을 통해 타이머 오류가 있던 사용자의 카운트다운을 초기화
-  const STORAGE_KEY = 'mapmapmap_golden_window_end_v3'; // Campaign updated to v3 (100hr)
-  const storedDate = localStorage.getItem(STORAGE_KEY);
+// 2026년 1월 5일 오후 8:00부터 100시간 카운트다운
+// 모든 사용자에게 동일한 고정된 종료 시간을 사용합니다.
+const getFixedLaunchDate = () => {
+  // 2026년 1월 5일 오후 8:00 (20:00) KST
+  const startDate = new Date('2026-01-05T20:00:00+09:00');
   
-  if (storedDate) {
-    const end = new Date(storedDate);
-    return end;
-  }
-
-  // 첫 방문 시: 현재 시간 + 100시간 설정 (인스타 프로모션 기준)
-  const newEnd = new Date();
-  newEnd.setHours(newEnd.getHours() + 100);
-  localStorage.setItem(STORAGE_KEY, newEnd.toISOString());
-  return newEnd;
+  // 시작 시간 + 100시간 = 종료 시간
+  const endDate = new Date(startDate.getTime() + 100 * 60 * 60 * 1000);
+  
+  return endDate;
 };
 
-export const LAUNCH_DATE = getDynamicLaunchDate();
+export const LAUNCH_DATE = getFixedLaunchDate();
 
 export const SPICY_LEVELS: SpicyLevelData[] = [
   {
