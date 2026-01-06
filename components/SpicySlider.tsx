@@ -11,10 +11,10 @@ export const SpicySlider: React.FC = () => {
         
         <div>
             <h2 className="text-5xl md:text-7xl font-black mb-6 leading-[0.9] uppercase">
-              당신의 <span className="text-brand-red italic">맵레벨</span><br/>직관적으로 확인해보세요.
+              당신의 <span className="text-brand-red italic">맵레벨</span><br/>직관적으로<br/> 확인해보세요.
             </h2>
             <p className="text-white/40 text-lg md:text-xl font-medium max-w-xs">
-                Identify<br/>Your Spicy
+                Identify<br/>Your <span className="text-brand-red italic">Spicy-Level</span>
             </p>
 
             {/* Numeric Indicators */}

@@ -41,7 +41,7 @@ export const EmpathySection: React.FC = () => {
                 </span>
                 <h2 className="text-5xl md:text-8xl font-black leading-[0.95] break-keep">
                     사장님...<br/>
-                    <span className="text-outline italic">신라면 정도</span>라면서요?
+                    <span className="text-brand-red">신라면 정도</span>라면서요?
                 </h2>
             </div>
 
@@ -74,8 +74,8 @@ export const EmpathySection: React.FC = () => {
 
             <div className="mt-24 text-center relative z-10">
                 <p className="text-2xl md:text-4xl font-bold text-white/80 max-w-3xl mx-auto leading-tight italic break-keep">
-                    "사장님의 '맛있게 매워요'는 세상에서 제일 믿을 수 없는 말입니다.<br/>
-                    이제 내 혀와 장을 지키는 <span className="text-brand-red font-black border-b-2 border-brand-red">객관적인 팩트</span>가 필요합니다."
+                    사장님의 ‘맛있게 매워요’는 더 이상 믿을 수 없습니다<br/>
+                    이제 내 혀와 장을 위한 <span className="text-brand-red font-black border-brand-red">객관적인 팩트</span>가 필요합니다.
                 </p>
             </div>
         </div>

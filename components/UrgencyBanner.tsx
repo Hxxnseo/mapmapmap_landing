@@ -40,22 +40,22 @@ export const UrgencyBanner: React.FC = () => {
           <div className="flex-1 flex flex-col justify-center text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-white text-brand-red px-4 py-1.5 rounded-full font-black text-xs uppercase tracking-[0.2em] mb-6 shadow-xl self-center lg:self-start animate-bounce">
               <Zap size={14} fill="currentColor" />
-              100 Hours Time Attack
+              Time Attack
             </div>
             
-            <h2 className="text-5xl md:text-7xl font-[900] text-white leading-[0.9] uppercase italic tracking-tighter mb-6">
+            <h2 className="text-5xl md:text-7xl font-[900] text-white leading-[0.9]  italic tracking-tighter mb-6">
               사전등록<br/>
-              <span className="text-brand-black">100시간</span> 한정혜택
+              <span className="text-brand-black">5,000p</span> 한정혜택
             </h2>
             
             <p className="text-white/80 text-lg md:text-xl font-bold max-w-md leading-snug mb-10 mx-auto lg:mx-0">
                 지금 고민하는 순간,<br/>
-                지급되는 포인트가 <span className="bg-brand-black text-white px-1">1/10로 줄어듭니다.</span><br/>
-                가장 먼저 맵맵맵의 '메이커'가 되세요.
+                지급되는 포인트가 <span className="bg-brand-black text-white px-1">1/10로 줄어듭니다</span><br/>
+                지금 당장 맵맵맵의 '메이커'를 노려보세요
             </p>
 
             {/* Visual Timer */}
-            <div className="bg-brand-black/20 backdrop-blur-lg border border-white/10 rounded-3xl p-6 md:p-8 inline-block max-w-lg mx-auto lg:mx-0">
+            {/* <div className="bg-brand-black/20 backdrop-blur-lg border border-white/10 rounded-3xl p-6 md:p-8 inline-block max-w-lg mx-auto lg:mx-0">
                 <div className="flex justify-center gap-4 md:gap-8">
                     {[
                         { label: 'Hours', value: timeLeft.hours },
@@ -72,7 +72,7 @@ export const UrgencyBanner: React.FC = () => {
                         </div>
                     ))}
                 </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Column: Benefit Details */}
@@ -115,7 +115,7 @@ export const UrgencyBanner: React.FC = () => {
                             <div>
                                 <h4 className="font-bold text-white text-lg mb-1">맵맵맵 메이커 자격</h4>
                                 <p className="text-white/60 text-sm leading-snug mb-3">
-                                    함께 앱을 만들어가는 <span className="text-white font-bold">'메이커(Maker)'</span> 권한 부여
+                                    함께 앱을 만들어가는 <span className="text-white font-bold">'메이커(Maker)'</span> 지원 가능
                                 </p>
                                 <ul className="space-y-1">
                                     <li className="flex items-center gap-2 text-xs text-white/50">
@@ -124,6 +124,9 @@ export const UrgencyBanner: React.FC = () => {
                                     </li>
                                 </ul>
                             </div>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-white/50 text-xs">* 메이커는 추후 사전 등록 인원 중 선정됩니다</span>
                         </div>
                     </div>
                 </div>

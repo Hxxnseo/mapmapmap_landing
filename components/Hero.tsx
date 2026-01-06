@@ -21,7 +21,7 @@ export const Hero: React.FC = () => {
             </span>
         </div>
         
-        <h1 className="text-[16vw] md:text-[10rem] font-[900] leading-[0.85] tracking-tighter mb-8 break-keep">
+        <h1 className="text-[16vw] md:text-[10rem] font-[900] leading-[1] tracking-tighter mb-8 break-keep">
             <div className="flex items-center gap-4">
                 <span className="shrink-0">더 이상</span>
                 <div className="w-[16vw] h-[10vw] md:w-[12rem] md:h-[8rem] overflow-hidden rounded-full border-2 border-brand-red inline-block rotate-[-10deg] shrink-0">
@@ -38,7 +38,7 @@ export const Hero: React.FC = () => {
             <p className="text-lg md:text-2xl font-medium text-white/60 max-w-md leading-tight break-keep">
                 사장님의 <span className="text-white">"안 매워요"</span>에<br/>
                 뒤통수 맞은 당신을 위한<br/>
-                <span className="text-white border-b-2 border-brand-red italic">진짜 맵레벨</span> 가이드
+                <span className="text-white">진짜 맵레벨</span> 가이드
             </p>
 
             <button 
@@ -58,7 +58,7 @@ export const Hero: React.FC = () => {
         <div className="flex whitespace-nowrap animate-marquee font-black text-xs md:text-sm tracking-widest text-white/40">
             {Array(10).fill(0).map((_, i) => (
                 <span key={i} className="mx-8 flex items-center gap-2">
-                    <span className="text-brand-red">●</span> 오픈 기념 100시간 타임어택 <span className="text-brand-red ml-4 italic">고민하는 순간 혜택 종료</span>
+                    <span className="text-brand-red">●</span><span className="text-brand-red ml-4 italic">고민하는 순간 혜택 종료</span>
                 </span>
             ))}
         </div>

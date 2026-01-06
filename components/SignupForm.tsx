@@ -155,7 +155,7 @@ export const SignupForm: React.FC = () => {
                     className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
                     placeholder="Nickname"
                 />
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Your Nickname</label>
+                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Nickname</label>
             </div>
 
             <div className="group relative">
@@ -168,7 +168,7 @@ export const SignupForm: React.FC = () => {
                     className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
                     placeholder="Mobile"
                 />
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Mobile Number</label>
+                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Phone Number</label>
             </div>
 
             <div className="group relative">
@@ -193,7 +193,7 @@ export const SignupForm: React.FC = () => {
             </div>
 
             <div className="pt-4">
-                <p className="text-xs font-black uppercase text-white/40 mb-6 tracking-widest">Select Your Initial Level</p>
+                <p className="text-xs font-black uppercase text-white/40 mb-6 tracking-widest">Select Your Level</p>
                 <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
                     {SPICY_LEVELS.map((lvl) => (
                         <button
@@ -277,7 +277,7 @@ export const SignupForm: React.FC = () => {
                             </p>
                             <ul className="text-xs text-white/40 space-y-1 list-disc pl-4">
                                 <li>베타 테스트 우선 참여권</li>
-                                <li>간단한 매운맛 리뷰 미션 수행</li>
+                                <li>일정 개수 이상 리뷰 작성 시 메이커 자격 수여</li>
                             </ul>
                         </div>
 
