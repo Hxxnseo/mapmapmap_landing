@@ -31,7 +31,7 @@ function doPost(e) {
 
     // 헤더가 없는 경우 헤더 추가
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(['타임스탬프', '닉네임', '전화번호', '신청 경로', '맵기 레벨', '메이커 여부']);
+      sheet.appendRow(['타임스탬프', '닉네임', '전화번호', '신청 경로', '맵기 레벨', '메이커 여부', 'MapBTI 결과']);
     }
 
     // 신청 경로 한글 변환
@@ -51,7 +51,8 @@ function doPost(e) {
       data.phone || '',
       sourceKorean || '',
       data.level || '',
-      data.isMaker ? '예' : '아니오'
+      data.isMaker ? '예' : '아니오',
+      data.mapBTI || ''
     ];
 
     sheet.appendRow(row);

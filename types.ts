@@ -13,6 +13,7 @@ export interface SignupFormData {
   source: string;
   location: string;
   isMaker: boolean;
+  mapBTI: string;
 }
 
 export interface EmpathyCardProps {

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { SignupFormData } from '../types';
 import { SPICY_LEVELS } from '../constants';
-import { CheckCircle2, X, ArrowRight, Check, Info, ChevronDown, Shield, Sparkles, Loader2 } from 'lucide-react';
+import { CheckCircle2, X, ArrowRight, Check, Info, ChevronDown, Shield, Sparkles, Loader2, ExternalLink } from 'lucide-react';
 import { LegalModal } from './LegalModal';
 
 export const SignupForm: React.FC = () => {
@@ -12,7 +12,8 @@ export const SignupForm: React.FC = () => {
     level: '2',
     source: '',
     location: '',
-    isMaker: false
+    isMaker: false,
+    mapBTI: ''
   };
 
   const [formData, setFormData] = useState<SignupFormData>(initialFormState);
@@ -67,6 +68,7 @@ export const SignupForm: React.FC = () => {
       source: formData.source,
       level: formData.level,
       isMaker: isMaker,
+      mapBTI: formData.mapBTI,
     };
 
     console.log('전송할 데이터:', payload);
@@ -155,7 +157,7 @@ export const SignupForm: React.FC = () => {
                     className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
                     placeholder="Nickname"
                 />
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Nickname</label>
+                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Nickname *</label>
             </div>
 
             <div className="group relative">
@@ -168,7 +170,7 @@ export const SignupForm: React.FC = () => {
                     className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
                     placeholder="Mobile"
                 />
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Phone Number</label>
+                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Phone Number *</label>
             </div>
 
             <div className="group relative">
@@ -189,11 +191,11 @@ export const SignupForm: React.FC = () => {
                     </select>
                     <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
                 </div>
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40">Where did you find us?</label>
+                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40">Where did you find us? *</label>
             </div>
 
             <div className="pt-4">
-                <p className="text-xs font-black uppercase text-white/40 mb-6 tracking-widest">Select Your Level</p>
+                <p className="text-xs font-black uppercase text-white/40 mb-6 tracking-widest">Select Your Level *</p>
                 <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
                     {SPICY_LEVELS.map((lvl) => (
                         <button
@@ -207,6 +209,28 @@ export const SignupForm: React.FC = () => {
                         </button>
                     ))}
                 </div>
+            </div>
+
+            <div className="group relative">
+                <input
+                    type="text"
+                    name="mapBTI"
+                    value={formData.mapBTI}
+                    onChange={handleChange}
+                    className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
+                    placeholder="MapBTI Result"
+                />
+                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">MapBTI Result (선택)</label>
+                <a
+                    href="/mapbti.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-brand-orange hover:text-brand-red transition-colors text-sm font-bold"
+                >
+                    <span>맵BTI 하러가기</span>
+                    <ExternalLink size={16} />
+                </a>
+
             </div>
 
             <div className="pt-4">
