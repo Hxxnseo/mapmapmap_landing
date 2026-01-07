@@ -50,7 +50,7 @@
 
         .header-status {
             position: sticky; top: 0; background: rgba(18, 18, 18, 0.95); z-index: 100;
-            padding: 15px 0 20px 0; border-bottom: 1px solid #333; margin-bottom: 40px;
+            padding: 15px 0 20px 0; border-bottom: 1px solid rgba(255, 255, 255, .5);; margin-bottom: 20px;
             backdrop-filter: blur(10px);
         }
         .progress-wrapper {
@@ -61,7 +61,10 @@
             background: linear-gradient(90deg, var(--disagree-color), var(--agree-color)); 
         }
 
-        .question-item { padding: 40px 0; border-bottom: 1px solid #333; animation: fadeIn 0.6s ease; }
+        .question-item { padding: 40px 0; border-bottom: 1px solid rgba(255, 255, 255, .5); animation: fadeIn 0.6s ease; }
+        .q-number {
+            font-size: 1rem; font-weight: 700; color: var(--agree-color); margin-bottom: 4px;
+        }
         .q-text { font-size: 1.25rem; font-weight: 700; color: #eee; margin-bottom: 35px; line-height: 1.5; word-break: keep-all; }
 
         .options-wrapper { 
@@ -108,6 +111,10 @@
             .label-agree { color: var(--agree-color); margin-left: 15px; }
             .label-disagree { color: var(--disagree-color); margin-right: 15px; }
             .circle-1::after, .circle-7::after { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .question-item {padding: 20px 0;}
         }
 
         .btn-container { display: flex; justify-content: center; gap: 15px; margin-top: 50px; }
@@ -446,6 +453,11 @@
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'question-item';
                 itemDiv.id = `q-item-${q.id}`;
+
+                const itemNumDiv = document.createElement('div');
+                itemNumDiv.className = 'q-number';
+                itemNumDiv.innerText = `Q${q.id}`;
+                itemDiv.appendChild(itemNumDiv);
                 
                 const textDiv = document.createElement('div');
                 textDiv.className = 'q-text';
