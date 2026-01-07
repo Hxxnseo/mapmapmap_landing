@@ -139,8 +139,8 @@ export const SignupForm: React.FC = () => {
                 Get Early<br/><span className="text-brand-red">Access</span>
             </h2>
             <p className="text-white/40 text-lg md:text-xl font-medium">
-                오픈 기념 단 <span className="text-white font-bold">100시간 동안만</span> 드리는 한정 혜택.<br/>
-                지금 바로 대기 명단에 합류하세요.
+                오픈 기념 한정 혜택<br/>
+                지금 바로 등록하세요
             </p>
         </div>
 

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAP-BTI :: 32가지 미각 성향 정밀 진단</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --agree-color: #ff4d4d;
+            --disagree-color: #7bed9f;
+            --bg-color: #121212;
+            --text-main: #ffffff;
+            --text-sub: #aaaaaa;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* 캡처 영역 */
+        #capture-area {
+            background-color: var(--bg-color); 
+            padding: 30px 15px;
+            border-radius: 20px;
+            margin: 0 auto;
+        }
+
+        h1 { 
+            font-size: 2.5rem; font-weight: 800; margin-bottom: 10px;
+            color: var(--agree-color); letter-spacing: -1px;
+        }
+        .subtitle { color: var(--text-sub); margin-bottom: 50px; line-height: 1.6; }
+
+        .header-status {
+            position: sticky; top: 0; background: rgba(18, 18, 18, 0.95); z-index: 100;
+            padding: 15px 0 20px 0; border-bottom: 1px solid #333; margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+        .progress-wrapper {
+            width: 100%; height: 6px; background: #333; border-radius: 10px; overflow: hidden; margin-top: 15px;
+        }
+        .progress-bar { 
+            height: 100%; width: 0%; transition: width 0.4s ease;
+            background: linear-gradient(90deg, var(--disagree-color), var(--agree-color)); 
+        }
+
+        .question-item { padding: 40px 0; border-bottom: 1px solid #333; animation: fadeIn 0.6s ease; }
+        .q-text { font-size: 1.25rem; font-weight: 700; color: #eee; margin-bottom: 35px; line-height: 1.5; word-break: keep-all; }
+
+        .options-wrapper { 
+            display: flex; justify-content: center; align-items: center; 
+            gap: 10px; position: relative; padding-bottom: 35px; margin-top: 20px;
+        }
+
+        input[type="radio"] { display: none; }
+        .circle-label { 
+            display: block; border-radius: 50%; cursor: pointer; border: 2px solid; 
+            background: transparent; transition: all 0.2s; position: relative; 
+        }
+        
+        .circle-1, .circle-7 { width: 50px; height: 50px; }
+        .circle-2, .circle-6 { width: 38px; height: 38px; }
+        .circle-3, .circle-5 { width: 28px; height: 28px; }
+        .circle-4 { width: 20px; height: 20px; border-color: #444; }
+
+        .circle-1, .circle-2, .circle-3 { border-color: var(--disagree-color); }
+        .circle-5, .circle-6, .circle-7 { border-color: var(--agree-color); }
+        .circle-label:hover { transform: scale(1.15); }
+
+        input:checked + .circle-1 { background: var(--disagree-color); box-shadow: 0 0 15px var(--disagree-color); }
+        input:checked + .circle-2 { background: var(--disagree-color); opacity: 0.8; }
+        input:checked + .circle-3 { background: var(--disagree-color); opacity: 0.6; }
+        input:checked + .circle-4 { background: #777; border-color: #777; }
+        input:checked + .circle-5 { background: var(--agree-color); opacity: 0.6; }
+        input:checked + .circle-6 { background: var(--agree-color); opacity: 0.8; }
+        input:checked + .circle-7 { background: var(--agree-color); box-shadow: 0 0 15px var(--agree-color); }
+
+        .side-label { display: none; }
+        .circle-1::after {
+            content: "아니다"; position: absolute; top: 115%; left: 50%; transform: translateX(-50%);
+            color: var(--disagree-color); font-size: 0.85rem; font-weight: bold; white-space: nowrap;
+        }
+        .circle-7::after {
+            content: "그렇다"; position: absolute; top: 115%; left: 50%; transform: translateX(-50%);
+            color: var(--agree-color); font-size: 0.85rem; font-weight: bold; white-space: nowrap;
+        }
+
+        @media (min-width: 600px) { 
+            .options-wrapper { padding-bottom: 0; gap: 15px; }
+            .side-label { display: block; font-size: 1rem; font-weight: bold; }
+            .label-agree { color: var(--agree-color); margin-left: 15px; }
+            .label-disagree { color: var(--disagree-color); margin-right: 15px; }
+            .circle-1::after, .circle-7::after { display: none; }
+        }
+
+        .btn-container { display: flex; justify-content: center; gap: 15px; margin-top: 50px; }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--agree-color), #ff7e7e);
+            color: #121212; border: none; padding: 18px 50px; font-size: 1.1rem; font-weight: 800;
+            border-radius: 50px; cursor: pointer; transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(255, 77, 77, 0.3);
+        }
+        .btn-action:disabled { background: #333; color: #777; cursor: not-allowed; box-shadow: none; }
+        .btn-action:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(255, 77, 77, 0.5); }
+
+        .btn-secondary {
+            background: #333; color: #aaa; border: 1px solid #555;
+            padding: 18px 30px; font-size: 1rem; font-weight: 700;
+            border-radius: 50px; cursor: pointer; transition: 0.3s;
+        }
+
+        /* CTA 버튼 컨테이너 */
+        .cta-buttons-wrapper {
+            display: flex; justify-content: center; gap: 12px; margin-top: 20px;
+        }
+        .btn-cta-common {
+            color: white; border: none; padding: 16px 10px; font-size: 0.95rem; font-weight: 800;
+            border-radius: 16px; cursor: pointer; transition: transform 0.2s;
+            width: 100%; max-width: 280px; flex: 1;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            line-height: 1.4;
+        }
+        .btn-cta-common:hover { transform: scale(1.03); }
+
+        .btn-insta {
+            background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+            box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3);
+        }
+        .btn-landing {
+            background: linear-gradient(45deg, #7bed9f, #2ecc71); color: #121212;
+            box-shadow: 0 5px 15px rgba(123, 237, 159, 0.3);
+        }
+
+        /* 결과 화면 */
+        .result-header { margin-bottom: 25px; animation: fadeIn 0.8s ease; }
+        
+        .type-code { 
+            font-size: 3.5rem; font-weight: 800; margin: 5px 0; letter-spacing: 2px;
+            background: linear-gradient(to right, var(--agree-color), #fff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        /* 캡처 시 그라데이션 제거 (흐림 방지) */
+        body.capturing-mode .type-code {
+            background: none !important;
+            -webkit-text-fill-color: var(--agree-color) !important;
+            color: var(--agree-color) !important;
+        }
+
+        .type-alias { font-size: 1.4rem; color: #fff; font-weight: 600; margin-top: 5px; }
+
+        .result-bars-container { margin: 20px 0; padding: 25px 15px; background: #1e1e1e; border-radius: 20px; border: 1px solid #333; }
+        .result-row { margin-bottom: 15px; }
+        .bar-title { color: #ccc; font-size: 0.85rem; font-weight:bold; margin-bottom: 6px; text-align: left; }
+        .bar-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .pct { font-weight: bold; width: 35px; text-align: center; font-size: 0.85rem; color: #555; }
+        .pct.winner { color: #fff; font-size: 1rem; text-shadow: 0 0 5px rgba(255,255,255,0.3); }
+
+        .track-center-split { display: flex; flex-grow: 1; height: 10px; background: #111; border-radius: 6px; overflow: hidden; }
+        .half-track { flex: 1; display: flex; height: 100%; }
+        .half-track.left { justify-content: flex-end; border-right: 1px solid #333; }
+        .half-track.right { justify-content: flex-start; }
+        .fill { height: 100%; opacity: 0.2; transition: width 1s ease-out; }
+        .fill.win { opacity: 1; }
+        .fill.red { background: var(--agree-color); }
+        .fill.green { background: var(--disagree-color); }
+        .label-row { display: flex; justify-content: space-between; margin-top: 4px; font-size: 0.75rem; color: #666; font-weight:bold; }
+
+        .content-section { text-align: left; margin-top: 25px; color: #ddd; line-height: 1.6; font-size: 0.95rem; padding: 0 5px; }
+        .content-section p { margin-bottom: 12px; }
+        .section-title { font-size: 1.2rem; font-weight: bold; color: #fff; border-bottom: 2px solid #444; padding-bottom: 8px; margin-bottom: 15px; margin-top: 25px; }
+        
+        /* 브랜드 워터마크 */
+        .brand-footer {
+            margin-top: 25px; padding-top: 15px; border-top: 1px dashed #333;
+            color: #777; font-size: 0.8rem; display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+
+        /* 새로운 CTA 컨테이너 스타일 */
+        .cta-container {
+            position: relative; margin-top: 40px; z-index: 10; 
+            padding: 0 20px 50px 20px; 
+            background: linear-gradient(to bottom, transparent, var(--bg-color) 15%);
+        }
+
+        /* 새로운 워터마크 스타일 */
+        .new-brand-watermark {
+            font-size: 1.1rem; font-weight: bold; color: #ffffff; 
+            margin-bottom: 30px; letter-spacing: -0.5px;
+        }
+
+        /* [추가] 이미지 저장용 팝업 모달 */
+        #result-img-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 9999;
+            align-items: center; justify-content: center; flex-direction: column;
+        }
+        #result-img-modal img {
+            max-width: 85%; max-height: 70vh; border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+        .modal-guide-text {
+            color: #fff; margin-bottom: 15px; font-size: 1.2rem; font-weight: bold; text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .modal-close-btn {
+            background: #444; color: #fff; border: 1px solid #666;
+            padding: 12px 30px; border-radius: 30px; cursor: pointer; font-weight: bold; font-size: 1rem;
+        }
+
+        .hidden { display: none; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="start-screen">
+            <h1>🔥 MAP-BTI</h1>
+            <p class="subtitle">
+                32가지 유형으로 알아보는 미각 정밀 진단<br>
+                <span style="font-size:0.9rem; color:#666;">(Dark Mode Optimized)</span>
+            </p>
+            <div style="margin: 50px 0;">
+                <p style="font-size:0.8rem; color:#888; margin-bottom:20px;">CHECK GUIDE</p>
+                <div class="options-wrapper" style="pointer-events: none;">
+                    <span class="side-label label-disagree">아니다</span>
+                    <div class="circle-label circle-1" style="background:var(--disagree-color); box-shadow:0 0 15px var(--disagree-color)"></div>
+                    <div class="circle-label circle-2"></div>
+                    <div class="circle-label circle-4" style="border-color:#555"></div>
+                    <div class="circle-label circle-6"></div>
+                    <div class="circle-label circle-7" style="background:var(--agree-color); box-shadow:0 0 15px var(--agree-color)"></div>
+                    <span class="side-label label-agree">그렇다</span>
+                </div>
+            </div>
+            <button class="btn-action" onclick="startTest()">검사 시작</button>
+        </div>
+
+        <div id="test-screen" class="hidden">
+            <div class="header-status">
+                <div style="display:flex; justify-content:space-between; font-size:0.9rem; font-weight:bold; color:#888; margin-bottom:5px;">
+                    <span>ANALYSIS PROGRESS</span>
+                    <span><span id="curr-page-num" style="color:#fff">1</span> / 7</span>
+                </div>
+                <div class="progress-wrapper"><div class="progress-bar" id="progress-bar"></div></div>
+            </div>
+            <div id="questions-container"></div>
+            
+            <div class="btn-container">
+                <button id="prev-btn" class="btn-secondary" onclick="prevPage()" style="display:none;">이전</button>
+                <button id="next-btn" class="btn-action" onclick="nextPage()" disabled>다음 페이지</button>
+            </div>
+        </div>
+
+        <div id="loading-screen" class="hidden">
+            <div style="margin-top:80px;">
+                <h2 style="color:#fff;">데이터 분석 중...</h2>
+                <p style="color:#666;">32가지 성향 데이터 매칭 중</p>
+            </div>
+        </div>
+
+        <div id="result-screen" class="hidden">
+            
+            <div id="capture-area">
+                <div class="result-header">
+                    <p style="color:#888; font-size:0.85rem; font-weight:bold; margin-bottom:5px;">YOUR TASTE TYPE</p>
+                    <h1 id="result-type-code" class="type-code">CODE</h1>
+                    <div id="result-alias" class="type-alias">Alias</div>
+                </div>
+
+                <div class="result-bars-container" id="chart-area"></div>
+
+                <div class="content-section" id="intro-content"></div>
+                
+                <div class="brand-footer">
+                    <span>🔥 MAP-BTI Test by</span>
+                    <strong style="color:#fff">@mapmapmap.zip</strong>
+                </div>
+            </div>
+
+            <div class="cta-container">
+                
+                <p style="color:#aaa; font-size:0.95rem; margin-top:10px; margin-bottom:20px; line-height:1.6;">
+                    <strong>실패 없는 매운 맛집</strong>을 찾고 싶으신가요?<br>
+                    저희가 만들고 있는 <strong>'맵맵맵'</strong>을 확인해보세요!
+                </p>
+                
+                <div class="cta-buttons-wrapper">
+                    <button class="btn-cta-common btn-insta" onclick="shareToInstagram()">
+                        📸 결과 공유<br><span style="font-size:0.85rem; font-weight:normal">(태그 자동복사)</span>
+                    </button>
+                    <button class="btn-cta-common btn-landing" onclick="goToLandingPage()">
+                        🚀 맵맵맵<br>구경하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="result-img-modal">
+        <div class="modal-guide-text">⬇️ 꾹 눌러서 이미지 저장!</div>
+        <div id="modal-img-container"></div>
+        <button class="modal-close-btn" onclick="closeModal()">닫기</button>
+    </div>
+
+    <script>
+        // --- 49문항 데이터 ---
+        const questions = [
+            { id: 1, text: "매운 음식을 먹고 땀을 흘리면 스트레스가 풀리는 기분이 든다.", targets: ['H'] },
+            { id: 2, text: "마늘을 먹고 난 뒤 입에서 나는 냄새가 신경 쓰여 꺼려진다.", targets: ['A'], reverse: true },
+            { id: 3, text: "후추를 뿌렸을 때 느껴지는 특유의 향과 느낌을 좋아한다.", targets: ['P'] },
+            { id: 4, text: "와사비의 코가 찡한 느낌은 음식 맛을 방해하는 '고통'일 뿐이라고 생각한다.", targets: ['W'], reverse: true },
+            { id: 5, text: "마라탕이나 훠궈의 혀가 얼얼한 느낌(마비감)을 즐긴다.", targets: ['E'] },
+            { id: 6, text: "나는 매운맛보다는 담백하고 순한 맛을 선호한다.", targets: ['H'], reverse: true },
+            { id: 7, text: "향신료(고수, 산초 등) 향이 강한 음식은 부담스럽다.", targets: ['E'], reverse: true },
+            // Page 2
+            { id: 8, text: "곰탕이나 설렁탕은 후추나 깍두기 국물 없이 '하얀 국물' 그대로 먹는 게 제일 맛있다.", targets: ['P', 'H'], reverse: true },
+            { id: 9, text: "찌개나 국물 요리에 다진 마늘이 듬뿍 들어가 걸쭉한 것을 좋아한다.", targets: ['A'] },
+            { id: 10, text: "해장 메뉴로는 맵고 빨간 국물보다, 맑고 시원한 지리(맑은탕)나 콩나물국이 좋다.", targets: ['H'], reverse: true },
+            { id: 11, text: "칼국수나 만둣국에 후추가 많이 들어가 칼칼한 맛을 즐긴다.", targets: ['P'] },
+            { id: 12, text: "고기를 먹을 때, 마늘이나 양파를 곁들여 먹는 것을 좋아한다.", targets: ['A'] },
+            { id: 13, text: "빨간 국물 요리(마라, 추어탕)에 얼얼한 맛 향신료(산초 등)의 향을 좋아한다.", targets: ['E', 'H'] },
+            { id: 14, text: "냉면을 먹을 때 겨자/식초를 넣어 자극적으로 먹는다.", targets: ['W'] },
+            // Page 3
+            { id: 15, text: "삼겹살이나 고기를 먹을 때 생와사비를 얹어 먹는 조합을 좋아한다.", targets: ['W'] },
+            { id: 16, text: "양꼬치를 먹을 때 쯔란(큐민) 양념을 고기가 찍어 먹는 것을 좋아한다.", targets: ['E'] },
+            { id: 17, text: "느끼한 튀김이나 전을 먹을 때 청양고추가 들어간 간장이 필수다.", targets: ['H'] },
+            { id: 18, text: "스테이크나 고급 요리에 향신료(후추 등)가 들어가면 재료 본연의 맛을 해친다고 생각한다.", targets: ['P'], reverse: true },
+            { id: 19, text: "고기를 먹을 때 구운 마늘이나 생마늘을 곁들이는 것을 선호하지 않는다.", targets: ['A'], reverse:true },
+            { id: 20, text: "마라샹궈처럼 기름지고 맵고 얼얼한 볶음 요리를 좋아한다.", targets: ['E', 'H'] },
+            { id: 21, text: "치킨이나 고기 요리는 자극적인 양념(매운, 겨자, 마늘 등)보다는 '소금'만 살짝 찍어 먹는 게 베스트다.", targets: ['H', 'A', 'W'], reverse: true },
+            // Page 4
+            { id: 22, text: "라면을 끓일 때 청양고추나 고춧가루를 추가로 넣는 것을 좋아한다.", targets: ['H'] },
+            { id: 23, text: "알리오 올리오 파스타처럼 마늘 향이 강하게 배어있는 오일 파스타를 좋아한다.", targets: ['A'] },
+            { id: 24, text: "짜장면이나 우동에 고춧가루를 뿌려 살짝 매콤하게 먹는 것을 즐긴다.", targets: ['H'] },
+            { id: 25, text: "마라탕 가게에 가면 빨간 국물보다는 하얀 국물(백탕)이나 0단계를 시키는 편이다.", targets: ['H', 'E'], reverse: true },
+            { id: 26, text: "식당에서 음식이 나왔는데 기본으로 후추 간이 되어 있는 것이 싫다.", targets: ['P'], reverse: true },
+            { id: 27, text: "냉모밀(소바)을 먹을 때 국물 맛이 변하더라도 와사비를 풀어서 먹는 것을 좋아한다.", targets: ['W'] },
+            { id: 28, text: "식사 중에 땀이 나거나 혀가 아픈 느낌(매운맛)이 들면 짜증이 난다.", targets: ['H'], reverse: true },
+            // Page 5
+            { id: 29, text: "기본적으로 나온 초밥에 와사비를 조금 덜어내고 먹는 편이다.", targets: ['W'], reverse: true },
+            { id: 30, text: "매운탕이나 지리탕에 후추와 미나리, 마늘이 들어간 시원한 맛을 좋아한다.", targets: ['P', 'A'] },
+            { id: 31, text: "초장이나 간장에 와사비를 섞어 매콤 새콤하면서 톡 쏘는 맛을 즐긴다.", targets: ['W'] },
+            { id: 32, text: "낙지볶음이나 쭈꾸미 볶음은 매콤한 맛이 있어야 맛있다.", targets: ['H'] },
+            { id: 33, text: "똠얌꿍이나 동남아 음식 특유의 향신료 맛에 거부감을 느낀다.", targets: ['E'], reverse: true },
+            { id: 34, text: "간장 게장이나 새우장을 먹을 때 청양고추의 매콤함이 곁들여진 게 좋다.", targets: ['H'] },
+            { id: 35, text: "해산물 요리에 시즈닝(후추, 레몬 등)이 많이 뿌려진 스타일을 좋아한다.", targets: ['P'] },
+            // Page 6
+            { id: 36, text: "매운 것을 잘 먹는 것과는 관계없이, 스트레스를 받으면 자극적인 음식이 땡긴다.", targets: ['H'] },
+            { id: 37, text: "스프를 후추와 함께 먹는 것을 좋아하는 편이다", targets: ['P'] },
+            { id: 38, text: "자극적인 비빔냉면보다는 슴슴한 맛의 '평양냉면'이나 '물냉면' 육수를 훨씬 좋아한다.", targets: ['H', 'A', 'P'], reverse: true },
+            { id: 39, text: "새로운 향신료나 낯선 자극적인 맛에 도전하는 것이 즐겁다.", targets: ['E'] },
+            { id: 40, text: "코가 찡하거나 톡 쏘는 맛(와사비, 겨자 등)을 즐기는 편이다.", targets: ['W'] },
+            { id: 41, text: "마늘이 있는 음식보다는 없는 음식을 즐기는 편이다.", targets: ['A'], reverse: true },
+            { id: 42, text: "밥을 먹을 때 김치나 장아찌가 없어도, 메인 반찬만 있으면 밥 한 공기는 뚝딱이다.", targets: ['H', 'A'], reverse: true },
+            // Page 7
+            { id: 43, text: "훠궈나 고기를 찍어 먹을 때, 다진 마늘이나 향신료를 넣은 나만의 양념장을 만들어 먹는다.", targets: ['E', 'A'] },
+            { id: 44, text: "후추와 고춧가루가 들어간 '교동짬뽕' 스타일의 묵직한 국물을 사랑한다.", targets: ['P', 'H'] },
+            { id: 45, text: "입안이 얼얼한 고추의 매운맛보다는, 코가 뻥 뚫리는 와사비나 겨자의 톡 쏘는 맛이 더 매력적이다.", targets: ['W'], antiTargets: ['H'] }, 
+            { id: 46, text: "단순히 맵기만 한 것보다는, 후추와 향신료가 뒤섞여 혀가 얼얼하고 묵직하게 타격감이 있는 매운맛을 선호한다.", targets: ['H', 'E', 'P'] },
+            { id: 47, text: "냉채족발, 양장피처럼 겨자 소스가 있는 요리의 톡 쏘는 맛을 즐긴다.", targets: ['W'] },
+            { id: 48, text: "국물 요리에 후추를 넣을 때, 남들보다 더 많이 뿌리는 편이다.", targets: ['P'] },
+            { id: 49, text: "매운맛, 얼얼한 맛, 톡 쏘는 맛... 종류를 가리지 않고 모든 자극을 다 즐길 수 있다.", targets: ['H', 'E', 'P', 'A', 'W'] }
+        ];
+
+        // --- 32가지 유형 상세 데이터 ---
+        const typeInfo = {
+            'HEPA-W': { alias: "도파민 폭주 기관차", desc: "고통을 쾌락으로 바꾸는 미각의 정점" },
+            'HEPA-N': { alias: "정통파 마라 매니아", desc: "코 찡한 와사비만 빼고 다 잘 먹는 강철 위장" },
+            'HEPI-W': { alias: "이국적인 향신료 사냥꾼", desc: "한국 마늘맛보다 해외의 낯선 향신료를 선호함" },
+            'HEPI-N': { alias: "퓨전 마라 러버", desc: "한국적이지 않은 이국적인 매운맛만 쏙쏙 골라먹음" },
+            'HESA-W': { alias: "소프트 도파민 헌터", desc: "후추의 타격감은 싫지만 나머지 모든 자극은 환영하는 미식가" },
+            'HESA-N': { alias: "부드러운 마라탕", desc: "후추 없이 부드러운 국물에 마라와 마늘을 즐기는 타입" },
+            'HESI-W': { alias: "부드러운 카리스마", desc: "마늘과 후추는 싫지만, 마라와 와사비의 날카로운 맛은 즐김" },
+            'HESI-N': { alias: "마라탕 입문자", desc: "마라의 얼얼함은 좋지만, 강한 마늘이나 와사비 등 다른 자극은 부담" },
+            'HOPA-W': { alias: "얼큰한 K-아재 입맛", desc: "마라(향신료)는 싫지만 한국식 매운맛은 마스터" },
+            'HOPA-N': { alias: "토종 한국인 입맛", desc: "김치찌개, 국밥, 매운탕. 한국인의 밥상 그 자체" },
+            'HOPI-W': { alias: "스테이크형 매운맛", desc: "마늘 없이 고기, 후추, 와사비, 매운맛을 즐김" },
+            'HOPI-N': { alias: "심플한 매운맛", desc: "복잡한 향 없이 오직 캡사이신의 타격감만 즐김" },
+            'HOSA-W': { alias: "깔끔한 매운맛 선호가", desc: "후추의 텁텁함은 싫고 깔끔하게 매운맛을 즐김" },
+            'HOSA-N': { alias: "담백한 매운맛", desc: "자극적인 후추/향신료 없이 깔끔하게 매운맛만 즐김" },
+            'HOSI-W': { alias: "와사비 매니아", desc: "다른 자극은 필요 없다. 오직 매운맛과 코 찡함만!" },
+            'HOSI-N': { alias: "선택적 매운맛", desc: "매운건 좋지만 다른 향신료나 자극은 거부한다" },
+            'CEPA-W': { alias: "맵찔이 미식가", desc: "매운건 못 먹지만 향신료와 자극은 즐기는 모험가" },
+            'CEPA-N': { alias: "마라탕 순한맛 (백탕)", desc: "매운건 싫지만 마라의 얼얼함과 진한 맛은 포기 못해" },
+            'CEPI-W': { alias: "이국적인 브런치 스타일", desc: "매운 한식보다는 후추와 허브가 들어간 양식파" },
+            'CEPI-N': { alias: "순한맛 에스닉 푸드", desc: "매운맛도, 마늘도 싫지만 이국적인 향은 좋아함" },
+            'CESA-W': { alias: "섬세한 미식가", desc: "맵고 텁텁한 건 싫지만, 마늘/향신료/와사비의 풍미는 사랑함" },
+            'CESA-N': { alias: "향긋한 쌀국수", desc: "자극적이지 않고 마늘과 향신료가 어우러진 깊은 맛을 선호" },
+            'CESI-W': { alias: "톡 쏘는 샐러드", desc: "가볍고 상큼하면서 코가 뻥 뚫리는 맛을 선호" },
+            'CESI-N': { alias: "호기심 많은 순한맛", desc: "맵진 않지만 혀가 얼얼한 독특한 느낌을 즐김" },
+            'COPA-W': { alias: "일식 돈까스 매니아", desc: "매운건 싫지만 와사비, 후추, 마늘의 풍미는 사랑함" },
+            'COPA-N': { alias: "진한 곰탕 매니아", desc: "매운맛 없이 후추와 마늘로 낸 깊은 맛을 사랑함" },
+            'COPI-W': { alias: "고급 스테이크 취향", desc: "재료 본연의 맛에 후추와 와사비만 살짝 더함" },
+            'COPI-N': { alias: "평양냉면 매니아", desc: "슴슴한 맛 속에 후추 향만 살짝 즐기는 미식가" },
+            'COSA-W': { alias: "초밥과 삼겹살", desc: "후추/마라 없이 깔끔하게 와사비와 마늘만 곁들임" },
+            'COSA-N': { alias: "한국인의 밥상 (순한맛)", desc: "된장찌개처럼 구수하고 마늘 들어간 안 매운 한식" },
+            'COSI-W': { alias: "스시 장인", desc: "아무 자극도 싫지만 와사비 하나만큼은 허락한다" },
+            'COSI-N': { alias: "순수한 아기 입맛", desc: "자극 없는 평화로운 맛을 추구하는 순수주의자" },
+            'DEFAULT': { alias: "알 수 없는 미식가", desc: "매우 독특한 취향의 소유자" }
+        };
+
+        let currentPage = 1;
+        const totalPages = 7;
+        const itemsPerPage = 7;
+        let answers = {}; 
+
+        function startTest() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('test-screen').classList.remove('hidden');
+            renderPage(1);
+        }
+
+        function renderPage(pageNum) {
+            currentPage = pageNum;
+            document.getElementById('curr-page-num').innerText = pageNum;
+            document.getElementById('progress-bar').style.width = `${((pageNum - 1) / totalPages) * 100}%`;
+
+            const container = document.getElementById('questions-container');
+            container.innerHTML = ''; 
+            const startIdx = (pageNum - 1) * itemsPerPage;
+            const endIdx = startIdx + itemsPerPage;
+            const pageQuestions = questions.slice(startIdx, endIdx);
+
+            pageQuestions.forEach((q) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'question-item';
+                itemDiv.id = `q-item-${q.id}`;
+                
+                const textDiv = document.createElement('div');
+                textDiv.className = 'q-text';
+                textDiv.innerText = q.text;
+                itemDiv.appendChild(textDiv);
+
+                const optWrapper = document.createElement('div');
+                optWrapper.className = 'options-wrapper';
+
+                const disagreeLabel = document.createElement('span');
+                disagreeLabel.className = 'side-label label-disagree';
+                disagreeLabel.innerText = '아니다';
+                optWrapper.appendChild(disagreeLabel);
+
+                for (let i = 1; i <= 7; i++) {
+                    const inputId = `q${q.id}-opt-${i}`;
+                    const input = document.createElement('input');
+                    input.type = 'radio'; input.name = `q-${q.id}`; input.value = i; input.id = inputId;
+                    if (answers[q.id] === i) input.checked = true;
+                    input.onclick = () => { handleAnswer(q.id, i); };
+
+                    const label = document.createElement('label');
+                    label.className = `circle-label circle-${i}`;
+                    label.htmlFor = inputId;
+                    optWrapper.appendChild(input); optWrapper.appendChild(label);
+                }
+
+                const agreeLabel = document.createElement('span');
+                agreeLabel.className = 'side-label label-agree';
+                agreeLabel.innerText = '그렇다';
+                optWrapper.appendChild(agreeLabel);
+                
+                itemDiv.appendChild(optWrapper);
+                container.appendChild(itemDiv);
+            });
+            updateNextButton(); window.scrollTo(0, 0);
+        }
+
+        function handleAnswer(qId, val) {
+            answers[qId] = val; updateNextButton();
+            const currentItem = document.getElementById(`q-item-${qId}`);
+            if (currentItem && currentItem.nextElementSibling) currentItem.nextElementSibling.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                renderPage(currentPage - 1);
+            }
+        }
+
+        function updateNextButton() {
+            const startIdx = (currentPage - 1) * itemsPerPage;
+            const endIdx = startIdx + itemsPerPage;
+            const pageQIds = questions.slice(startIdx, endIdx).map(q => q.id);
+            const allAnswered = pageQIds.every(id => answers[id] !== undefined);
+            
+            const nextBtn = document.getElementById('next-btn');
+            const prevBtn = document.getElementById('prev-btn');
+
+            if (allAnswered) {
+                nextBtn.disabled = false;
+                nextBtn.innerText = (currentPage === totalPages) ? "결과 보기" : "다음 페이지";
+                nextBtn.onclick = (currentPage === totalPages) ? finishTest : nextPage;
+            } else {
+                nextBtn.disabled = true;
+                nextBtn.innerText = "모든 질문에 답해주세요";
+            }
+
+            if (currentPage === 1) {
+                prevBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'block';
+            }
+        }
+
+        function nextPage() { renderPage(currentPage + 1); }
+        function finishTest() {
+            document.getElementById('test-screen').classList.add('hidden');
+            document.getElementById('loading-screen').classList.remove('hidden');
+            setTimeout(calculateAndShowResult, 2000);
+        }
+
+        function calculateAndShowResult() {
+            let rawScores = { H: 0, E: 0, P: 0, A: 0, W: 0 };
+            let maxScores = { H: 0, E: 0, P: 0, A: 0, W: 0 };
+
+            questions.forEach(q => {
+                const userVal = answers[q.id]; 
+                let score = q.reverse ? (8 - userVal) : userVal;
+                let antiScore = q.reverse ? userVal : (8 - userVal);
+
+                if (q.targets) {
+                    q.targets.forEach(target => { 
+                        rawScores[target] += score; 
+                        maxScores[target] += 7; 
+                    });
+                }
+                if (q.antiTargets) {
+                    q.antiTargets.forEach(target => {
+                        rawScores[target] += antiScore; 
+                        maxScores[target] += 7;
+                    });
+                }
+            });
+
+            const P = {};
+            ['H', 'E', 'P', 'A', 'W'].forEach(t => { 
+                if(maxScores[t] === 0) P[t] = 0;
+                else P[t] = Math.round((rawScores[t] / maxScores[t]) * 100); 
+            });
+
+            document.getElementById('loading-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const code = 
+                (P.H >= 50 ? 'H' : 'C') + (P.E >= 50 ? 'E' : 'O') +
+                (P.P >= 50 ? 'P' : 'S') + (P.A >= 50 ? 'A' : 'I') + '-' +
+                (P.W >= 50 ? 'W' : 'N');
+            
+            const info = typeInfo[code] || typeInfo['DEFAULT'];
+            const content = generateAnalysisContent(code, P, info);
+
+            document.getElementById('result-type-code').innerText = code;
+            document.getElementById('result-alias').innerText = `"${info.alias}"`;
+            
+            renderChart(P);
+            document.getElementById('intro-content').innerHTML = content.intro;
+        }
+
+        function renderChart(P) {
+            const chartArea = document.getElementById('chart-area');
+            chartArea.innerHTML = ''; 
+            const items = [
+                { title: 'CAPSAICIN (매운맛)', left: 'HOT', right: 'MILD', score: P.H },
+                { title: 'ELECTRIC (향신료)', left: 'ZAP', right: 'CALM', score: P.E },
+                { title: 'PUNCH (타격감)', left: 'HIT', right: 'SOFT', score: P.P },
+                { title: 'AROMA (알싸함)', left: 'GARLIC', right: 'CLEAN', score: P.A },
+                { title: 'WASABI (코찡)', left: 'NOSE', right: 'PEACE', score: P.W }
+            ];
+            items.forEach(item => {
+                const redScore = item.score; const greenScore = 100 - item.score; const isRedWin = redScore >= 50;
+                const redBarWidth = isRedWin ? (redScore - 50) * 2 : 0;
+                const greenBarWidth = !isRedWin ? (greenScore - 50) * 2 : 0;
+                
+                const html = `
+                <div class="result-row">
+                    <div class="bar-title">${item.title}</div>
+                    <div class="bar-wrapper">
+                        <span class="pct ${isRedWin?'winner':''}">${redScore}%</span>
+                        <div class="track-center-split">
+                            <div class="half-track left"><div class="fill red ${isRedWin?'win':''}" style="width:${redBarWidth}%"></div></div>
+                            <div class="half-track right"><div class="fill green ${!isRedWin?'win':''}" style="width:${greenBarWidth}%"></div></div>
+                        </div>
+                        <span class="pct ${!isRedWin?'winner':''}">${greenScore}%</span>
+                    </div>
+                    <div class="label-row">
+                        <span style="color:${isRedWin?'var(--agree-color)':'#666'}">${item.left}</span>
+                        <span style="color:${!isRedWin?'var(--disagree-color)':'#666'}">${item.right}</span>
+                    </div>
+                </div>`;
+                chartArea.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        function generateAnalysisContent(code, P, info) {
+            let introText = `<div class="section-title">소개: ${info.desc}</div>`;
+            
+            if (code.includes('H')) {
+                introText += `<p>당신은 기본적으로 <strong style="color:var(--agree-color)">강렬한 자극</strong>을 즐기는 모험가입니다. 캡사이신의 뜨거운 통증을 '시원하다'고 느끼며, 스트레스를 매운맛으로 해소하는 경향이 있습니다.</p>`;
+            } else {
+                introText += `<p>당신은 <strong style="color:var(--disagree-color)">재료 본연의 맛</strong>을 중시하는 순수주의자입니다. 혀가 느끼는 고통보다는 섬세한 풍미와 조화를 사랑하며, 자극적인 양념보다는 맑고 깨끗한 맛에서 행복을 느낍니다.</p>`;
+            }
+            if (code.includes('E')) introText += `<p>또한, 마라나 똠얌꿍처럼 <strong style="color:var(--agree-color)">이국적이고 강렬한 향신료</strong>를 즐기며, 미각적인 모험을 두려워하지 않는 진정한 미식가입니다.</p>`;
+            else introText += `<p>반면, 낯선 향신료보다는 <strong style="color:var(--disagree-color)">익숙하고 편안한 향기</strong>를 선호하며, 검증된 맛집에서 안정적인 식사를 즐기는 것을 좋아합니다.</p>`;
+
+            if (code.includes('W')) introText += `<p>특히 <strong style="color:var(--agree-color)">와사비나 겨자</strong>의 코 찡한 감각을 즐기는 것으로 보아, 순간적인 각성 효과와 두뇌 자극을 즐기는 취향을 가지고 있습니다.</p>`;
+            else introText += `<p>코를 찌르는 날카로운 자극보다는, 입안 전체를 감싸는 <strong style="color:var(--disagree-color)">부드럽고 묵직한 감칠맛</strong>을 훨씬 더 중요하게 생각하는 타입입니다.</p>`;
+
+            const hasP = code.includes('P');
+            const hasA = code.includes('A');
+            if (hasP && hasA) { 
+                introText += `<p>마늘과 후추를 모두 선호하는 당신은 <strong style="color:var(--agree-color)">전형적인 한국인의 소울</strong>을 가졌습니다. 맵고 짜고 진한 국물 요리가 당신의 힐링 푸드입니다.</p>`;
+            } else if (!hasP && !hasA) { 
+                introText += `<p>마늘의 텁텁함이나 후추의 매캐함 없이, <strong style="color:var(--disagree-color)">재료 본연의 맑고 투명한 육수</strong>나 소금으로만 간을 한 깔끔한 맛을 사랑합니다.</p>`;
+            } else if (hasA) { 
+                introText += `<p>후추의 가루 씹히는 느낌은 싫지만, <strong style="color:#fff">한국인의 힘인 마늘</strong>의 깊고 진한 풍미만큼은 포기할 수 없는 '마늘 러버'입니다.</p>`;
+            } else { 
+                introText += `<p>마늘의 강한 냄새는 부담스럽지만, 음식의 잡내를 잡고 풍미를 살려주는 <strong style="color:#fff">후추의 알싸한 터치</strong>는 즐기는 세련된 입맛입니다.</p>`;
+            }
+
+            return { intro: introText };
+        }
+
+        // [중요] 인스타그램 공유 수정: 공유 실패 시 '이미지 팝업' 띄우기
+        async function shareToInstagram() {
+            const captureArea = document.getElementById('capture-area');
+            const instagramId = "@mapmapmap.zip";
+
+            // 1. 태그 복사
+            try {
+                await navigator.clipboard.writeText(instagramId);
+                alert(`📋 '${instagramId}' 태그가 복사되었습니다!\n이미지를 저장 후 인스타그램 스토리에 '붙여넣기' 하세요.`);
+            } catch (err) {
+                console.error('클립보드 복사 실패:', err);
+            }
+
+            // 2. 캡처 모드
+            document.body.classList.add('capturing-mode');
+
+            // 3. 이미지 생성 (해상도 비율 2로 조정 - 안정성 확보)
+            try {
+                const canvas = await html2canvas(captureArea, { 
+                    backgroundColor: "#121212",
+                    scale: 2, 
+                    useCORS: true,
+                    logging: false
+                });
+                
+                document.body.classList.remove('capturing-mode');
+
+                canvas.toBlob(async (blob) => {
+                    const file = new File([blob], "map-bti-result.png", { type: "image/png" });
+
+                    // 4. 공유 시도 (실패 시 팝업 띄우기)
+                    try {
+                        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                            await navigator.share({
+                                files: [file],
+                                title: 'MAP-BTI 결과',
+                                text: `내 미각 성향은? ${instagramId}`
+                            });
+                        } else {
+                            throw new Error("공유 API 미지원");
+                        }
+                    } catch (shareError) {
+                        console.log('공유 실패, 팝업으로 대체', shareError);
+                        showImageModal(canvas.toDataURL());
+                    }
+                }, 'image/png', 1.0);
+            } catch (error) {
+                console.error("이미지 캡처 실패:", error);
+                document.body.classList.remove('capturing-mode');
+                alert("이미지 생성 중 오류가 발생했습니다.");
+            }
+        }
+
+        // [추가] 이미지 팝업 보여주기 함수
+        function showImageModal(imgDataUrl) {
+            const modal = document.getElementById('result-img-modal');
+            const container = document.getElementById('modal-img-container');
+            
+            container.innerHTML = `<img src="${imgDataUrl}" alt="결과 이미지" />`;
+            modal.style.display = 'flex';
+        }
+
+        // 팝업 닫기
+        function closeModal() {
+            document.getElementById('result-img-modal').style.display = 'none';
+        }
+
+        function goToLandingPage() {
+            window.location.href = "https://buly.kr/1xzxUx8"; 
+        }
+    </script>
+</body>
+</html>
