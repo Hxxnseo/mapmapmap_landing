@@ -593,10 +593,10 @@
             chartArea.innerHTML = ''; 
             const items = [
                 { title: 'CAPSAICIN (매운맛)', left: 'HOT', right: 'MILD', score: P.H },
-                { title: 'ELECTRIC (향신료)', left: 'ZAP', right: 'CALM', score: P.E },
-                { title: 'PUNCH (타격감)', left: 'HIT', right: 'SOFT', score: P.P },
-                { title: 'AROMA (알싸함)', left: 'GARLIC', right: 'CLEAN', score: P.A },
-                { title: 'WASABI (코찡)', left: 'NOSE', right: 'PEACE', score: P.W }
+                { title: 'ELECTRIC (향신료)', left: 'ELECTRIC', right: 'INNOCUOUS', score: P.E },
+                { title: 'PEPPER (타격감)', left: 'PEPPER', right: 'SMOOTH', score: P.P },
+                { title: 'AROMA (알싸함)', left: 'AROMA', right: 'ODERLESS', score: P.A },
+                { title: 'WASABI (코찡)', left: 'WASABI', right: 'NON-WASABI', score: P.W }
             ];
             items.forEach(item => {
                 const redScore = item.score; const greenScore = 100 - item.score; const isRedWin = redScore >= 50;
