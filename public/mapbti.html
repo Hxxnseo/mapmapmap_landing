@@ -50,7 +50,7 @@
 
         .header-status {
             position: sticky; top: 0; background: rgba(18, 18, 18, 0.95); z-index: 100;
-            padding: 15px 0 20px 0; border-bottom: 1px solid #333; margin-bottom: 40px;
+            padding: 15px 0 20px 0; border-bottom: 1px solid rgba(255, 255, 255, .5); margin-bottom: 20px;
             backdrop-filter: blur(10px);
         }
         .progress-wrapper {
@@ -61,7 +61,12 @@
             background: linear-gradient(90deg, var(--disagree-color), var(--agree-color)); 
         }
 
-        .question-item { padding: 40px 0; border-bottom: 1px solid #333; animation: fadeIn 0.6s ease; }
+        .question-item { padding: 40px 0; border-bottom: 1px solid rgba(255, 255, 255, .5); animation: fadeIn 0.6s ease; }
+
+        .q-number {
+            font-size: 1rem; font-weight: 700; color: var(--agree-color); margin-bottom: 4px;
+        }
+
         .q-text { font-size: 1.25rem; font-weight: 700; color: #eee; margin-bottom: 35px; line-height: 1.5; word-break: keep-all; }
 
         .options-wrapper { 
@@ -110,6 +115,10 @@
             .circle-1::after, .circle-7::after { display: none; }
         }
 
+        @media (max-width: 600px) {
+            .question-item {padding: 20px 0;}
+        }
+
         .btn-container { display: flex; justify-content: center; gap: 15px; margin-top: 50px; }
 
         .btn-action {
@@ -135,7 +144,7 @@
             color: white; border: none; padding: 16px 10px; font-size: 0.95rem; font-weight: 800;
             border-radius: 16px; cursor: pointer; transition: transform 0.2s;
             width: 100%; max-width: 280px; flex: 1;
-            display: flex; align-items: center; justify-content: center; text-align: center;
+            display: block; align-items: center; justify-content: center; text-align: center;
             line-height: 1.4;
         }
         .btn-cta-common:hover { transform: scale(1.03); }
@@ -387,36 +396,36 @@
         const typeInfo = {
             'HEPA-W': { alias: "도파민 폭주 기관차", desc: "고통을 쾌락으로 바꾸는 미각의 정점" },
             'HEPA-N': { alias: "정통파 마라 매니아", desc: "코 찡한 와사비만 빼고 다 잘 먹는 강철 위장" },
-            'HEPI-W': { alias: "이국적인 향신료 사냥꾼", desc: "한국 마늘맛보다 해외의 낯선 향신료를 선호함" },
-            'HEPI-N': { alias: "퓨전 마라 러버", desc: "한국적이지 않은 이국적인 매운맛만 쏙쏙 골라먹음" },
+            'HEPO-W': { alias: "이국적인 향신료 사냥꾼", desc: "한국 마늘맛보다 해외의 낯선 향신료를 선호함" },
+            'HEPO-N': { alias: "퓨전 마라 러버", desc: "한국적이지 않은 이국적인 매운맛만 쏙쏙 골라먹음" },
             'HESA-W': { alias: "소프트 도파민 헌터", desc: "후추의 타격감은 싫지만 나머지 모든 자극은 환영하는 미식가" },
             'HESA-N': { alias: "부드러운 마라탕", desc: "후추 없이 부드러운 국물에 마라와 마늘을 즐기는 타입" },
-            'HESI-W': { alias: "부드러운 카리스마", desc: "마늘과 후추는 싫지만, 마라와 와사비의 날카로운 맛은 즐김" },
-            'HESI-N': { alias: "마라탕 입문자", desc: "마라의 얼얼함은 좋지만, 강한 마늘이나 와사비 등 다른 자극은 부담" },
-            'HOPA-W': { alias: "얼큰한 K-아재 입맛", desc: "마라(향신료)는 싫지만 한국식 매운맛은 마스터" },
-            'HOPA-N': { alias: "토종 한국인 입맛", desc: "김치찌개, 국밥, 매운탕. 한국인의 밥상 그 자체" },
-            'HOPI-W': { alias: "스테이크형 매운맛", desc: "마늘 없이 고기, 후추, 와사비, 매운맛을 즐김" },
-            'HOPI-N': { alias: "심플한 매운맛", desc: "복잡한 향 없이 오직 캡사이신의 타격감만 즐김" },
-            'HOSA-W': { alias: "깔끔한 매운맛 선호가", desc: "후추의 텁텁함은 싫고 깔끔하게 매운맛을 즐김" },
-            'HOSA-N': { alias: "담백한 매운맛", desc: "자극적인 후추/향신료 없이 깔끔하게 매운맛만 즐김" },
-            'HOSI-W': { alias: "와사비 매니아", desc: "다른 자극은 필요 없다. 오직 매운맛과 코 찡함만!" },
-            'HOSI-N': { alias: "선택적 매운맛", desc: "매운건 좋지만 다른 향신료나 자극은 거부한다" },
-            'CEPA-W': { alias: "맵찔이 미식가", desc: "매운건 못 먹지만 향신료와 자극은 즐기는 모험가" },
-            'CEPA-N': { alias: "마라탕 순한맛 (백탕)", desc: "매운건 싫지만 마라의 얼얼함과 진한 맛은 포기 못해" },
-            'CEPI-W': { alias: "이국적인 브런치 스타일", desc: "매운 한식보다는 후추와 허브가 들어간 양식파" },
-            'CEPI-N': { alias: "순한맛 에스닉 푸드", desc: "매운맛도, 마늘도 싫지만 이국적인 향은 좋아함" },
-            'CESA-W': { alias: "섬세한 미식가", desc: "맵고 텁텁한 건 싫지만, 마늘/향신료/와사비의 풍미는 사랑함" },
-            'CESA-N': { alias: "향긋한 쌀국수", desc: "자극적이지 않고 마늘과 향신료가 어우러진 깊은 맛을 선호" },
-            'CESI-W': { alias: "톡 쏘는 샐러드", desc: "가볍고 상큼하면서 코가 뻥 뚫리는 맛을 선호" },
-            'CESI-N': { alias: "호기심 많은 순한맛", desc: "맵진 않지만 혀가 얼얼한 독특한 느낌을 즐김" },
-            'COPA-W': { alias: "일식 돈까스 매니아", desc: "매운건 싫지만 와사비, 후추, 마늘의 풍미는 사랑함" },
-            'COPA-N': { alias: "진한 곰탕 매니아", desc: "매운맛 없이 후추와 마늘로 낸 깊은 맛을 사랑함" },
-            'COPI-W': { alias: "고급 스테이크 취향", desc: "재료 본연의 맛에 후추와 와사비만 살짝 더함" },
-            'COPI-N': { alias: "평양냉면 매니아", desc: "슴슴한 맛 속에 후추 향만 살짝 즐기는 미식가" },
-            'COSA-W': { alias: "초밥과 삼겹살", desc: "후추/마라 없이 깔끔하게 와사비와 마늘만 곁들임" },
-            'COSA-N': { alias: "한국인의 밥상 (순한맛)", desc: "된장찌개처럼 구수하고 마늘 들어간 안 매운 한식" },
-            'COSI-W': { alias: "스시 장인", desc: "아무 자극도 싫지만 와사비 하나만큼은 허락한다" },
-            'COSI-N': { alias: "순수한 아기 입맛", desc: "자극 없는 평화로운 맛을 추구하는 순수주의자" },
+            'HESO-W': { alias: "부드러운 카리스마", desc: "마늘과 후추는 싫지만, 마라와 와사비의 날카로운 맛은 즐김" },
+            'HESO-N': { alias: "마라탕 입문자", desc: "마라의 얼얼함은 좋지만, 강한 마늘이나 와사비 등 다른 자극은 부담" },
+            'HIPA-W': { alias: "얼큰한 K-아재 입맛", desc: "마라(향신료)는 싫지만 한국식 매운맛은 마스터" },
+            'HIPA-N': { alias: "토종 한국인 입맛", desc: "김치찌개, 국밥, 매운탕. 한국인의 밥상 그 자체" },
+            'HIPO-W': { alias: "스테이크형 매운맛", desc: "마늘 없이 고기, 후추, 와사비, 매운맛을 즐김" },
+            'HIPO-N': { alias: "심플한 매운맛", desc: "복잡한 향 없이 오직 캡사이신의 타격감만 즐김" },
+            'HISA-W': { alias: "깔끔한 매운맛 선호가", desc: "후추의 텁텁함은 싫고 깔끔하게 매운맛을 즐김" },
+            'HISA-N': { alias: "담백한 매운맛", desc: "자극적인 후추/향신료 없이 깔끔하게 매운맛만 즐김" },
+            'HISO-W': { alias: "와사비 매니아", desc: "다른 자극은 필요 없다. 오직 매운맛과 코 찡함만!" },
+            'HISO-N': { alias: "선택적 매운맛", desc: "매운건 좋지만 다른 향신료나 자극은 거부한다" },
+            'MEPA-W': { alias: "맵찔이 미식가", desc: "매운건 못 먹지만 향신료와 자극은 즐기는 모험가" },
+            'MEPA-N': { alias: "마라탕 순한맛 (백탕)", desc: "매운건 싫지만 마라의 얼얼함과 진한 맛은 포기 못해" },
+            'MEPO-W': { alias: "이국적인 브런치 스타일", desc: "매운 한식보다는 후추와 허브가 들어간 양식파" },
+            'MEPO-N': { alias: "순한맛 에스닉 푸드", desc: "매운맛도, 마늘도 싫지만 이국적인 향은 좋아함" },
+            'MESA-W': { alias: "섬세한 미식가", desc: "맵고 텁텁한 건 싫지만, 마늘/향신료/와사비의 풍미는 사랑함" },
+            'MESA-N': { alias: "향긋한 쌀국수", desc: "자극적이지 않고 마늘과 향신료가 어우러진 깊은 맛을 선호" },
+            'MESO-W': { alias: "톡 쏘는 샐러드", desc: "가볍고 상큼하면서 코가 뻥 뚫리는 맛을 선호" },
+            'MESO-N': { alias: "호기심 많은 순한맛", desc: "맵진 않지만 혀가 얼얼한 독특한 느낌을 즐김" },
+            'MIPA-W': { alias: "일식 돈까스 매니아", desc: "매운건 싫지만 와사비, 후추, 마늘의 풍미는 사랑함" },
+            'MIPA-N': { alias: "진한 곰탕 매니아", desc: "매운맛 없이 후추와 마늘로 낸 깊은 맛을 사랑함" },
+            'MIPO-W': { alias: "고급 스테이크 취향", desc: "재료 본연의 맛에 후추와 와사비만 살짝 더함" },
+            'MIPO-N': { alias: "평양냉면 매니아", desc: "슴슴한 맛 속에 후추 향만 살짝 즐기는 미식가" },
+            'MISA-W': { alias: "초밥과 삼겹살", desc: "후추/마라 없이 깔끔하게 와사비와 마늘만 곁들임" },
+            'MISA-N': { alias: "한국인의 밥상 (순한맛)", desc: "된장찌개처럼 구수하고 마늘 들어간 안 매운 한식" },
+            'MISO-W': { alias: "스시 장인", desc: "아무 자극도 싫지만 와사비 하나만큼은 허락한다" },
+            'MISO-N': { alias: "순수한 아기 입맛", desc: "자극 없는 평화로운 맛을 추구하는 순수주의자" },
             'DEFAULT': { alias: "알 수 없는 미식가", desc: "매우 독특한 취향의 소유자" }
         };
 
@@ -446,6 +455,11 @@
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'question-item';
                 itemDiv.id = `q-item-${q.id}`;
+
+                const itemNumDiv = document.createElement('div');
+                itemNumDiv.className = 'q-number';
+                itemNumDiv.innerText = `Q${q.id}`;
+                itemDiv.appendChild(itemNumDiv);
                 
                 const textDiv = document.createElement('div');
                 textDiv.className = 'q-text';
@@ -561,8 +575,10 @@
             document.getElementById('result-screen').classList.remove('hidden');
 
             const code = 
-                (P.H >= 50 ? 'H' : 'C') + (P.E >= 50 ? 'E' : 'O') +
-                (P.P >= 50 ? 'P' : 'S') + (P.A >= 50 ? 'A' : 'I') + '-' +
+                (P.H >= 50 ? 'H' : 'M') + 
+                (P.E >= 50 ? 'E' : 'I') +
+                (P.P >= 50 ? 'P' : 'S') + 
+                (P.A >= 50 ? 'A' : 'O') + '-' +
                 (P.W >= 50 ? 'W' : 'N');
             
             const info = typeInfo[code] || typeInfo['DEFAULT'];
@@ -580,10 +596,10 @@
             chartArea.innerHTML = ''; 
             const items = [
                 { title: 'CAPSAICIN (매운맛)', left: 'HOT', right: 'MILD', score: P.H },
-                { title: 'ELECTRIC (향신료)', left: 'ZAP', right: 'CALM', score: P.E },
-                { title: 'PUNCH (타격감)', left: 'HIT', right: 'SOFT', score: P.P },
-                { title: 'AROMA (알싸함)', left: 'GARLIC', right: 'CLEAN', score: P.A },
-                { title: 'WASABI (코찡)', left: 'NOSE', right: 'PEACE', score: P.W }
+                { title: 'ELECTRIC (향신료)', left: 'ELECTRIC', right: 'INNOCUOUS', score: P.E },
+                { title: 'PEPPER (타격감)', left: 'PEPPER', right: 'SMOOTH', score: P.P },
+                { title: 'AROMA (알싸함)', left: 'AROMA', right: 'ODERLESS', score: P.A },
+                { title: 'WASABI (코찡)', left: 'WASABI', right: 'NON-WASABI', score: P.W }
             ];
             items.forEach(item => {
                 const redScore = item.score; const greenScore = 100 - item.score; const isRedWin = redScore >= 50;
