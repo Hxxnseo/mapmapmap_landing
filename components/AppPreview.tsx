@@ -15,7 +15,7 @@ export const AppPreview: React.FC = () => {
           <div className="relative w-full h-0 pb-[56.25%] rounded-xl overflow-hidden">
             <iframe
               className="absolute top-0 left-0 w-full h-full border-none"
-              src="https://www.youtube.com/embed/rl908dwAPvc?si=9c2Bo4Jii4qNSylH"
+              src="https://www.youtube.com/embed/pQgE60SXx0k?si=p129Mom71JjW1UVr"
               title="App Preview"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
