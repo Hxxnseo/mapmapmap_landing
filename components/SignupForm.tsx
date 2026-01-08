@@ -33,6 +33,10 @@ export const SignupForm: React.FC = () => {
     setFormData(prev => ({ ...prev, phone: formatted }));
   };
 
+  const handleMapBTIChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({ ...prev, mapBTI: e.target.value.toUpperCase() }));
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -216,7 +220,7 @@ export const SignupForm: React.FC = () => {
                     type="text"
                     name="mapBTI"
                     value={formData.mapBTI}
-                    onChange={handleChange}
+                    onChange={handleMapBTIChange}
                     className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
                     placeholder="MapBTI Result"
                 />
