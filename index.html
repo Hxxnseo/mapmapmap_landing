@@ -1,76 +1,116 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>맵맵맵 (MapMapMap) - 이젠 안 속는다</title>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              brand: {
-                red: "#E62117",
-                orange: "#FF5C00",
-                black: "#0A0A0A",
-                darker: "#050505",
-                gray: "#222222",
-              },
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>맵맵맵 (MapMapMap) - 이젠 안 속는다 | 맵기 리뷰 기반 맛집 추천</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="32가지 미각 성향 기반 맵기 리뷰 데이터로 나에게 딱 맞는 매운 맛집을 추천받으세요. 더 이상 매운맛에 속지 마세요!" />
+  <meta name="keywords" content="맵맵맵, 매운맛집, 맛집추천, 맵기리뷰, MAP-BTI, 맵찔이, 매운음식, 맛집큐레이션" />
+  <meta name="author" content="맵맵맵 팀" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mapmapmap-landing.vercel.app/" />
+  <meta property="og:title" content="맵맵맵 - 이젠 안 속는다 | 맵기 리뷰 기반 맛집 추천" />
+  <meta property="og:description" content="32가지 미각 성향 기반으로 나에게 딱 맞는 매운 맛집을 추천받으세요. 지금 사전예약하고 특별 혜택 받기!" />
+  <meta property="og:image" content="https://mapmapmap-landing.vercel.app/og-image.png" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:site_name" content="맵맵맵" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://mapmapmap-landing.vercel.app/" />
+  <meta name="twitter:title" content="맵맵맵 - 이젠 안 속는다 | 맵기 리뷰 기반 맛집 추천" />
+  <meta name="twitter:description" content="32가지 미각 성향 기반으로 나에게 딱 맞는 매운 맛집을 추천받으세요." />
+  <meta name="twitter:image" content="https://mapmapmap-landing.vercel.app/og-image.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://mapmapmap-landing.vercel.app/" />
+
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: "#E62117",
+              orange: "#FF5C00",
+              black: "#0A0A0A",
+              darker: "#050505",
+              gray: "#222222",
             },
-            fontFamily: {
-              sans: ['Pretendard', 'sans-serif'],
-            },
-            animation: {
-              'float': 'float 6s ease-in-out infinite',
-              'wiggle': 'wiggle 1s ease-in-out infinite',
-              'marquee': 'marquee 20s linear infinite',
-            },
-            keyframes: {
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-20px)' },
-              },
-              wiggle: {
-                '0%, 100%': { transform: 'rotate(-3deg)' },
-                '50%': { transform: 'rotate(3deg)' },
-              },
-              marquee: {
-                '0%': { transform: 'translateX(0%)' },
-                '100%': { transform: 'translateX(-50%)' },
-              }
-            }
           },
+          fontFamily: {
+            sans: ['Pretendard', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'wiggle': 'wiggle 1s ease-in-out infinite',
+            'marquee': 'marquee 20s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-3deg)' },
+              '50%': { transform: 'rotate(3deg)' },
+            },
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' },
+            }
+          }
         },
-      };
-    </script>
-    <style>
-      body {
-        background-color: #0A0A0A;
-        -webkit-font-smoothing: antialiased;
-      }
-      /* Noise Texture Overlay */
-      .noise {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        pointer-events: none;
-        opacity: 0.04;
-        z-index: 9999;
-        background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-      }
-      ::selection {
-        background: #E62117;
-        color: white;
-      }
-      /* Hide scrollbar */
-      ::-webkit-scrollbar { display: none; }
-      
-      .text-outline {
-        -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-        color: transparent;
-      }
-    </style>
+      },
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0A0A0A;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Noise Texture Overlay */
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.04;
+      z-index: 9999;
+      background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    }
+
+    ::selection {
+      background: #E62117;
+      color: white;
+    }
+
+    /* Hide scrollbar */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    .text-outline {
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+      color: transparent;
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -81,11 +121,13 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div class="noise"></div>
-    <div id="root"></div>
+
+<body>
+  <div class="noise"></div>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>
