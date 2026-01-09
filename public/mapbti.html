@@ -594,6 +594,415 @@
         transform: translateY(0);
       }
     }
+
+    /* 32가지 유형 섹션 스타일 */
+    .types-section {
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px dashed #333;
+    }
+
+    .types-toggle-btn {
+      background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+      border: 1px solid #444;
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 auto;
+    }
+
+    .types-toggle-btn:hover {
+      background: linear-gradient(135deg, #2a2a2a, #333);
+      border-color: var(--agree-color);
+      box-shadow: 0 5px 20px rgba(255, 77, 77, 0.2);
+    }
+
+    .toggle-arrow {
+      transition: transform 0.3s;
+    }
+
+    .toggle-arrow.open {
+      transform: rotate(180deg);
+    }
+
+    .types-container {
+      margin-top: 30px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .types-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      padding: 20px;
+      background: #1a1a1a;
+      border-radius: 15px;
+      border: 1px solid #333;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+
+    .legend-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.75rem;
+      color: #fff;
+    }
+
+    .legend-badge.hot {
+      background: linear-gradient(135deg, #ff4d4d, #ff7e7e);
+    }
+
+    .legend-badge.exotic {
+      background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    }
+
+    .legend-badge.pepper {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+    }
+
+    .legend-badge.allium {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+    }
+
+    .legend-badge.wasabi {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+    }
+
+    .types-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (min-width: 600px) {
+      .types-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      }
+    }
+
+    .type-card {
+      background: linear-gradient(145deg, #1e1e1e, #252525);
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 18px 12px;
+      text-align: left;
+      transition: all 0.3s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .type-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--agree-color), var(--disagree-color));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .type-card:hover {
+      transform: translateY(-3px);
+      border-color: #555;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .type-card:hover::before {
+      opacity: 1;
+    }
+
+    .type-card-code {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--agree-color);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      display: flex;
+      gap: 3px;
+    }
+
+    .type-card-code .letter {
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+
+    .type-card-code .letter.H {
+      background: rgba(255, 77, 77, 0.3);
+    }
+
+    .type-card-code .letter.M {
+      background: rgba(100, 100, 100, 0.3);
+    }
+
+    .type-card-code .letter.E {
+      background: rgba(155, 89, 182, 0.3);
+    }
+
+    .type-card-code .letter.I {
+      background: rgba(100, 100, 100, 0.3);
+    }
+
+    .type-card-code .letter.P {
+      background: rgba(243, 156, 18, 0.3);
+    }
+
+    .type-card-code .letter.S {
+      background: rgba(100, 100, 100, 0.3);
+    }
+
+    .type-card-code .letter.A {
+      background: rgba(46, 204, 113, 0.3);
+    }
+
+    .type-card-code .letter.O {
+      background: rgba(100, 100, 100, 0.3);
+    }
+
+    .type-card-code .letter.W {
+      background: rgba(52, 152, 219, 0.3);
+    }
+
+    .type-card-code .letter.N {
+      background: rgba(100, 100, 100, 0.3);
+    }
+
+    .type-card-code .letter.dash {
+      background: transparent;
+      padding: 0 2px;
+    }
+
+    .type-card-alias {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .type-card-desc {
+      font-size: 0.8rem;
+      color: #888;
+      line-height: 1.4;
+      word-break: keep-all;
+    }
+
+    /* 유형 상세 모달 스타일 */
+    .type-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .type-modal-overlay.show {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .type-modal-content {
+      background: linear-gradient(145deg, #1a1a1a, #222);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 450px;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      border: 1px solid #333;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .type-modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #aaa;
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .type-modal-close:hover {
+      background: rgba(255, 77, 77, 0.3);
+      color: #fff;
+    }
+
+    .type-modal-header {
+      padding: 30px 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+      background: linear-gradient(180deg, rgba(255, 77, 77, 0.1), transparent);
+    }
+
+    .type-modal-code {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 15px;
+    }
+
+    .type-modal-code .letter {
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .type-modal-code .letter.H {
+      background: linear-gradient(135deg, #ff4d4d, #ff7e7e);
+    }
+
+    .type-modal-code .letter.M {
+      background: linear-gradient(135deg, #555, #666);
+    }
+
+    .type-modal-code .letter.E {
+      background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    }
+
+    .type-modal-code .letter.I {
+      background: linear-gradient(135deg, #555, #666);
+    }
+
+    .type-modal-code .letter.P {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+    }
+
+    .type-modal-code .letter.S {
+      background: linear-gradient(135deg, #555, #666);
+    }
+
+    .type-modal-code .letter.A {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+    }
+
+    .type-modal-code .letter.O {
+      background: linear-gradient(135deg, #555, #666);
+    }
+
+    .type-modal-code .letter.W {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+    }
+
+    .type-modal-code .letter.N {
+      background: linear-gradient(135deg, #555, #666);
+    }
+
+    .type-modal-code .letter.dash {
+      background: transparent;
+      padding: 8px 4px;
+      color: #666;
+    }
+
+    .type-modal-alias {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(255, 77, 77, 0.3);
+    }
+
+    .type-modal-body {
+      padding: 25px;
+    }
+
+    .type-modal-tagline {
+      font-size: 1.1rem;
+      color: #ccc;
+      text-align: center;
+      margin-bottom: 25px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .type-modal-traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 25px;
+    }
+
+    .trait-badge {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .trait-badge.positive {
+      background: rgba(255, 77, 77, 0.2);
+      color: var(--agree-color);
+      border: 1px solid rgba(255, 77, 77, 0.4);
+    }
+
+    .trait-badge.negative {
+      background: rgba(123, 237, 159, 0.15);
+      color: var(--disagree-color);
+      border: 1px solid rgba(123, 237, 159, 0.3);
+    }
+
+    .type-modal-description {
+      color: #bbb;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .type-modal-description p {
+      margin-bottom: 15px;
+    }
+
+    .type-modal-description strong {
+      color: #fff;
+    }
   </style>
 </head>
 
@@ -621,6 +1030,43 @@
         </div>
       </div>
       <button class="btn-action" onclick="startTest()">검사 시작</button>
+
+      <!-- 32가지 유형 목록 섹션 -->
+      <div class="types-section">
+        <button class="types-toggle-btn" onclick="toggleTypesSection()">
+          <span>🔍 32가지 유형 미리보기</span>
+          <span class="toggle-arrow" id="toggle-arrow">▼</span>
+        </button>
+
+        <div class="types-container hidden" id="types-container">
+          <div class="types-legend">
+            <div class="legend-item">
+              <span class="legend-badge hot">H</span>
+              <span>Hot (매운맛)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-badge exotic">E</span>
+              <span>Exotic (얼얼함)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-badge pepper">P</span>
+              <span>Pepper (후추)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-badge allium">A</span>
+              <span>Allium (마늘)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-badge wasabi">W</span>
+              <span>Wasabi (와사비)</span>
+            </div>
+          </div>
+
+          <div class="types-grid" id="types-grid">
+            <!-- 자바스크립트로 동적 생성 -->
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="test-screen" class="hidden">
@@ -691,6 +1137,22 @@
     <div class="modal-guide-text">⬇️ 꾹 눌러서 이미지 저장!</div>
     <div id="modal-img-container"></div>
     <button class="modal-close-btn" onclick="closeModal()">닫기</button>
+  </div>
+
+  <!-- 유형 상세 모달 -->
+  <div id="type-detail-modal" class="type-modal-overlay" onclick="closeTypeModal(event)">
+    <div class="type-modal-content" onclick="event.stopPropagation()">
+      <button class="type-modal-close" onclick="closeTypeModal()">&times;</button>
+      <div class="type-modal-header">
+        <div class="type-modal-code" id="modal-type-code"></div>
+        <div class="type-modal-alias" id="modal-type-alias"></div>
+      </div>
+      <div class="type-modal-body">
+        <div class="type-modal-tagline" id="modal-type-tagline"></div>
+        <div class="type-modal-traits" id="modal-type-traits"></div>
+        <div class="type-modal-description" id="modal-type-description"></div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -1111,6 +1573,440 @@
     function goToLandingPage() {
       window.location.href = "https://buly.kr/1xzxUx8";
     }
+
+    // 32가지 유형 토글 기능
+    function toggleTypesSection() {
+      const container = document.getElementById('types-container');
+      const arrow = document.getElementById('toggle-arrow');
+
+      if (container.classList.contains('hidden')) {
+        container.classList.remove('hidden');
+        arrow.classList.add('open');
+        // 처음 열 때 카드 생성
+        if (!container.dataset.initialized) {
+          renderTypesGrid();
+          container.dataset.initialized = 'true';
+        }
+      } else {
+        container.classList.add('hidden');
+        arrow.classList.remove('open');
+      }
+    }
+
+    // 32가지 유형 카드 렌더링
+    function renderTypesGrid() {
+      const grid = document.getElementById('types-grid');
+      grid.innerHTML = '';
+
+      // DEFAULT 제외한 모든 유형 표시
+      const typeCodes = Object.keys(typeInfo).filter(code => code !== 'DEFAULT');
+
+      typeCodes.forEach(code => {
+        const info = typeInfo[code];
+        const card = document.createElement('div');
+        card.className = 'type-card';
+        card.style.cursor = 'pointer';
+
+        // 코드를 글자별로 분리하여 색상 적용
+        let codeHtml = '';
+        for (let char of code) {
+          if (char === '-') {
+            codeHtml += `<span class="letter dash">-</span>`;
+          } else {
+            codeHtml += `<span class="letter ${char}">${char}</span>`;
+          }
+        }
+
+        card.innerHTML = `
+          <div class="type-card-code">${codeHtml}</div>
+          <div class="type-card-alias">${info.alias}</div>
+          <div class="type-card-desc">${info.desc}</div>
+        `;
+
+        // 클릭 이벤트 추가
+        card.addEventListener('click', () => openTypeModal(code));
+
+        grid.appendChild(card);
+      });
+    }
+
+    // 유형 상세 정보 (확장 데이터)
+    const typeDetailInfo = {
+      'HEPA-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `당신은 미각의 모든 자극을 동시에 즐길 수 있는 <strong>진정한 자극 마스터</strong>입니다.<br><br>매운맛, 얼얼함, 후추의 타격감, 마늘의 풍미, 와사비의 코찡함까지... 모든 종류의 자극이 당신의 도파민 시스템을 활성화시킵니다.<br><br>스트레스를 받을수록 더 자극적인 음식을 찾게 되며, 음식으로 감정을 해소하는 경향이 강합니다.`
+      },
+      'HEPA-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `와사비의 코 찡한 자극만 빼면, 모든 자극을 즐기는 <strong>정통파 마라 매니아</strong>입니다.<br><br>마라탕, 훠궈, 양꼬치 등 중국식 매운맛의 진수를 알고 있으며, 마늘과 후추가 듬뿍 들어간 진한 국물을 사랑합니다.<br><br>와사비 특유의 코를 찌르는 날카로운 감각보다는 입안 전체에 퍼지는 묵직한 자극을 선호합니다.`
+      },
+      'HEPO-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `한국식 마늘맛보다는 <strong>이국적인 향신료</strong>를 선호하는 미식 사냥꾼입니다.<br><br>마라, 커리, 똠얌꿍 등 해외의 다양한 향신료를 즐기며, 와사비와 후추의 세련된 터치도 사랑합니다.<br><br>한식의 마늘 냄새는 조금 부담스럽지만, 낯선 향신료의 모험에는 언제나 열려있습니다.`
+      },
+      'HEPO-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `한국적이지 않은 <strong>이국적인 매운맛</strong>만 쏙쏙 골라먹는 퓨전 러버입니다.<br><br>마라탕의 얼얼함과 후추의 향기는 좋지만, 마늘이나 와사비는 그다지 끌리지 않습니다.<br><br>동남아 음식, 인도 커리 등 새로운 문화의 매운맛에 열광합니다.`
+      },
+      'HESA-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `후추의 텁텁한 타격감은 싫지만, 나머지 모든 자극은 환영하는 <strong>소프트 도파민 헌터</strong>입니다.<br><br>마라탕에 마늘을 듬뿍 넣고, 고기에는 와사비를 곁들여 먹는 것을 좋아합니다.<br><br>후추 가루가 씹히는 느낌만 없다면 대부분의 자극을 즐길 수 있습니다.`
+      },
+      'HESA-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `후추 없이 <strong>부드러운 국물에 마라와 마늘</strong>을 즐기는 타입입니다.<br><br>마라탕을 시킬 때 후추는 빼달라고 하고, 와사비도 그닥 좋아하지 않습니다.<br><br>하지만 마늘이 듬뿍 들어간 얼얼한 마라의 세계는 포기할 수 없죠.`
+      },
+      'HESO-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `마늘과 후추는 싫지만, <strong>마라와 와사비의 날카로운 맛</strong>은 즐기는 부드러운 카리스마입니다.<br><br>깔끔하게 매운맛과 코 찡함만 남기고, 향이 강한 마늘이나 텁텁한 후추는 피합니다.<br><br>세련되고 직접적인 자극을 선호합니다.`
+      },
+      'HESO-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `마라의 얼얼함과 매운맛은 좋지만, 다른 강한 자극은 부담스러운 <strong>마라탕 입문자</strong>입니다.<br><br>마라탕 백탕에서 시작해서 점점 레벨을 올려가는 중이신가요?<br><br>마늘, 후추, 와사비의 강한 향은 아직 매력을 못 느끼지만 마라의 세계에는 빠져들고 있습니다.`
+      },
+      'HIPA-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `마라(향신료)는 싫지만 <strong>한국식 매운맛은 마스터</strong>한 얼큰한 K-아재 입맛입니다.<br><br>김치찌개, 육개장, 매운탕... 한국의 빨간 국물이라면 다 좋아합니다.<br><br>마늘과 후추가 들어간 칼칼한 맛, 거기에 와사비까지 곁들이면 완벽합니다.`
+      },
+      'HIPA-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `김치찌개, 국밥, 매운탕. <strong>한국인의 밥상 그 자체</strong>를 대표하는 토종 한국인 입맛입니다.<br><br>마늘과 후추가 들어간 얼큰한 국물, 그리고 매운 김치가 있으면 밥 한 공기는 뚝딱입니다.<br><br>이국적인 향신료보다는 익숙한 한식의 매운맛이 최고입니다.`
+      },
+      'HIPO-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `마늘 없이 <strong>고기, 후추, 와사비, 매운맛</strong>을 즐기는 스테이크형 매운맛입니다.<br><br>구운 고기에 후추를 뿌리고 와사비를 살짝 찍어먹는 조합을 사랑합니다.<br><br>마늘의 진한 향보다는 세련되고 깔끔한 자극을 선호합니다.`
+      },
+      'HIPO-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `복잡한 향 없이 오직 <strong>캡사이신의 타격감</strong>만 즐기는 심플한 매운맛 애호가입니다.<br><br>라면에 청양고추, 불닭볶음면의 순수한 매운맛... 단순하고 직접적인 매움을 좋아합니다.<br><br>향신료나 마늘의 복잡한 풍미보다는 순수하게 '맵다'는 자극 자체를 즐깁니다.`
+      },
+      'HISA-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `후추의 텁텁함은 싫고 <strong>깔끔하게 매운맛</strong>을 즐기는 선호가입니다.<br><br>마늘과 와사비는 좋지만, 후추 가루가 씹히는 느낌은 싫습니다.<br><br>깔끔하면서도 자극적인 맛의 균형을 추구합니다.`
+      },
+      'HISA-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `자극적인 후추/향신료 없이 <strong>깔끔하게 매운맛</strong>만 즐기는 담백한 타입입니다.<br><br>마늘이 들어간 매콤한 한식은 좋지만, 복잡한 향신료는 부담스럽습니다.<br><br>김치찌개에 마늘 듬뿍, 그게 최고입니다.`
+      },
+      'HISO-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `다른 자극은 필요 없다. 오직 <strong>매운맛과 코 찡함</strong>만! 와사비 매니아입니다.<br><br>초밥에 와사비 듬뿍, 냉모밀에 와사비 풀기는 기본입니다.<br><br>마늘, 후추, 향신료는 다 필요 없고 순수한 캡사이신과 와사비의 조합이면 충분합니다.`
+      },
+      'HISO-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: true },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `매운건 좋지만 다른 향신료나 자극은 거부하는 <strong>선택적 매운맛</strong> 애호가입니다.<br><br>오직 캡사이신의 순수한 매운맛만 즐기고 싶습니다.<br><br>불닭볶음면은 좋지만 마라탕은 별로, 와사비도 굳이 필요 없습니다.`
+      },
+      'MEPA-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `매운건 못 먹지만 <strong>향신료와 자극</strong>은 즐기는 모험가, 맵찔이 미식가입니다.<br><br>마라탕은 백탕으로, 하지만 마늘과 향신료는 듬뿍! 와사비도 좋아합니다.<br><br>매운맛만 빼면 다 환영합니다.`
+      },
+      'MEPA-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `매운건 싫지만 <strong>마라의 얼얼함과 진한 맛</strong>은 포기 못하는 마라탕 순한맛(백탕) 러버입니다.<br><br>가게에 가면 항상 0단계나 백탕을 주문하지만, 마늘과 후추는 잔뜩 넣습니다.<br><br>매운맛 없이도 충분히 자극적인 맛을 즐길 수 있다는 걸 알고 있죠.`
+      },
+      'MEPO-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `매운 한식보다는 <strong>후추와 허브가 들어간 양식</strong>파, 이국적인 브런치 스타일입니다.<br><br>스테이크에 후추, 파스타에 향신료, 초밥에 와사비... 세련된 조합을 좋아합니다.<br><br>마늘 냄새나는 한식보다는 깔끔한 양식이 취향입니다.`
+      },
+      'MEPO-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `매운맛도, 마늘도 싫지만 <strong>이국적인 향</strong>은 좋아하는 순한맛 에스닉 푸드 애호가입니다.<br><br>똠얌꿍 순한맛, 커리, 향신료 가득한 음식들을 좋아합니다.<br><br>단, 너무 맵거나 마늘 냄새가 강한 건 패스입니다.`
+      },
+      'MESA-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `맵고 텁텁한 건 싫지만, <strong>마늘/향신료/와사비의 풍미</strong>는 사랑하는 섬세한 미식가입니다.<br><br>알리오 올리오처럼 마늘향 가득한 요리, 초밥의 와사비를 즐깁니다.<br><br>후추가루 씹히는 건 싫고, 매운 것도 못 먹지만 풍미에는 예민합니다.`
+      },
+      'MESA-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `자극적이지 않고 <strong>마늘과 향신료가 어우러진 깊은 맛</strong>을 선호하는 향긋한 쌀국수 타입입니다.<br><br>베트남 쌀국수, 부드러운 카레, 마늘향 파스타를 좋아합니다.<br><br>너무 자극적이지 않으면서 풍미가 깊은 요리가 취향입니다.`
+      },
+      'MESO-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `가볍고 상큼하면서 <strong>코가 뻥 뚫리는 맛</strong>을 선호하는 톡 쏘는 샐러드 스타일입니다.<br><br>와사비 드레싱, 겨자소스, 레몬... 가볍지만 자극적인 조합을 좋아합니다.<br><br>무겁고 기름진 음식보다는 신선하고 깔끔한 자극을 추구합니다.`
+      },
+      'MESO-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: true },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `맵진 않지만 <strong>혀가 얼얼한 독특한 느낌</strong>을 즐기는 호기심 많은 순한맛입니다.<br><br>마라탕 백탕, 사천요리의 산초... 매운맛 없이 얼얼한 감각만 살짝 즐깁니다.<br><br>새로운 맛에 관심은 있지만, 너무 강한 자극은 부담스럽습니다.`
+      },
+      'MIPA-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `매운건 싫지만 <strong>와사비, 후추, 마늘의 풍미</strong>는 사랑하는 일식 돈까스 매니아입니다.<br><br>돈까스에 겨자, 스테이크에 후추, 마늘빵의 향... 이 조합들을 사랑합니다.<br><br>캡사이신만 빼면 대부분의 풍미를 즐길 수 있습니다.`
+      },
+      'MIPA-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `매운맛 없이 <strong>후추와 마늘로 낸 깊은 맛</strong>을 사랑하는 진한 곰탕 매니아입니다.<br><br>곰탕에 후추 듬뿍, 수육에 마늘... 한식의 깊은 맛을 알고 있습니다.<br><br>자극적인 매운맛보다는 진하고 깊은 풍미를 추구합니다.`
+      },
+      'MIPO-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `재료 본연의 맛에 <strong>후추와 와사비만 살짝</strong> 더하는 고급 스테이크 취향입니다.<br><br>질 좋은 재료에 후추 한 꼬집, 와사비 한 점. 그게 최고입니다.<br><br>마늘이나 강한 양념보다는 재료의 맛을 살리는 미니멀한 조미를 선호합니다.`
+      },
+      'MIPO-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: true },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `슴슴한 맛 속에 <strong>후추 향만 살짝</strong> 즐기는 평양냉면 매니아입니다.<br><br>담백하고 깔끔한 육수에 후추만 살짝... 재료 본연의 맛을 중시합니다.<br><br>자극적인 양념보다는 은은한 풍미를 알아보는 섬세한 미각의 소유자입니다.`
+      },
+      'MISA-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `후추/마라 없이 깔끔하게 <strong>와사비와 마늘</strong>만 곁들이는 초밥과 삼겹살 스타일입니다.<br><br>삼겹살에 구운 마늘, 초밥에 와사비만 있으면 됩니다.<br><br>복잡한 향신료 없이 깔끔하고 직접적인 풍미를 선호합니다.`
+      },
+      'MISA-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: true },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `된장찌개처럼 <strong>구수하고 마늘 들어간 안 매운 한식</strong>을 사랑하는 한국인의 밥상(순한맛)입니다.<br><br>매운 건 못 먹지만 마늘이 듬뿍 들어간 구수한 한식은 최고입니다.<br><br>된장국, 삼계탕, 갈비탕... 순하지만 깊은 맛이 취향입니다.`
+      },
+      'MISO-W': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: true }
+        ],
+        description: `아무 자극도 싫지만 <strong>와사비 하나</strong>만큼은 허락하는 스시 장인입니다.<br><br>깔끔한 초밥에 와사비... 그것만으로 충분합니다.<br><br>다른 자극은 다 필요 없고, 오직 신선한 재료와 와사비의 코찡함만 즐깁니다.`
+      },
+      'MISO-N': {
+        traits: [
+          { text: '🔥 매운맛', positive: false },
+          { text: '⚡ 얼얼함', positive: false },
+          { text: '🌶️ 후추', positive: false },
+          { text: '🧄 마늘', positive: false },
+          { text: '💚 와사비', positive: false }
+        ],
+        description: `자극 없는 <strong>평화로운 맛</strong>을 추구하는 순수주의자, 순수한 아기 입맛입니다.<br><br>재료 본연의 맛, 담백함, 깔끔함... 그것이 최고입니다.<br><br>자극적인 음식보다는 정갈하고 순수한 맛에서 행복을 느낍니다.`
+      }
+    };
+
+    // 유형 모달 열기
+    function openTypeModal(code) {
+      const modal = document.getElementById('type-detail-modal');
+      const info = typeInfo[code];
+      const detailInfo = typeDetailInfo[code];
+
+      // 코드 HTML 생성
+      let codeHtml = '';
+      for (let char of code) {
+        if (char === '-') {
+          codeHtml += `<span class="letter dash">-</span>`;
+        } else {
+          codeHtml += `<span class="letter ${char}">${char}</span>`;
+        }
+      }
+
+      document.getElementById('modal-type-code').innerHTML = codeHtml;
+      document.getElementById('modal-type-alias').textContent = info.alias;
+      document.getElementById('modal-type-tagline').textContent = `"${info.desc}"`;
+
+      // 특성 배지 생성
+      if (detailInfo && detailInfo.traits) {
+        const traitsHtml = detailInfo.traits.map(trait =>
+          `<span class="trait-badge ${trait.positive ? 'positive' : 'negative'}">${trait.text}</span>`
+        ).join('');
+        document.getElementById('modal-type-traits').innerHTML = traitsHtml;
+      }
+
+      // 상세 설명
+      if (detailInfo && detailInfo.description) {
+        document.getElementById('modal-type-description').innerHTML = `<p>${detailInfo.description}</p>`;
+      } else {
+        document.getElementById('modal-type-description').innerHTML = `<p>${info.desc}</p>`;
+      }
+
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 유형 모달 닫기
+    function closeTypeModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      const modal = document.getElementById('type-detail-modal');
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    // ESC 키로 모달 닫기
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeTypeModal();
+      }
+    });
   </script>
 </body>
 
