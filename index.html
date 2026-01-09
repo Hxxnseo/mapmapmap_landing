@@ -36,6 +36,62 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://mapmapmap-landing.vercel.app/" />
 
+  <!-- Schema.org Structured Data (GEO 최적화) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "맵맵맵",
+    "alternateName": ["MapMapMap", "맵기 리뷰 앱"],
+    "description": "32가지 미각 성향을 기반으로 맵기 리뷰 데이터에서 나에게 딱 맞는 매운 맛집을 추천해주는 큐레이션 서비스",
+    "url": "https://mapmapmap-landing.vercel.app/",
+    "applicationCategory": "FoodService",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "맵맵맵 팀",
+      "url": "https://mapmapmap-landing.vercel.app/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "맵맵맵은 어떤 서비스인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "맵맵맵은 32가지 미각 성향(MAP-BTI)을 기반으로 맵기 리뷰 데이터를 분석해 나에게 딱 맞는 매운 맛집을 추천해주는 큐레이션 서비스입니다. 더 이상 '생각보다 안 매워요' 같은 리뷰에 속지 마세요!"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "MAP-BTI란 무엇인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MAP-BTI는 49개 질문을 통해 당신의 미각 성향을 32가지 유형으로 분류하는 테스트입니다. 매운맛(H/M), 향신료 선호도(E/I), 후추 타격감(P/S), 마늘 선호도(A/O), 와사비 선호도(W/N) 5가지 축으로 분석합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "맵맵맵 사전예약 혜택은 무엇인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "사전예약 시 오픈 기념 특별 할인, 베타 테스트 우선 참여권, 그리고 MAP-BTI 결과 자동 연동 혜택을 받으실 수 있습니다."
+        }
+      }
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" as="style" crossorigin
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
