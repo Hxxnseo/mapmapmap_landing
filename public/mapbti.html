@@ -279,7 +279,7 @@
       background: linear-gradient(135deg, var(--agree-color), #ff7e7e);
       color: #121212;
       border: none;
-      padding: 18px 50px;
+      padding: 18px 30px;
       font-size: 1.1rem;
       font-weight: 800;
       border-radius: 50px;
@@ -305,7 +305,7 @@
       background: #333;
       color: #aaa;
       border: 1px solid #555;
-      padding: 18px 30px;
+      padding: 18px 20px;
       font-size: 1rem;
       font-weight: 700;
       border-radius: 50px;
@@ -518,13 +518,226 @@
       gap: 8px;
     }
 
-    /* 새로운 CTA 컨테이너 스타일 */
-    .cta-container {
+    /* 결과 공유 버튼 섹션 */
+    .share-section {
+      margin-top: 30px;
+      padding: 0 10px;
+    }
+
+    .btn-share {
+      width: 100%;
+      background: #333;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 16px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-share:hover {
+      background: #444;
+      border-color: #777;
+    }
+
+    /* 프리미엄 CTA 배너 */
+    .premium-cta-banner {
       position: relative;
-      margin-top: 40px;
-      z-index: 10;
-      padding: 0 20px 50px 20px;
-      background: linear-gradient(to bottom, transparent, var(--bg-color) 15%);
+      margin: 40px 0 30px;
+      padding: 30px 20px;
+      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+      border-radius: 28px;
+      border: 1px solid #333;
+      overflow: hidden;
+    }
+
+    .cta-glow {
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 77, 77, 0.15) 0%, transparent 50%);
+      pointer-events: none;
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+
+      0%,
+      100% {
+        opacity: 0.5;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+
+    .cta-header {
+      text-align: center;
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .cta-badge {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--agree-color), #ff7e7e);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    .cta-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .cta-title .highlight {
+      color: var(--agree-color);
+      font-weight: 900;
+    }
+
+    .cta-title .gradient-text {
+      background: linear-gradient(90deg, var(--agree-color), #ffaa00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cta-service-intro {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .service-logo {
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--agree-color), #ff7e7e, #ffaa00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      color: #aaa;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .service-desc strong {
+      color: #fff;
+    }
+
+    .cta-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s;
+    }
+
+    .benefit-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .benefit-item.featured {
+      background: rgba(255, 77, 77, 0.1);
+      border-color: rgba(255, 77, 77, 0.3);
+    }
+
+    .benefit-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .benefit-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .benefit-text strong {
+      font-size: 0.95rem;
+      color: #fff;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .benefit-text span {
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .benefit-item.featured .benefit-text span {
+      color: var(--agree-color);
+      font-weight: 600;
+    }
+
+    .cta-main-button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--agree-color), #ff7e7e);
+      color: #fff;
+      border: none;
+      padding: 20px 30px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 8px 30px rgba(255, 77, 77, 0.4);
+    }
+
+    .cta-main-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(255, 77, 77, 0.5);
+    }
+
+    .cta-main-button .btn-arrow {
+      font-size: 1.3rem;
+      transition: transform 0.3s;
+    }
+
+    .cta-main-button:hover .btn-arrow {
+      transform: translateX(5px);
+    }
+
+    .cta-footer-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 15px;
     }
 
     /* 새로운 워터마크 스타일 */
@@ -1114,21 +1327,63 @@
         </div>
       </div>
 
-      <div class="cta-container">
+      <!-- 결과 공유 버튼 -->
+      <div class="share-section">
+        <button class="btn-share" onclick="shareToInstagram()">
+          📸 결과 이미지 저장 / 공유하기
+        </button>
+      </div>
 
-        <p style="color:#aaa; font-size:0.95rem; margin-top:10px; margin-bottom:20px; line-height:1.6;">
-          <strong>실패 없는 매운 맛집</strong>을 찾고 싶으신가요?<br>
-          저희가 만들고 있는 <strong>'맵맵맵'</strong>을 확인해보세요!
-        </p>
+      <!-- 프리미엄 CTA 배너 -->
+      <div class="premium-cta-banner">
+        <div class="cta-glow"></div>
 
-        <div class="cta-buttons-wrapper">
-          <button class="btn-cta-common btn-insta" onclick="shareToInstagram()">
-            📸 결과 공유<br><span style="font-size:0.85rem; font-weight:normal">(태그 자동복사)</span>
-          </button>
-          <button class="btn-cta-common btn-landing" onclick="goToLandingPage()">
-            🚀 맵맵맵<br>구경하기
-          </button>
+        <div class="cta-header">
+          <span class="cta-badge">🔥 MAP-BTI 유저 전용</span>
+          <h3 class="cta-title">
+            당신의 <span class="highlight" id="cta-user-type">HEPA-W</span> 유형에 맞는<br>
+            <span class="gradient-text">실패 없는 매운 맛집</span>을 찾아드려요
+          </h3>
         </div>
+
+        <div class="cta-service-intro">
+          <div class="service-logo">맵맵맵</div>
+          <p class="service-desc">
+            32가지 미각 성향을 기반으로 <strong>나에게 딱 맞는 매운맛</strong>을 추천해주는<br>
+            AI 매운 맛집 큐레이션 서비스
+          </p>
+        </div>
+
+        <div class="cta-benefits">
+          <div class="benefit-item">
+            <span class="benefit-icon">🎁</span>
+            <div class="benefit-text">
+              <strong>오픈 기념 한정 혜택</strong>
+              <span>사전예약자 전원 특별 할인</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <span class="benefit-icon">⚡</span>
+            <div class="benefit-text">
+              <strong>베타 테스트 우선 참여</strong>
+              <span>가장 먼저 서비스를 경험하세요</span>
+            </div>
+          </div>
+          <div class="benefit-item featured">
+            <span class="benefit-icon">✨</span>
+            <div class="benefit-text">
+              <strong>MAP-BTI 결과 자동 연동</strong>
+              <span>사전예약 시 결과가 자동 입력돼요!</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="cta-main-button" onclick="goToLandingWithResult()">
+          <span class="btn-text">지금 사전예약하고 혜택받기</span>
+          <span class="btn-arrow">→</span>
+        </button>
+
+        <p class="cta-footer-note">* 정식 출시 시 가장 먼저 알림을 받으실 수 있습니다</p>
       </div>
     </div>
   </div>
@@ -1404,11 +1659,20 @@
         (P.A >= 50 ? 'A' : 'O') + '-' +
         (P.W >= 50 ? 'W' : 'N');
 
+      // 전역 변수에 결과 저장 (CTA에서 사용)
+      window.userMapBTIResult = code;
+
       const info = typeInfo[code] || typeInfo['DEFAULT'];
       const content = generateAnalysisContent(code, P, info);
 
       document.getElementById('result-type-code').innerText = code;
       document.getElementById('result-alias').innerText = `"${info.alias}"`;
+
+      // CTA 배너에 사용자 유형 표시
+      const ctaUserType = document.getElementById('cta-user-type');
+      if (ctaUserType) {
+        ctaUserType.textContent = code;
+      }
 
       renderChart(P);
       document.getElementById('intro-content').innerHTML = content.intro;
@@ -1572,6 +1836,14 @@
 
     function goToLandingPage() {
       window.location.href = "https://buly.kr/1xzxUx8";
+    }
+
+    // MAP-BTI 결과를 URL 파라미터로 전달하며 랜딩페이지로 이동
+    function goToLandingWithResult() {
+      const result = window.userMapBTIResult || '';
+      // 실제 배포 URL에 맞게 수정 필요
+      const landingUrl = window.location.origin + '/?mapbti=' + encodeURIComponent(result);
+      window.location.href = landingUrl;
     }
 
     // 32가지 유형 토글 기능

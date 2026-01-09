@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SignupFormData } from '../types';
 import { SPICY_LEVELS } from '../constants';
 import { CheckCircle2, X, ArrowRight, Check, Info, ChevronDown, Shield, Sparkles, Loader2, ExternalLink } from 'lucide-react';
@@ -23,6 +23,19 @@ export const SignupForm: React.FC = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [mapBTIAutoFilled, setMapBTIAutoFilled] = useState(false);
+
+  // URL 파라미터에서 MAP-BTI 결과 자동 입력
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const mapbtiParam = urlParams.get('mapbti');
+    if (mapbtiParam) {
+      setFormData(prev => ({ ...prev, mapBTI: mapbtiParam.toUpperCase() }));
+      setMapBTIAutoFilled(true);
+      // URL에서 파라미터 제거 (깔끔하게)
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let val = e.target.value.replace(/\D/g, '');
@@ -221,20 +234,26 @@ export const SignupForm: React.FC = () => {
                     name="mapBTI"
                     value={formData.mapBTI}
                     onChange={handleMapBTIChange}
-                    className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
+                    className={`w-full bg-transparent border-b-2 py-4 text-2xl font-bold outline-none transition-colors peer placeholder-transparent ${mapBTIAutoFilled ? 'border-brand-red text-brand-red' : 'border-white/20 focus:border-brand-red'}`}
                     placeholder="MapBTI Result"
                 />
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">맵BTI Result</label>
-                <a
-                    href="/mapbti.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-brand-orange hover:text-brand-red transition-colors text-sm font-bold"
-                >
-                    <span>맵BTI 하러가기</span>
-                    <ExternalLink size={16} />
-                </a>
-
+                <label className={`absolute left-0 -top-2 text-xs font-black uppercase transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs ${mapBTIAutoFilled ? 'text-brand-red' : 'text-white/40 peer-focus:text-brand-red'}`}>맵BTI Result</label>
+                {mapBTIAutoFilled ? (
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-brand-red text-sm font-bold">
+                        <Sparkles size={16} />
+                        <span>자동 연동 완료!</span>
+                    </div>
+                ) : (
+                    <a
+                        href="/mapbti.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-brand-orange hover:text-brand-red transition-colors text-sm font-bold"
+                    >
+                        <span>맵BTI 하러가기</span>
+                        <ExternalLink size={16} />
+                    </a>
+                )}
             </div>
 
             <div className="pt-4">
