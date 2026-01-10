@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Target, Zap, Check, AlertTriangle, XCircle, Flame } from 'lucide-react';
+import { Target, Zap, Check, AlertTriangle, XCircle, Flame, Gift } from 'lucide-react';
 
 export const Features: React.FC = () => {
   return (
@@ -179,6 +179,94 @@ export const Features: React.FC = () => {
                     "'엄청나게 매워요'에 속아 맵기 실패한 적 있죠?<br/>
                     이제 <span className="text-white font-bold underline decoration-brand-red underline-offset-4">진짜 고수</span>들의 검증된 리뷰만 확인하세요."
                 </p>
+            </div>
+        </div>
+
+        {/* Row 3: Left Heavy - MAPKET Store */}
+        <div className="flex flex-col lg:flex-row gap-16 items-center mt-40">
+            <div className="lg:w-1/2 relative group w-full">
+                {/* Background Glow - Orange/Yellow for reward vibe */}
+                <div className="absolute -inset-4 bg-brand-orange/20 blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-700"></div>
+                
+                {/* Graphic Container */}
+                <div className="relative aspect-[4/3] md:aspect-video rounded-[2.5rem] overflow-hidden bg-[#111] border border-white/10 flex flex-col shadow-2xl">
+                    {/* Header */}
+                    <div className="h-12 border-b border-white/5 flex items-center justify-between px-6 bg-white/[0.02]">
+                        <div className="flex items-center gap-2">
+                            <div className="w-3 h-3 rounded-full bg-brand-orange"></div>
+                            <span className="text-[10px] font-mono text-white/30 tracking-widest">SUPER_MAPKET_STORE</span>
+                        </div>
+                        <div className="text-[10px] font-bold text-brand-orange">🔥 HOT DEALS</div>
+                    </div>
+
+                    {/* Content: Store Products */}
+                    <div className="flex-1 p-6 relative overflow-hidden">
+                        {/* Grid background */}
+                        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:30px_30px]"></div>
+                        
+                        {/* Points earned banner */}
+                        <div className="relative z-10 bg-gradient-to-r from-brand-orange/20 to-brand-red/20 rounded-xl p-3 mb-4 border border-brand-orange/30 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 bg-brand-orange rounded-full flex items-center justify-center text-white text-xs font-bold">✏️</div>
+                                <span className="text-white/80 text-xs font-bold">리뷰 작성 완료!</span>
+                            </div>
+                            <div className="text-brand-orange font-black text-lg">+500P</div>
+                        </div>
+
+                        {/* Product Grid */}
+                        <div className="relative z-10 grid grid-cols-3 gap-3">
+                            {[
+                                { emoji: '🌶️', name: '불마왕 소스', price: '3,000P', tag: 'HOT' },
+                                { emoji: '💊', name: '위장약 세트', price: '2,500P', tag: '필수템' },
+                                { emoji: '🥛', name: '쿨피스 1개', price: '1,500P', tag: 'BEST' },
+                            ].map((product, i) => (
+                                <div key={i} className="bg-white/5 rounded-xl p-3 border border-white/10 hover:border-brand-orange/50 transition-all group/item cursor-pointer hover:scale-105">
+                                    <div className="relative">
+                                        <div className="text-3xl mb-2 text-center">{product.emoji}</div>
+                                        {product.tag && (
+                                            <span className="absolute -top-1 -right-1 text-[8px] bg-brand-red text-white px-1.5 py-0.5 rounded-full font-bold">{product.tag}</span>
+                                        )}
+                                    </div>
+                                    <p className="text-[10px] text-white/70 font-bold text-center truncate">{product.name}</p>
+                                    <p className="text-xs text-brand-orange font-black text-center mt-1">{product.price}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* My Points */}
+                        <div className="relative z-10 mt-4 bg-black/40 backdrop-blur-sm rounded-xl p-3 border border-white/10 flex items-center justify-between">
+                            <span className="text-white/50 text-xs font-bold">내 포인트</span>
+                            <div className="flex items-center gap-2">
+                                <span className="text-white font-black text-xl">5,500</span>
+                                <span className="text-brand-orange text-xs font-bold">P</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="lg:w-1/2 lg:pl-8">
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-full bg-brand-orange/10 flex items-center justify-center border border-brand-orange/20 text-brand-orange">
+                        <Gift size={24} />
+                    </div>
+                    <span className="text-brand-orange font-bold tracking-widest uppercase text-sm">Reward Store</span>
+                </div>
+                <h4 className="text-white font-black uppercase tracking-tighter text-4xl md:text-5xl mb-6 leading-[0.9]">
+                    03. 슈퍼맵켓<br/>
+                    <span className="text-white/20">SUPER MAPKET.</span>
+                </h4>
+                <p className="text-xl text-white/60 leading-relaxed font-medium break-keep mb-6">
+                    "리뷰 하나에 <span className="text-brand-orange font-bold">500P</span> 적립!<br/>
+                    모은 포인트로 <span className="text-white font-bold">매운맛 필수템</span>들을 득템하세요."
+                </p>
+                <div className="flex flex-wrap gap-2">
+                    {['🌶️ 매운소스', '💊 위장약', '🥛 쿨피스', '🎁 굿즈'].map((item, i) => (
+                        <span key={i} className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-full text-sm text-white/60 font-medium">
+                            {item}
+                        </span>
+                    ))}
+                </div>
             </div>
         </div>
 
