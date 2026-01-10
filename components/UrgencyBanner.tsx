@@ -91,7 +91,7 @@ export const UrgencyBanner: React.FC = () => {
                             <div className="w-10 h-10 bg-brand-orange/20 text-brand-orange rounded-full flex items-center justify-center shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-colors">
                                 <Coins size={20} />
                             </div>
-                            <div>
+                            <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-1">
                                     <h4 className="font-bold text-white text-lg">최대 5,000P 지급</h4>
                                     <span className="text-[10px] bg-brand-red text-white px-2 py-0.5 rounded-full font-bold animate-pulse">x10배</span>
@@ -99,8 +99,24 @@ export const UrgencyBanner: React.FC = () => {
                                 <p className="text-white/40 text-xs mb-3">
                                     100시간 내 등록 시 <span className="text-white font-bold underline">5,000P</span> (이후 500P)
                                 </p>
-                                <div className="bg-black/30 rounded-lg p-3 text-xs text-white/70 leading-relaxed">
-                                    <span className="text-brand-orange font-bold">💡 사용처:</span> 맵맵맵 샘플러, 상품권, <span className="text-white underline decoration-brand-red">위장약 & 쿨피스</span> 등 구매 가능
+                                
+                                {/* 포인트 가치 설명 */}
+                                <div className="bg-gradient-to-r from-brand-orange/20 to-brand-red/20 rounded-xl p-4 border border-brand-orange/30">
+                                    <p className="text-brand-orange font-bold text-sm mb-2">💰 5,000P = 현금 5,000원 가치!</p>
+                                    <div className="space-y-2">
+                                        <div className="flex items-center gap-2 text-xs text-white/70">
+                                            <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">🍜</span>
+                                            <span>맵맵맵 <span className="text-white font-bold">제휴 맛집 할인</span>에 사용</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-xs text-white/70">
+                                            <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">🎁</span>
+                                            <span><span className="text-white font-bold">굿즈 & 상품권</span> 교환</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-xs text-white/70">
+                                            <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">💊</span>
+                                            <span><span className="text-white font-bold">위장약 & 쿨피스</span> 구매 (매운맛 필수템!)</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
