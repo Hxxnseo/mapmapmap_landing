@@ -45,7 +45,7 @@ export const Hero: React.FC = () => {
                 onClick={scrollToForm}
                 className="group flex items-center gap-4 bg-white text-black px-8 py-6 rounded-full hover:bg-brand-red hover:text-white transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] transform hover:scale-105 active:scale-95 shadow-2xl shrink-0"
             >
-                <span className="text-xl font-black tracking-tighter italic">골든타임 탑승하기</span>
+                <span className="text-xl font-black tracking-tighter italic">지금 사전예약하기</span>
                 <div className="w-10 h-10 rounded-full bg-brand-black flex items-center justify-center group-hover:bg-white transition-colors">
                     <ArrowRight className="text-white group-hover:text-brand-black transition-colors" />
                 </div>
