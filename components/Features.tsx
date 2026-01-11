@@ -66,7 +66,7 @@ export const Features: React.FC = () => {
                 </div>
             </div>
 
-            <div className="lg:w-1/2 lg:pl-8">
+            <div className="lg:w-1/2 lg:pl-8 w-full">
                 <div className="flex items-center gap-3 mb-6">
                     <div className="w-12 h-12 rounded-full bg-brand-red/10 flex items-center justify-center border border-brand-red/20 text-brand-red">
                         <Target size={24} />
@@ -164,12 +164,12 @@ export const Features: React.FC = () => {
                 </div>
             </div>
             
-            <div className="lg:w-1/2 lg:pr-8">
-                <div className="flex items-center gap-3 mb-6 lg:justify-end">
-                    <span className="text-brand-red font-bold tracking-widest uppercase text-sm">Gosu Only Filter</span>
+            <div className="lg:w-1/2 lg:pr-8 w-full">
+                <div className="flex items-center gap-3 mb-6 lg:flex-row-reverse lg:justify-start">
                     <div className="w-12 h-12 rounded-full bg-brand-red/10 flex items-center justify-center border border-brand-red/20 text-brand-red">
                         <Flame size={24} fill="currentColor" />
                     </div>
+                    <span className="text-brand-red font-bold tracking-widest uppercase text-sm">Gosu Only Filter</span>
                 </div>
                 <h4 className="text-white font-black uppercase tracking-tighter text-4xl md:text-5xl mb-6 leading-[0.9] lg:text-right">
                     02. 맵고수 검증 필터<br/>
@@ -245,7 +245,7 @@ export const Features: React.FC = () => {
                 </div>
             </div>
 
-            <div className="lg:w-1/2 lg:pl-8">
+            <div className="lg:w-1/2 lg:pl-8 w-full">
                 <div className="flex items-center gap-3 mb-6">
                     <div className="w-12 h-12 rounded-full bg-brand-orange/10 flex items-center justify-center border border-brand-orange/20 text-brand-orange">
                         <Gift size={24} />

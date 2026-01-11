@@ -93,7 +93,7 @@ export const AppPreview: React.FC = () => {
         </div>
         
         <p className="mt-10 text-sm text-white/40 bg-white/5 px-6 py-3 rounded-full border border-white/10">
-          🔨 열심히 개발 중! 사전등록하면 제일 먼저 써볼 수 있어요
+          <span className="text-brand-red font-bold">🚀 2026년 상반기 출시 예정</span> | 사전등록하면 제일 먼저 써볼 수 있어요
         </p>
       </div>
     </section>
