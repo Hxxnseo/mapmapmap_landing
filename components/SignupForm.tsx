@@ -157,7 +157,7 @@ export const SignupForm: React.FC = () => {
             <h2 className="text-6xl md:text-8xl font-[900] uppercase tracking-tighter mb-4 italic">
                 Get Early<br/><span className="text-brand-red">Access</span>
             </h2>
-            <p className="text-white/40 text-lg md:text-xl font-medium">
+            <p className="text-white text-lg md:text-xl font-medium">
                 오픈 기념 한정 혜택<br/>
                 지금 바로 등록하세요
             </p>
@@ -174,7 +174,7 @@ export const SignupForm: React.FC = () => {
                     className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
                     placeholder="Nickname"
                 />
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Nickname *</label>
+                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Nickname *</label>
             </div>
 
             <div className="group relative">
@@ -187,7 +187,7 @@ export const SignupForm: React.FC = () => {
                     className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
                     placeholder="Mobile"
                 />
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40 transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Phone Number *</label>
+                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Phone Number *</label>
             </div>
 
             <div className="group relative">
@@ -198,7 +198,7 @@ export const SignupForm: React.FC = () => {
                         onChange={handleChange}
                         required
                         className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors appearance-none cursor-pointer rounded-none"
-                        style={{ color: formData.source ? '#fff' : 'rgba(255,255,255,0.3)' }}
+                        style={{ color: formData.source ? '#fff' : '#fff' }}
                     >
                         <option value="" disabled className="hidden">선택해주세요</option>
                         <option value="instagram" className="bg-brand-black text-white">인스타그램</option>
@@ -208,11 +208,11 @@ export const SignupForm: React.FC = () => {
                     </select>
                     <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
                 </div>
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white/40">Where did you find us? *</label>
+                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white">Where did you find us? *</label>
             </div>
 
             <div className="pt-4">
-                <p className="text-xs font-black uppercase text-white/40 mb-6 tracking-widest">Select Your Level *</p>
+                <p className="text-xs font-black uppercase text-white mb-6 tracking-widest">Select Your Level *</p>
                 <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
                     {SPICY_LEVELS.map((lvl) => (
                         <button
@@ -237,7 +237,7 @@ export const SignupForm: React.FC = () => {
                     className={`w-full bg-transparent border-b-2 py-4 text-2xl font-bold outline-none transition-colors peer placeholder-transparent ${mapBTIAutoFilled ? 'border-brand-red text-brand-red' : 'border-white/20 focus:border-brand-red'}`}
                     placeholder="MapBTI Result"
                 />
-                <label className={`absolute left-0 -top-2 text-xs font-black uppercase transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs ${mapBTIAutoFilled ? 'text-brand-red' : 'text-white/40 peer-focus:text-brand-red'}`}>맵BTI Result</label>
+                <label className={`absolute left-0 -top-2 text-xs font-black uppercase transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs ${mapBTIAutoFilled ? 'text-brand-red' : 'text-white peer-focus:text-brand-red'}`}>맵BTI Result</label>
                 {mapBTIAutoFilled ? (
                     <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-brand-red text-sm font-bold">
                         <Sparkles size={16} />
