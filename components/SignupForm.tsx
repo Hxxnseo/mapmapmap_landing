@@ -167,6 +167,7 @@ export const SignupForm: React.FC = () => {
             <div className="group relative">
                 <input 
                     type="text"
+                    id="nickname"
                     name="nickname"
                     value={formData.nickname}
                     onChange={handleChange}
@@ -174,12 +175,13 @@ export const SignupForm: React.FC = () => {
                     className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
                     placeholder="Nickname"
                 />
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Nickname *</label>
+                <label htmlFor="nickname" className="absolute left-0 -top-2 text-xs font-black uppercase text-white transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red cursor-pointer">Nickname *</label>
             </div>
 
             <div className="group relative">
                 <input 
                     type="tel"
+                    id="phone"
                     name="phone"
                     value={formData.phone}
                     onChange={handlePhoneChange}
@@ -187,12 +189,13 @@ export const SignupForm: React.FC = () => {
                     className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
                     placeholder="Mobile"
                 />
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red">Phone Number *</label>
+                <label htmlFor="phone" className="absolute left-0 -top-2 text-xs font-black uppercase text-white transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red cursor-pointer">Phone Number *</label>
             </div>
 
             <div className="group relative">
                 <div className="relative">
                     <select
+                        id="source"
                         name="source"
                         value={formData.source}
                         onChange={handleChange}
@@ -208,7 +211,7 @@ export const SignupForm: React.FC = () => {
                     </select>
                     <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
                 </div>
-                <label className="absolute left-0 -top-2 text-xs font-black uppercase text-white">Where did you find us? *</label>
+                <label htmlFor="source" className="absolute left-0 -top-2 text-xs font-black uppercase text-white cursor-pointer">Where did you find us? *</label>
             </div>
 
             <div className="pt-4">
@@ -230,6 +233,7 @@ export const SignupForm: React.FC = () => {
 
             <div className="group relative">
                 <input
+                    id="mapBTI"
                     type="text"
                     name="mapBTI"
                     value={formData.mapBTI}
@@ -237,7 +241,7 @@ export const SignupForm: React.FC = () => {
                     className={`w-full bg-transparent border-b-2 py-4 text-2xl font-bold outline-none transition-colors peer placeholder-transparent ${mapBTIAutoFilled ? 'border-brand-red text-brand-red' : 'border-white/20 focus:border-brand-red'}`}
                     placeholder="MapBTI Result"
                 />
-                <label className={`absolute left-0 -top-2 text-xs font-black uppercase transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs ${mapBTIAutoFilled ? 'text-brand-red' : 'text-white peer-focus:text-brand-red'}`}>맵BTI Result</label>
+                <label htmlFor="mapBTI" className={`absolute left-0 -top-2 text-xs font-black uppercase transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs cursor-pointer ${mapBTIAutoFilled ? 'text-brand-red' : 'text-white peer-focus:text-brand-red'}`}>맵BTI Result</label>
                 {mapBTIAutoFilled ? (
                     <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-brand-red text-sm font-bold">
                         <Sparkles size={16} />
