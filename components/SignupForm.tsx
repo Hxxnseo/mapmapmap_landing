@@ -173,9 +173,9 @@ export const SignupForm: React.FC = () => {
                     onChange={handleChange}
                     required
                     className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
-                    placeholder="Nickname"
+                    placeholder="닉네임"
                 />
-                <label htmlFor="nickname" className="absolute left-0 -top-2 text-xs font-black uppercase text-white transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red cursor-pointer">Nickname *</label>
+                <label htmlFor="nickname" className="absolute left-0 -top-2 text-xs font-black uppercase text-white transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red cursor-pointer">닉네임 *</label>
             </div>
 
             <div className="group relative">
@@ -187,9 +187,9 @@ export const SignupForm: React.FC = () => {
                     onChange={handlePhoneChange}
                     required
                     className="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-brand-red outline-none transition-colors peer placeholder-transparent"
-                    placeholder="Mobile"
+                    placeholder="전화번호"
                 />
-                <label htmlFor="phone" className="absolute left-0 -top-2 text-xs font-black uppercase text-white transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red cursor-pointer">Phone Number *</label>
+                <label htmlFor="phone" className="absolute left-0 -top-2 text-xs font-black uppercase text-white transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red cursor-pointer">전화번호 *</label>
             </div>
 
             <div className="group relative">
@@ -211,11 +211,11 @@ export const SignupForm: React.FC = () => {
                     </select>
                     <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
                 </div>
-                <label htmlFor="source" className="absolute left-0 -top-2 text-xs font-black uppercase text-white cursor-pointer">Where did you find us? *</label>
+                <label htmlFor="source" className="absolute left-0 -top-2 text-xs font-black uppercase text-white cursor-pointer">어떻게 알게 되셨나요? *</label>
             </div>
 
             <div className="pt-4">
-                <p className="text-xs font-black uppercase text-white mb-6 tracking-widest">Select Your Level *</p>
+                <p className="text-xs font-black uppercase text-white mb-6 tracking-widest">맵기 레벨 선택 *</p>
                 <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
                     {SPICY_LEVELS.map((lvl) => (
                         <button
@@ -239,9 +239,9 @@ export const SignupForm: React.FC = () => {
                     value={formData.mapBTI}
                     onChange={handleMapBTIChange}
                     className={`w-full bg-transparent border-b-2 py-4 text-2xl font-bold outline-none transition-colors peer placeholder-transparent ${mapBTIAutoFilled ? 'border-brand-red text-brand-red' : 'border-white/20 focus:border-brand-red'}`}
-                    placeholder="MapBTI Result"
+                    placeholder="맵BTI 결과"
                 />
-                <label htmlFor="mapBTI" className={`absolute left-0 -top-2 text-xs font-black uppercase transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs cursor-pointer ${mapBTIAutoFilled ? 'text-brand-red' : 'text-white peer-focus:text-brand-red'}`}>맵BTI Result</label>
+                <label htmlFor="mapBTI" className={`absolute left-0 -top-2 text-xs font-black uppercase transition-all peer-placeholder-shown:text-2xl peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs cursor-pointer ${mapBTIAutoFilled ? 'text-brand-red' : 'text-white peer-focus:text-brand-red'}`}>맵BTI 결과</label>
                 {mapBTIAutoFilled ? (
                     <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-brand-red text-sm font-bold">
                         <Sparkles size={16} />
@@ -290,7 +290,7 @@ export const SignupForm: React.FC = () => {
                 disabled={!privacyAgreed}
                 className="w-full bg-white text-black py-8 rounded-[2rem] text-2xl font-black uppercase hover:bg-brand-red hover:text-white transition-all transform hover:-translate-y-2 flex items-center justify-center gap-4 group shadow-xl mt-8 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
-                Submit Application
+                사전예약 신청
                 <ArrowRight className="group-hover:translate-x-2 transition-transform" />
             </button>
         </form>
