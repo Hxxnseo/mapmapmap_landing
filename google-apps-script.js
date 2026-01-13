@@ -27,7 +27,34 @@ function doPost(e) {
       properties.setProperty('SPREADSHEET_ID', SPREADSHEET_ID);
     }
 
-    const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
+    const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+
+    // MAP-BTI 테스트 결과 기록인 경우 (별도 시트에 저장)
+    if (data.type === 'mapbti_result') {
+      let resultSheet = spreadsheet.getSheetByName('MAP-BTI 결과');
+
+      // 시트가 없으면 새로 생성
+      if (!resultSheet) {
+        resultSheet = spreadsheet.insertSheet('MAP-BTI 결과');
+        resultSheet.appendRow(['타임스탬프', 'MAP-BTI 결과']);
+      }
+
+      // 데이터 추가
+      const timestamp = new Date();
+      const row = [
+        timestamp,
+        data.resultCode || ''
+      ];
+
+      resultSheet.appendRow(row);
+
+      return ContentService
+        .createTextOutput(JSON.stringify({ success: true, message: 'MAP-BTI 결과가 저장되었습니다.' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // 기존 사전예약 로직
+    const sheet = spreadsheet.getActiveSheet();
 
     // 헤더가 없는 경우 헤더 추가
     if (sheet.getLastRow() === 0) {
@@ -39,6 +66,7 @@ function doPost(e) {
       'instagram': '인스타그램',
       'threads': '쓰레드',
       'referral': '지인 추천',
+      'mapbti': 'MAP-BTI 페이지',
       'other': '기타'
     };
     const sourceKorean = sourceMap[data.source] || data.source;
