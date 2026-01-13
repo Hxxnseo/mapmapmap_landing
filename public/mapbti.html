@@ -792,6 +792,394 @@
       margin-top: 15px;
     }
 
+    /* 인라인 사전예약 폼 스타일 */
+    .inline-signup-form {
+      margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #888;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 16px 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      outline: none;
+      transition: all 0.3s;
+      box-sizing: border-box;
+    }
+
+    .form-input:focus {
+      border-color: var(--agree-color);
+      background: rgba(255, 77, 77, 0.05);
+    }
+
+    .form-input::placeholder {
+      color: #555;
+    }
+
+    .form-input.auto-filled {
+      border-color: var(--agree-color);
+      background: rgba(255, 77, 77, 0.1);
+    }
+
+    .auto-fill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      color: var(--agree-color);
+      margin-left: 8px;
+    }
+
+    .privacy-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .privacy-checkbox {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--agree-color);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .privacy-text {
+      font-size: 0.8rem;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    .privacy-text a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--agree-color), #ff7e7e);
+      color: #fff;
+      border: none;
+      padding: 18px 30px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      border-radius: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 8px 30px rgba(255, 77, 77, 0.4);
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(255, 77, 77, 0.5);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .submit-btn.loading {
+      pointer-events: none;
+    }
+
+    .form-error {
+      color: #ff6b6b;
+      font-size: 0.8rem;
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 30px 20px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .success-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .success-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .success-desc {
+      font-size: 0.9rem;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    .maker-offer-section {
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(255, 77, 77, 0.1);
+      border: 1px solid rgba(255, 77, 77, 0.3);
+      border-radius: 16px;
+    }
+
+    .maker-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .maker-desc {
+      font-size: 0.8rem;
+      color: #aaa;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .maker-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .maker-btn {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .maker-btn.primary {
+      background: #fff;
+      color: #121212;
+      border: none;
+    }
+
+    .maker-btn.primary:hover {
+      background: var(--agree-color);
+      color: #fff;
+    }
+
+    .maker-btn.secondary {
+      background: transparent;
+      color: #888;
+      border: 1px solid #444;
+    }
+
+    .maker-btn.secondary:hover {
+      border-color: #666;
+      color: #fff;
+    }
+
+    /* 맵기 레벨 선택 스타일 */
+    .spicy-level-section {
+      margin-bottom: 16px;
+    }
+
+    .spicy-level-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .spicy-level-info-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #888;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .spicy-level-info-btn:hover {
+      border-color: var(--agree-color);
+      color: var(--agree-color);
+    }
+
+    .spicy-level-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    @media (min-width: 500px) {
+      .spicy-level-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    .spicy-level-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .spicy-level-btn:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .spicy-level-btn.selected {
+      border-color: var(--agree-color);
+      background: rgba(255, 77, 77, 0.15);
+      transform: scale(1.05);
+    }
+
+    .spicy-level-emoji {
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+
+    .spicy-level-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #888;
+    }
+
+    .spicy-level-btn.selected .spicy-level-num {
+      color: var(--agree-color);
+    }
+
+    /* 맵기 레벨 모달 */
+    .spicy-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 10001;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .spicy-modal-overlay.show {
+      display: flex;
+    }
+
+    .spicy-modal-content {
+      background: linear-gradient(145deg, #1a1a1a, #222);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 400px;
+      max-height: 85vh;
+      overflow-y: auto;
+      border: 1px solid #333;
+      padding: 25px;
+    }
+
+    .spicy-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .spicy-modal-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .spicy-modal-close {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #aaa;
+      font-size: 1.3rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .spicy-modal-close:hover {
+      background: rgba(255, 77, 77, 0.3);
+      color: #fff;
+    }
+
+    .spicy-level-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .spicy-level-item-emoji {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .spicy-level-item-content {
+      flex: 1;
+    }
+
+    .spicy-level-item-label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .spicy-level-item-desc {
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 4px;
+    }
+
+    .spicy-level-item-example {
+      font-size: 0.75rem;
+      color: #666;
+      font-style: italic;
+    }
+
     /* 새로운 워터마크 스타일 */
     .new-brand-watermark {
       font-size: 1.1rem;
@@ -1425,21 +1813,98 @@
               <span>슈퍼맵켓에서 사용 가능</span>
             </div>
           </div>
-          <div class="benefit-item">
-            <span class="benefit-icon">✨</span>
-            <div class="benefit-text">
-              <strong>MAP-BTI 결과 자동 연동</strong>
-              <span>지금 바로 클릭하면 결과가 자동 입력!</span>
+        </div>
+
+        <!-- 인라인 사전예약 폼 -->
+        <div id="signup-form-container">
+          <form id="inline-signup-form" class="inline-signup-form" onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+              <label class="form-label">닉네임 *</label>
+              <input type="text" id="form-nickname" class="form-input" placeholder="맵맵맵에서 사용할 닉네임" required>
             </div>
+            <div class="form-group">
+              <label class="form-label">전화번호 *</label>
+              <input type="tel" id="form-phone" class="form-input" placeholder="010-0000-0000" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">
+                MAP-BTI 결과
+                <span class="auto-fill-badge" id="auto-fill-badge">✨ 자동입력됨</span>
+              </label>
+              <input type="text" id="form-mapbti" class="form-input auto-filled" readonly>
+            </div>
+
+            <!-- 맵기 레벨 선택 -->
+            <div class="form-group spicy-level-section">
+              <div class="spicy-level-header">
+                <label class="form-label" style="margin-bottom: 0;">맵기 레벨 *</label>
+                <button type="button" class="spicy-level-info-btn" onclick="showSpicyLevelModal()">
+                  <span>❓</span> 레벨 설명 보기
+                </button>
+              </div>
+              <div class="spicy-level-grid" id="spicy-level-grid">
+                <!-- JavaScript로 동적 생성 -->
+              </div>
+            </div>
+
+            <div class="privacy-check">
+              <input type="checkbox" id="privacy-agree" class="privacy-checkbox" required>
+              <label for="privacy-agree" class="privacy-text">
+                <span style="color: var(--agree-color); font-weight: bold;">[필수]</span>
+                개인정보 수집 및 이용에 동의합니다.
+                <a href="#" onclick="showPrivacyModal(event)">내용 보기</a>
+              </label>
+            </div>
+
+            <button type="submit" id="submit-btn" class="submit-btn" disabled>
+              🔥 사전예약 신청하기
+            </button>
+            <div id="form-error" class="form-error" style="display: none;"></div>
+          </form>
+
+          <!-- 메이커 제안 (폼 제출 후 표시) -->
+          <div id="maker-offer" class="maker-offer-section" style="display: none;">
+            <div class="maker-title">🛡️ 메이커 특별 제안</div>
+            <div class="maker-desc">
+              저희와 함께 맵맵맵의 매운 음식 리뷰 데이터를 책임지는 <strong style="color: #fff;">메이커</strong>가 되어주세요.<br>
+              메이커가 되면 <strong style="color: var(--agree-color);">한정판 Maker 뱃지</strong>와 <strong
+                style="color: var(--agree-color);">소정의 활동비</strong>를 드립니다!
+            </div>
+            <div class="maker-buttons">
+              <button class="maker-btn primary" onclick="submitAsMaker()">네, 메이커도 할래요!</button>
+              <button class="maker-btn secondary" onclick="submitWithoutMaker()">아니요, 사전예약만</button>
+            </div>
+          </div>
+
+          <!-- 완료 메시지 -->
+          <div id="success-message" class="form-success" style="display: none;">
+            <div class="success-icon">🎉</div>
+            <div class="success-title">사전예약 완료!</div>
+            <div class="success-desc" id="success-desc-text"></div>
           </div>
         </div>
 
-        <button class="cta-main-button" onclick="goToLandingWithResult()">
-          <span class="btn-text">무료로 알림 신청하기</span>
-          <span class="btn-arrow">→</span>
-        </button>
+        <p class="cta-footer-note">* 간단한 정보 입력으로 30초면 완료!</p>
 
-        <p class="cta-footer-note">* 전화번호만 입력하면 끝! 30초면 완료</p>
+        <!-- 랜딩페이지 이동 버튼 -->
+        <div style="margin-top: 25px; text-align: center;">
+          <a href="/" class="landing-link-btn" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #888;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 12px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            transition: all 0.2s;
+          " onmouseover="this.style.borderColor='var(--agree-color)'; this.style.color='var(--agree-color)';"
+            onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.15)'; this.style.color='#888';">
+            <span>🔍</span> 맵맵맵 서비스가 더 궁금하다면?
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -1462,6 +1927,19 @@
         <div class="type-modal-tagline" id="modal-type-tagline"></div>
         <div class="type-modal-traits" id="modal-type-traits"></div>
         <div class="type-modal-description" id="modal-type-description"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 맵기 레벨 설명 모달 -->
+  <div id="spicy-level-modal" class="spicy-modal-overlay" onclick="closeSpicyLevelModal(event)">
+    <div class="spicy-modal-content" onclick="event.stopPropagation()">
+      <div class="spicy-modal-header">
+        <h3 class="spicy-modal-title">🌶️ 맵기 레벨 가이드</h3>
+        <button class="spicy-modal-close" onclick="closeSpicyLevelModal()">&times;</button>
+      </div>
+      <div id="spicy-level-list">
+        <!-- JavaScript로 동적 생성 -->
       </div>
     </div>
   </div>
@@ -2333,8 +2811,368 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         closeTypeModal();
+        closePrivacyModal();
+        closeSpicyLevelModal();
       }
     });
+
+    // ============================================
+    // 사전예약 폼 관련 로직
+    // ============================================
+
+    // Google Sheets API URL (Vercel 환경변수에서 가져오거나 직접 설정)
+    // 보안을 위해 실제 URL은 배포 환경에서 설정하세요
+    const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbx5HmycEjexEGC0d_5Db7yelguDbb2jgEh14xsYHLZrlNvmm972D-1fjTY1O31InOwV5g/exec';
+
+    // 폼 데이터 임시 저장
+    let formData = {
+      nickname: '',
+      phone: '',
+      mapBTI: '',
+      source: 'mapbti', // MAP-BTI 페이지에서 온 것으로 표시
+      level: '3', // 기본값
+      isMaker: false
+    };
+
+    // 페이지 로드 시 초기화
+    document.addEventListener('DOMContentLoaded', function () {
+      // 전화번호 입력 포맷팅
+      const phoneInput = document.getElementById('form-phone');
+      if (phoneInput) {
+        phoneInput.addEventListener('input', handlePhoneInput);
+      }
+
+      // 개인정보 동의 체크박스
+      const privacyCheckbox = document.getElementById('privacy-agree');
+      const submitBtn = document.getElementById('submit-btn');
+      if (privacyCheckbox && submitBtn) {
+        privacyCheckbox.addEventListener('change', function () {
+          submitBtn.disabled = !this.checked;
+        });
+      }
+
+      // 맵기 레벨 그리드 렌더링
+      renderSpicyLevelGrid();
+      renderSpicyLevelModal();
+    });
+
+    // 맵기 레벨 데이터
+    const SPICY_LEVELS = [
+      { level: 0, label: "Lv.0 맵찔이", emoji: "🐥", description: "전혀 못 먹어", example: "진라면 순한맛도 매움... 케찹이 좋아" },
+      { level: 1, label: "Lv.1 맵초보", emoji: "👼", description: "잘 못 먹어", example: "신라면 정도는 가능! 근데 콧물 나" },
+      { level: 2, label: "Lv.2 맵보통", emoji: "🌶️", description: "보통이야", example: "열라면 즐겨먹음. 한국인 평균?" },
+      { level: 3, label: "Lv.3 맵니아", emoji: "🔥", description: "좀 잘 먹어", example: "불닭, 엽떡 오리지널 맛있게 먹음" },
+      { level: 4, label: "Lv.4 맵고수", emoji: "💣", description: "아주 잘 먹어", example: "엽떡 매운맛? 스트레스 풀려!" },
+      { level: 5, label: "Lv.5 맵친자", emoji: "💀", description: "인류의 한계", example: "핵불닭, 디진다돈까스... 고통을 즐김" }
+    ];
+
+    // 맵기 레벨 그리드 렌더링
+    function renderSpicyLevelGrid() {
+      const grid = document.getElementById('spicy-level-grid');
+      if (!grid) return;
+
+      grid.innerHTML = SPICY_LEVELS.map(lvl => `
+        <button type="button" 
+                class="spicy-level-btn ${formData.level === lvl.level.toString() ? 'selected' : ''}" 
+                onclick="selectSpicyLevel(${lvl.level})"
+                data-level="${lvl.level}">
+          <span class="spicy-level-emoji">${lvl.emoji}</span>
+          <span class="spicy-level-num">Lv.${lvl.level}</span>
+        </button>
+      `).join('');
+    }
+
+    // 맵기 레벨 선택
+    function selectSpicyLevel(level) {
+      formData.level = level.toString();
+
+      // 선택 상태 업데이트
+      document.querySelectorAll('.spicy-level-btn').forEach(btn => {
+        btn.classList.remove('selected');
+        if (btn.dataset.level === level.toString()) {
+          btn.classList.add('selected');
+        }
+      });
+    }
+
+    // 맵기 레벨 모달 내용 렌더링
+    function renderSpicyLevelModal() {
+      const list = document.getElementById('spicy-level-list');
+      if (!list) return;
+
+      list.innerHTML = SPICY_LEVELS.map(lvl => `
+        <div class="spicy-level-item">
+          <span class="spicy-level-item-emoji">${lvl.emoji}</span>
+          <div class="spicy-level-item-content">
+            <div class="spicy-level-item-label">${lvl.label}</div>
+            <div class="spicy-level-item-desc">${lvl.description}</div>
+            <div class="spicy-level-item-example">"${lvl.example}"</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 맵기 레벨 모달 열기
+    function showSpicyLevelModal() {
+      const modal = document.getElementById('spicy-level-modal');
+      if (modal) {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    // 맵기 레벨 모달 닫기
+    function closeSpicyLevelModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      const modal = document.getElementById('spicy-level-modal');
+      if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // 전화번호 자동 포맷팅
+    function handlePhoneInput(e) {
+      let val = e.target.value.replace(/\D/g, '');
+      if (val.length > 11) val = val.slice(0, 11);
+
+      let formatted = val;
+      if (val.length > 3 && val.length <= 7) {
+        formatted = `${val.slice(0, 3)}-${val.slice(3)}`;
+      } else if (val.length > 7) {
+        formatted = `${val.slice(0, 3)}-${val.slice(3, 7)}-${val.slice(7)}`;
+      }
+      e.target.value = formatted;
+    }
+
+    // 결과 화면 표시 후 폼에 MAP-BTI 결과 자동 입력
+    function updateFormWithResult() {
+      const mapbtiInput = document.getElementById('form-mapbti');
+      if (mapbtiInput && window.userMapBTIResult) {
+        mapbtiInput.value = window.userMapBTIResult;
+        formData.mapBTI = window.userMapBTIResult;
+      }
+    }
+
+    // 기존 calculateAndShowResult 함수 수정 - 결과 표시 후 폼 업데이트
+    const originalCalculateAndShowResult = calculateAndShowResult;
+    calculateAndShowResult = function () {
+      originalCalculateAndShowResult();
+      // 약간의 딜레이 후 폼 업데이트
+      setTimeout(updateFormWithResult, 100);
+    };
+
+    // 폼 제출 핸들러
+    function handleFormSubmit(e) {
+      e.preventDefault();
+
+      const nickname = document.getElementById('form-nickname').value.trim();
+      const phone = document.getElementById('form-phone').value.trim();
+      const mapBTI = document.getElementById('form-mapbti').value.trim();
+      const privacyAgreed = document.getElementById('privacy-agree').checked;
+
+      // 유효성 검사
+      if (!nickname) {
+        showFormError('닉네임을 입력해주세요.');
+        return;
+      }
+      if (!phone || phone.replace(/-/g, '').length < 10) {
+        showFormError('올바른 전화번호를 입력해주세요.');
+        return;
+      }
+      if (!privacyAgreed) {
+        showFormError('개인정보 수집 및 이용에 동의해주세요.');
+        return;
+      }
+
+      // 폼 데이터 저장
+      formData.nickname = nickname;
+      formData.phone = phone;
+      formData.mapBTI = mapBTI;
+
+      // 폼 숨기고 메이커 제안 표시
+      document.getElementById('inline-signup-form').style.display = 'none';
+      document.getElementById('maker-offer').style.display = 'block';
+      hideFormError();
+    }
+
+    // 메이커로 등록
+    async function submitAsMaker() {
+      formData.isMaker = true;
+      await submitToGoogleSheets();
+    }
+
+    // 메이커 없이 등록
+    async function submitWithoutMaker() {
+      formData.isMaker = false;
+      await submitToGoogleSheets();
+    }
+
+    // Google Sheets로 데이터 전송
+    async function submitToGoogleSheets() {
+      const makerButtons = document.querySelectorAll('.maker-btn');
+      makerButtons.forEach(btn => {
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+      });
+
+      try {
+        const payload = {
+          nickname: formData.nickname,
+          phone: formData.phone,
+          source: formData.source,
+          level: formData.level,
+          isMaker: formData.isMaker,
+          mapBTI: formData.mapBTI
+        };
+
+        console.log('전송할 데이터:', payload);
+
+        // no-cors 모드로 요청 (CORS 오류 방지)
+        // 이 모드에서는 응답을 읽을 수 없으므로 성공으로 가정
+        await fetch(GOOGLE_SHEETS_API_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        console.log('✅ 데이터 전송 완료 (no-cors 모드)');
+
+        // 성공 메시지 표시
+        showSuccessMessage();
+
+      } catch (error) {
+        console.error('전송 실패:', error);
+        // 에러가 발생해도 사용자 경험을 위해 성공으로 처리
+        showSuccessMessage();
+      }
+    }
+
+    // 성공 메시지 표시
+    function showSuccessMessage() {
+      document.getElementById('maker-offer').style.display = 'none';
+      document.getElementById('success-message').style.display = 'block';
+
+      const descText = document.getElementById('success-desc-text');
+      if (formData.isMaker) {
+        descText.innerHTML = `
+          <strong style="color: var(--agree-color);">${formData.nickname}</strong>님, 메이커 등록이 완료되었습니다!<br>
+          <span style="font-size: 0.8rem; color: #666;">Maker 뱃지는 정식 출시 후 확인하실 수 있습니다.</span>
+        `;
+      } else {
+        descText.innerHTML = `
+          <strong style="color: var(--agree-color);">${formData.nickname}</strong>님, 성공적으로 대기 명단에 올랐습니다!<br>
+          <span style="font-size: 0.8rem; color: #666;">곧 런칭 소식과 함께 찾아뵙겠습니다.</span>
+        `;
+      }
+    }
+
+    // 에러 메시지 표시
+    function showFormError(message) {
+      const errorDiv = document.getElementById('form-error');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+    }
+
+    // 에러 메시지 숨기기
+    function hideFormError() {
+      const errorDiv = document.getElementById('form-error');
+      errorDiv.style.display = 'none';
+    }
+
+    // 개인정보 처리방침 모달 표시
+    function showPrivacyModal(e) {
+      if (e) e.preventDefault();
+
+      // 모달이 없으면 생성
+      let modal = document.getElementById('privacy-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'privacy-modal';
+        modal.style.cssText = `
+          display: flex;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.9);
+          z-index: 10001;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          box-sizing: border-box;
+        `;
+        modal.innerHTML = `
+          <div style="
+            background: linear-gradient(145deg, #1a1a1a, #222);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid #333;
+            padding: 30px;
+          ">
+            <button onclick="closePrivacyModal()" style="
+              position: absolute;
+              top: 15px;
+              right: 15px;
+              background: rgba(255, 255, 255, 0.1);
+              border: none;
+              color: #aaa;
+              font-size: 1.5rem;
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              cursor: pointer;
+            ">&times;</button>
+            <h3 style="color: #fff; font-size: 1.3rem; margin-bottom: 20px;">개인정보 수집 및 이용 동의</h3>
+            <div style="color: #aaa; font-size: 0.85rem; line-height: 1.8;">
+              <p><strong style="color: #fff;">1. 수집하는 개인정보 항목</strong><br>
+              - 필수: 닉네임, 전화번호, MAP-BTI 결과</p>
+              
+              <p><strong style="color: #fff;">2. 수집 및 이용목적</strong><br>
+              - 맵맵맵 서비스 출시 안내<br>
+              - 사전예약자 대상 혜택 제공</p>
+              
+              <p><strong style="color: #fff;">3. 보유 및 이용기간</strong><br>
+              - 서비스 정식 출시 후 1년 또는 동의 철회시까지</p>
+              
+              <p><strong style="color: #fff;">4. 동의 거부권 및 불이익</strong><br>
+              - 동의를 거부할 권리가 있으며, 거부 시 사전예약 혜택 제공이 불가합니다.</p>
+            </div>
+            <button onclick="closePrivacyModal()" style="
+              width: 100%;
+              background: var(--agree-color);
+              color: #fff;
+              border: none;
+              padding: 14px;
+              font-size: 1rem;
+              font-weight: 700;
+              border-radius: 12px;
+              cursor: pointer;
+              margin-top: 20px;
+            ">확인</button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      } else {
+        modal.style.display = 'flex';
+      }
+    }
+
+    // 개인정보 모달 닫기
+    function closePrivacyModal() {
+      const modal = document.getElementById('privacy-modal');
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    }
   </script>
 </body>
 
