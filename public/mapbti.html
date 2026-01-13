@@ -1696,6 +1696,61 @@
     .type-modal-description strong {
       color: #fff;
     }
+
+    /* 상위 % 배지 스타일 */
+    .percentile-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(255, 77, 77, 0.2), rgba(255, 126, 126, 0.15));
+      border: 1px solid rgba(255, 77, 77, 0.4);
+      border-radius: 30px;
+      padding: 10px 20px;
+      margin-top: 15px;
+      animation: pulse-badge 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-badge {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 20px 5px rgba(255, 77, 77, 0.2);
+      }
+    }
+
+    .percentile-icon {
+      font-size: 1.2rem;
+    }
+
+    .percentile-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .percentile-label {
+      font-size: 0.7rem;
+      color: #888;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .percentile-value {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--agree-color);
+    }
+
+    .percentile-value .highlight {
+      color: #fff;
+      font-size: 1.3rem;
+    }
   </style>
 </head>
 
@@ -1799,6 +1854,13 @@
           <p style="color:#888; font-size:0.85rem; font-weight:bold; margin-bottom:5px;">YOUR TASTE TYPE</p>
           <h1 id="result-type-code" class="type-code">CODE</h1>
           <div id="result-alias" class="type-alias">Alias</div>
+          <div class="percentile-badge" id="percentile-badge">
+            <span class="percentile-icon">🔥</span>
+            <div class="percentile-text">
+              <span class="percentile-label">자극 레벨</span>
+              <span class="percentile-value" id="percentile-value">상위 <span class="highlight">10</span>%</span>
+            </div>
+          </div>
         </div>
 
         <div class="result-bars-container" id="chart-area"></div>
@@ -2272,6 +2334,75 @@
 
       renderChart(P);
       document.getElementById('intro-content').innerHTML = content.intro;
+
+      // 상위 % 배지 계산 및 표시
+      const percentile = calculatePercentile(P);
+      displayPercentile(percentile);
+    }
+
+    // 가상 분포 기반 백분위 계산 함수
+    // 정규분포(평균 50, 표준편차 20)를 가정하여 상위 몇 %인지 계산
+    function calculatePercentile(P) {
+      // 가중 평균 계산 (H에 더 높은 가중치)
+      // H: 40%, E: 15%, P: 15%, A: 15%, W: 15%
+      const weightedScore = (P.H * 0.40) + (P.E * 0.15) + (P.P * 0.15) + (P.A * 0.15) + (P.W * 0.15);
+
+      // 정규분포를 사용하여 백분위 계산
+      // 평균 50, 표준편차 20으로 가정 (매운맛 테스트이므로 약간 높은 점수가 많다고 가정)
+      const mean = 48; // 약간 낮게 설정하여 높은 점수가 더 희귀하게
+      const stdDev = 18;
+
+      // Z-score 계산
+      const zScore = (weightedScore - mean) / stdDev;
+
+      // 정규분포 CDF 근사 (상위 %)
+      const percentile = Math.round((1 - normalCDF(zScore)) * 100);
+
+      // 최소 1%, 최대 99%로 제한
+      return Math.max(1, Math.min(99, percentile));
+    }
+
+    // 정규분포 누적분포함수 (CDF) 근사
+    function normalCDF(z) {
+      const a1 = 0.254829592;
+      const a2 = -0.284496736;
+      const a3 = 1.421413741;
+      const a4 = -1.453152027;
+      const a5 = 1.061405429;
+      const p = 0.3275911;
+
+      const sign = z < 0 ? -1 : 1;
+      z = Math.abs(z) / Math.sqrt(2);
+
+      const t = 1.0 / (1.0 + p * z);
+      const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-z * z);
+
+      return 0.5 * (1.0 + sign * y);
+    }
+
+    // 백분위 표시 함수
+    function displayPercentile(percentile) {
+      const percentileValue = document.getElementById('percentile-value');
+      const percentileIcon = document.querySelector('.percentile-icon');
+
+      if (percentileValue) {
+        percentileValue.innerHTML = `상위 <span class="highlight">${percentile}</span>%`;
+      }
+
+      // 상위 10% 미만이면 특별 이모지
+      if (percentileIcon) {
+        if (percentile <= 5) {
+          percentileIcon.textContent = '🌋'; // 폭발
+        } else if (percentile <= 10) {
+          percentileIcon.textContent = '🔥'; // 불꽃
+        } else if (percentile <= 25) {
+          percentileIcon.textContent = '🌶️'; // 고추
+        } else if (percentile <= 50) {
+          percentileIcon.textContent = '✨'; // 반짝이
+        } else {
+          percentileIcon.textContent = '🌱'; // 새싹
+        }
+      }
     }
 
     // MAP-BTI 결과를 Google Sheets에 전송
