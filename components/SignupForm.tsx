@@ -328,6 +328,7 @@ export const SignupForm: React.FC = () => {
                             </p>
                             <ul className="text-xs text-white/40 space-y-1 list-disc pl-4">
                                 <li>베타 테스트 우선 참여권</li>
+                                <li>소정의 활동비 지급</li>
                                 <li>일정 개수 이상 리뷰 작성 시 메이커 자격 수여</li>
                             </ul>
                         </div>

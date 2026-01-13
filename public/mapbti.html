@@ -57,6 +57,8 @@
 
 
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <!-- Kakao SDK -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" crossorigin="anonymous"></script>
   <script defer src="/_vercel/insights/script.js"></script>
   <style>
     :root {
@@ -575,22 +577,57 @@
       padding: 0 10px;
     }
 
+    .share-buttons-wrapper {
+      display: flex;
+      gap: 12px;
+    }
+
     .btn-share {
-      width: 100%;
+      flex: 1;
       background: #333;
       color: #fff;
       border: 1px solid #555;
-      padding: 16px 24px;
-      font-size: 1rem;
+      padding: 16px 12px;
+      font-size: 0.9rem;
       font-weight: 700;
       border-radius: 16px;
       cursor: pointer;
       transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
     }
 
     .btn-share:hover {
-      background: #444;
-      border-color: #777;
+      transform: translateY(-2px);
+    }
+
+    .btn-share.instagram {
+      background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+      border: none;
+    }
+
+    .btn-share.instagram:hover {
+      box-shadow: 0 5px 20px rgba(220, 39, 67, 0.4);
+    }
+
+    .btn-share.kakao {
+      background: #FEE500;
+      color: #3C1E1E;
+      border: none;
+    }
+
+    .btn-share.kakao:hover {
+      box-shadow: 0 5px 20px rgba(254, 229, 0, 0.4);
+    }
+
+    .btn-share-icon {
+      font-size: 1.4rem;
+    }
+
+    .btn-share-text {
+      font-size: 0.85rem;
     }
 
     /* 프리미엄 CTA 배너 */
@@ -1875,9 +1912,16 @@
 
       <!-- 결과 공유 버튼 -->
       <div class="share-section">
-        <button class="btn-share" onclick="shareToInstagram()">
-          📸 결과 이미지 저장 / 공유하기
-        </button>
+        <div class="share-buttons-wrapper">
+          <button class="btn-share instagram" onclick="shareToInstagram()">
+            <span class="btn-share-icon">📸</span>
+            <span class="btn-share-text">인스타그램 공유</span>
+          </button>
+          <button class="btn-share kakao" onclick="shareToKakao()">
+            <span class="btn-share-icon">💬</span>
+            <span class="btn-share-text">카카오톡 공유</span>
+          </button>
+        </div>
       </div>
 
       <!-- 프리미엄 CTA 배너 -->
@@ -3062,6 +3106,13 @@
 
     // 페이지 로드 시 초기화
     document.addEventListener('DOMContentLoaded', function () {
+      // 카카오 SDK 초기화
+      if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
+        // 카카오 개발자 콘솔에서 발급받은 JavaScript 앱 키를 입력하세요
+        Kakao.init('bcf0b84170bc83558d54b3d7912fe6d8'); // TODO: 실제 키로 교체 필요
+        console.log('Kakao SDK initialized:', Kakao.isInitialized());
+      }
+
       // 전화번호 입력 포맷팅
       const phoneInput = document.getElementById('form-phone');
       if (phoneInput) {
@@ -3399,6 +3450,70 @@
       const modal = document.getElementById('privacy-modal');
       if (modal) {
         modal.style.display = 'none';
+      }
+    }
+
+    // 카카오톡 공유 기능
+    function shareToKakao() {
+      const resultCode = window.userMapBTIResult || 'HEPA-W';
+      const info = typeInfo[resultCode] || typeInfo['DEFAULT'];
+      const alias = info.alias;
+      const shareUrl = 'https://mapmapmap-landing.vercel.app/mapbti.html';
+
+      // 카카오 SDK 초기화 확인
+      if (typeof Kakao === 'undefined') {
+        alert('카카오 SDK를 불러오는 중입니다. 잠시 후 다시 시도해주세요.');
+        return;
+      }
+
+      // Kakao SDK가 초기화되지 않은 경우 URL 복사로 대체
+      if (!Kakao.isInitialized()) {
+        // URL 복사 방식으로 대체
+        const shareText = `🌶️ 나의 MAP-BTI 결과: ${resultCode} "${alias}"\n\n나도 테스트 해보기 👉 ${shareUrl}`;
+        navigator.clipboard.writeText(shareText)
+          .then(() => {
+            alert('클립보드에 복사되었습니다!\n카카오톡에 붙여넣기 해주세요.');
+          })
+          .catch(() => {
+            // 복사 실패 시 프롬프트
+            prompt('아래 내용을 복사하여 카카오톡에 공유하세요:', shareText);
+          });
+        return;
+      }
+
+      try {
+        Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: `🌶️ 나의 MAP-BTI: ${resultCode}`,
+            description: `"${alias}"\n\n당신의 미각 성향은? 49개 질문으로 알아보는 32가지 매운맛 성향 테스트!`,
+            imageUrl: 'https://mapmapmap-landing.vercel.app/og-image.png',
+            link: {
+              mobileWebUrl: shareUrl,
+              webUrl: shareUrl,
+            },
+          },
+          buttons: [
+            {
+              title: '나도 테스트 해보기',
+              link: {
+                mobileWebUrl: shareUrl,
+                webUrl: shareUrl,
+              },
+            },
+          ],
+        });
+      } catch (error) {
+        console.error('카카오톡 공유 실패:', error);
+        // 오류 시 URL 복사로 대체
+        const shareText = `🌶️ 나의 MAP-BTI 결과: ${resultCode} "${alias}"\n\n나도 테스트 해보기 👉 ${shareUrl}`;
+        navigator.clipboard.writeText(shareText)
+          .then(() => {
+            alert('클립보드에 복사되었습니다!\n카카오톡에 붙여넣기 해주세요.');
+          })
+          .catch(() => {
+            prompt('아래 내용을 복사하여 카카오톡에 공유하세요:', shareText);
+          });
       }
     }
   </script>
