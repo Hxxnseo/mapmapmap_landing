@@ -123,6 +123,15 @@ export const SignupForm: React.FC = () => {
       }
 
       console.log('✅ 데이터가 성공적으로 저장되었습니다.');
+      
+      // Meta Pixel Lead 이벤트 전송
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'Lead', {
+          content_name: 'PreRegistration',
+          content_category: 'signup',
+        });
+        console.log('✅ Meta Pixel Lead 이벤트 전송됨');
+      }
     } catch (error) {
       console.error('Google Sheets 전송 실패:', error);
       setSubmitError(error instanceof Error ? error.message : '데이터 저장에 실패했습니다.');
@@ -288,7 +297,7 @@ export const SignupForm: React.FC = () => {
             <button 
                 type="submit" 
                 disabled={!privacyAgreed}
-                className="w-full bg-white text-black py-8 rounded-[2rem] text-2xl font-black uppercase hover:bg-brand-red hover:text-white transition-all transform hover:-translate-y-2 flex items-center justify-center gap-4 group shadow-xl mt-8 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                className="mp_cta-button w-full bg-white text-black py-8 rounded-[2rem] text-2xl font-black uppercase hover:bg-brand-red hover:text-white transition-all transform hover:-translate-y-2 flex items-center justify-center gap-4 group shadow-xl mt-8 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
                 사전예약 신청
                 <ArrowRight className="group-hover:translate-x-2 transition-transform" />
